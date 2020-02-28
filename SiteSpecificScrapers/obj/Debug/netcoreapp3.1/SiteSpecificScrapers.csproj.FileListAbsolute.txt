@@ -12,3 +12,4 @@ E:\Programming\GithubRepo\SignalRparser\SiteSpecificScrapers\bin\Debug\netcoreap
 E:\Programming\GithubRepo\SignalRparser\SiteSpecificScrapers\bin\Debug\netcoreapp3.1\SiteSpecificScrapers.pdb
 E:\Programming\GithubRepo\SignalRparser\SiteSpecificScrapers\obj\Debug\netcoreapp3.1\SiteSpecificScrapers.dll
 E:\Programming\GithubRepo\SignalRparser\SiteSpecificScrapers\obj\Debug\netcoreapp3.1\SiteSpecificScrapers.pdb
+E:\Programming\GithubRepo\SignalRparser\SiteSpecificScrapers\obj\Debug\netcoreapp3.1\SiteSpecificScrapers.csprojAssemblyReference.cache
