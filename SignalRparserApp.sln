@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRparserApp", "SignalRparserApp.csproj", "{F49530A0-39BA-4ABB-ADEC-13C0112B969E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRparserApp", "SignalRparserApp.csproj", "{F49530A0-39BA-4ABB-ADEC-13C0112B969E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteSpecificScrapers", "..\SiteSpecificScrapers\SiteSpecificScrapers.csproj", "{DC6DC95F-D3D5-4234-A325-1F3F305411A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteSpecificScrapers", "..\SiteSpecificScrapers\SiteSpecificScrapers.csproj", "{DC6DC95F-D3D5-4234-A325-1F3F305411A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamOutputWebApp", "..\StreamOutputWebApp\StreamOutputWebApp.csproj", "{A0A45E80-03A4-4769-8FF8-373470C75463}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamOutputWebApp", "..\StreamOutputWebApp\StreamOutputWebApp.csproj", "{A0A45E80-03A4-4769-8FF8-373470C75463}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

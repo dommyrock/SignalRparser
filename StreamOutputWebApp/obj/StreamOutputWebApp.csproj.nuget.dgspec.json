@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj": {}
+    "E:\\Programming\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj": {}
   },
   "projects": {
-    "D:\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj": {
+    "E:\\Programming\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj",
+        "projectUniqueName": "E:\\Programming\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj",
         "projectName": "StreamOutputWebApp",
-        "projectPath": "D:\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj",
-        "packagesPath": "C:\\Users\\dpolzer\\.nuget\\packages\\",
-        "outputPath": "D:\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\obj\\",
+        "projectPath": "E:\\Programming\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\StreamOutputWebApp.csproj",
+        "packagesPath": "C:\\Users\\domin\\.nuget\\packages\\",
+        "outputPath": "E:\\Programming\\GithubRepo\\SignalRparser\\StreamOutputWebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\dpolzer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\domin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -68,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
