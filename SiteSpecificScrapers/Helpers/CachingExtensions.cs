@@ -15,7 +15,7 @@ namespace SiteSpecificScrapers.Helpers
         /// <param name="fileName"></param>
         /// <returns></returns>
         /// <see cref="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to"/> for help
-        public static List<string> GetFromLocalCache(bool fromCache = true, string fileName = "webshopCache.json")
+        public static List<string> GetFromLocalCache(List<string> dataSet, bool fromCache = true, string fileName = "webshopCache.json")
         {
             string fullpath = Path.GetFullPath(fileName);
 
@@ -24,7 +24,7 @@ namespace SiteSpecificScrapers.Helpers
                 string json = file.ReadToEnd();
                 if (json != string.Empty && fromCache)
                     return JsonSerializer.Deserialize<List<string>>(json);
-                return new List<string>();
+                return dataSet;
             }
         }
 
@@ -44,6 +44,7 @@ namespace SiteSpecificScrapers.Helpers
             using (FileStream file = File.Create(fullpath))
             using (Utf8JsonWriter writer = new Utf8JsonWriter(file)) ;
             using JsonDocument document = JsonDocument.Parse(json);
+            //document.WriteTo(writer:) TODO..... write to doc ... or replace how it was
         }
 
         // with newtnsoft -->  var json = JsonConvert.SerializeObject(itemsToCache, Formatting.Indented);

@@ -56,8 +56,8 @@ namespace SiteSpecificScrapers.Scrapers
             WebShops = new List<string>();
             ScrapedKeyValuePairs = new Dictionary<string, bool>();
 
-            WebShops = CachingExtensions.GetFromLocalCache();
-            InputList = CachingExtensions.GetFromLocalCache(true, "nNetSections.json");
+            WebShops = CachingExtensions.GetFromLocalCache(WebShops, false);
+            InputList = CachingExtensions.GetFromLocalCache(InputList, false, "nNetSections.json");
 
             if (WebShops.Count == 0)
             {
