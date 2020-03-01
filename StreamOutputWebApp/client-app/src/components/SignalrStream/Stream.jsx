@@ -29,7 +29,7 @@ const SignalRStream = () => {
         //start conn
         await connection.start();
         //const connectedClients = await connection.invoke("ListStreams"); //V1
-        const sensorNames = await connection.invoke("GetSensorNames");
+        const sensorNames = await connection.invoke("GetSensorNames").catch(err => console.error(err.toString()));
         sensorNames.forEach(subscribeToSensor);
         connection.on("SensorAdded", subscribeToSensor); // we only have single "sensor" data source ...so i dont need this
 
@@ -40,6 +40,9 @@ const SignalRStream = () => {
       function subscribeToSensor(sensorName) {
         connection.stream("GetSensorData", sensorName).subscribe({
           next: item => {
+            console.log("message arrived!");
+            console.log(item);
+
             var li = document.createElement("li");
             li.textContent = item;
             document.getElementById("messagesList").appendChild(li);

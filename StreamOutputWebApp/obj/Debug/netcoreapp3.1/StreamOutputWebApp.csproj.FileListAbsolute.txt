@@ -98,3 +98,5 @@ E:\Programming\GithubRepo\SignalRparser\StreamOutputWebApp\obj\Debug\netcoreapp3
 D:\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\package-lock.json
 D:\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\package.json
 D:\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\public\manifest.json
+E:\Programming\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\build\asset-manifest.json
+E:\Programming\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\build\manifest.json

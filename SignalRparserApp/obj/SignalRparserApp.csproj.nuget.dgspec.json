@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj": {}
+    "E:\\Programming\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj": {}
   },
   "projects": {
-    "D:\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj": {
+    "E:\\Programming\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj",
+        "projectUniqueName": "E:\\Programming\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj",
         "projectName": "SignalRparserApp",
-        "projectPath": "D:\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj",
-        "packagesPath": "C:\\Users\\dpolzer\\.nuget\\packages\\",
-        "outputPath": "D:\\GithubRepo\\SignalRparser\\SignalRparserApp\\obj\\",
+        "projectPath": "E:\\Programming\\GithubRepo\\SignalRparser\\SignalRparserApp\\SignalRparserApp.csproj",
+        "packagesPath": "C:\\Users\\domin\\.nuget\\packages\\",
+        "outputPath": "E:\\Programming\\GithubRepo\\SignalRparser\\SignalRparserApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\dpolzer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\domin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {
-                "projectPath": "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj"
+              "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {
+                "projectPath": "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj"
               }
             }
           }
@@ -65,24 +65,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {
+    "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
+        "projectUniqueName": "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
         "projectName": "SiteSpecificScrapers",
-        "projectPath": "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
-        "packagesPath": "C:\\Users\\dpolzer\\.nuget\\packages\\",
-        "outputPath": "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\obj\\",
+        "projectPath": "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
+        "packagesPath": "C:\\Users\\domin\\.nuget\\packages\\",
+        "outputPath": "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\dpolzer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\domin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -134,7 +134,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
