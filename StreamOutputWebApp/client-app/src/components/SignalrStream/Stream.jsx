@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState } from "@aspnet/signalr";
+// import { HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState } from "@aspnet/signalr";
+const signalR = require("@microsoft/signalr");
 //import { MessagePackHubProtocol } from '@aspnet/signalr-protocol-msgpack'; add npm if i want to switch protocols
 
 //https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
@@ -13,52 +14,61 @@ const SignalRStream = () => {
     //Set initial hub connection
     const createHubConnection = async () => {
       //Config
-      const connection = new HubConnectionBuilder()
+      const connection = new signalR.HubConnectionBuilder()
         .withUrl("/outputstream") //server- hub endpoint
-        .configureLogging(LogLevel.Debug)
+        .configureLogging(signalR.LogLevel.Debug)
         .build();
       //   .withHubProtocol(new MessagePackHubProtocol()) adds new binary protocol
+      // await connection.start(); when started i numbers iterate faster ?
 
+      var subject = new signalR.Subject();
+      var promise = connection.invoke("Pump", subject);
+      var count = 0;
+      setInterval(function() {
+        subject.next(count);
+        count++;
+        console.log(count);
+      }, 14);
       ////reconnect  -
       //connection.onreconnected(async function () {
       //    const connectedClients = await connection.invoke("ListStreams");
       //    connectedClients.forEach(subscribeToStream);
       //});
 
-      try {
-        //start conn
-        await connection.start();
-        //const connectedClients = await connection.invoke("ListStreams"); //V1
-        const sensorNames = await connection.invoke("GetSensorNames").catch(err => console.error(err.toString()));
-        sensorNames.forEach(subscribeToSensor);
-        connection.on("SensorAdded", subscribeToSensor); // we only have single "sensor" data source ...so i dont need this
+      // try {
+      //   //start conn
+      //   await connection.start();
+      //   //const connectedClients = await connection.invoke("ListStreams"); //V1
+      //   const sensorNames = await connection.invoke("GetSensorNames").catch(err => console.error(err.toString()));
+      //   sensorNames.forEach(subscribeToSensor);
+      //   connection.on("SensorAdded", subscribeToSensor); // we only have single "sensor" data source ...so i dont need this
 
-        // HubConnectionState.Connected;
-      } catch (error) {
-        alert(error);
-      }
-      function subscribeToSensor(sensorName) {
-        connection.stream("GetSensorData", sensorName).subscribe({
-          next: item => {
-            console.log("message arrived!");
-            console.log(item);
+      //   // HubConnectionState.Connected;
+      // } catch (error) {
+      //   alert(error);
+      // }
+      // function subscribeToSensor(sensorName) {
+      //   connection.stream("GetSensorData", sensorName).subscribe({
+      //     next: item => {
+      //       console.log("message arrived!");
+      //       console.log(item);
 
-            var li = document.createElement("li");
-            li.textContent = item;
-            document.getElementById("messagesList").appendChild(li);
-          },
-          complete: () => {
-            var li = document.createElement("li");
-            li.textContent = "Stream completed";
-            document.getElementById("messagesList").appendChild(li);
-          },
-          error: err => {
-            var li = document.createElement("li");
-            li.textContent = err;
-            document.getElementById("messagesList").appendChild(li);
-          }
-        });
-      }
+      //       var li = document.createElement("li");
+      //       li.textContent = item;
+      //       document.getElementById("messagesList").appendChild(li);
+      //     },
+      //     complete: () => {
+      //       var li = document.createElement("li");
+      //       li.textContent = "Stream completed";
+      //       document.getElementById("messagesList").appendChild(li);
+      //     },
+      //     error: err => {
+      //       var li = document.createElement("li");
+      //       li.textContent = err;
+      //       document.getElementById("messagesList").appendChild(li);
+      //     }
+      //   });
+      // }
       //const connectedClients = await connection.invoke("ListStreams");
       //console.log(connectedClients);
       //subscribe - foreach client

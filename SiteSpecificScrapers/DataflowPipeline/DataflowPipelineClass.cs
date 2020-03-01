@@ -3,6 +3,7 @@ using ScrapySharp.Network;
 using SiteSpecificScrapers.DataflowPipeline.RealTimeFeed;
 using SiteSpecificScrapers.Interfaces;
 using SiteSpecificScrapers.Messages;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
@@ -56,12 +57,24 @@ namespace SiteSpecificScrapers.DataflowPipeline
 
             #region Hub Config
 
-            _hubcConnectionBuilder.WithUrl("http://localhost:5000/outputstream"); //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-                                                                                  //.WithAutomaticReconnect();
+            _hubcConnectionBuilder.WithUrl("https://localhost:5001/outputstream"); //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+                                                                                   //.WithAutomaticReconnect();
             await using var hubConnection = _hubcConnectionBuilder.Build();
             try
             {
                 await hubConnection.StartAsync();
+                async IAsyncEnumerable<int> Pump()
+                {
+                    int numbers = 0;
+                    while (true)
+                    {
+                        yield return numbers;
+                        numbers++;
+
+                        await Task.Delay(1000);
+                    }
+                }
+                _ = hubConnection.InvokeAsync("Pump", Pump());
             }
             catch (System.Exception ex)
             {

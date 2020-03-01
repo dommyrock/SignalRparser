@@ -39,5 +39,14 @@ namespace StreamOutputWebApp.Hubs
                 _sensorCollection.DisconnectSensor(sensorName);
             }
         }
+
+        //Test -fowler's example
+        public async Task Pump(IAsyncEnumerable<string> incoming)
+        {
+            await foreach (var item in incoming)
+            {
+                await Clients.Others.SendAsync("Item", item);
+            }
+        }
     }
 }
