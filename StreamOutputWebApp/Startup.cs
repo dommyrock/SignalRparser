@@ -35,7 +35,8 @@ namespace StreamOutputWebApp
             });
 
             //since we use dependency injection , need to add interface too
-            services.AddSingleton<IStreamOutputService, StreamOutputService>();
+            //services.AddSingleton<IStreamOutputService, StreamOutputService>(); //V1
+            services.AddSingleton<StreamCollection>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,10 +58,11 @@ namespace StreamOutputWebApp
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseRouting();
+            app.UseFileServer();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<StreamOutputHub>("/outputstream");
+                endpoints.MapHub<StreamOutputHubV2>("/outputstream");
                 // initial template code
                 //endpoints.MapControllerRoute(
                 //    name: "default",

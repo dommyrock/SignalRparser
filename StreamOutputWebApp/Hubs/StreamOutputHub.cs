@@ -26,12 +26,12 @@ namespace StreamOutputWebApp.Hubs
                 var executeStreamTask =
                     _streamOutputService.ExecuteStreamAsync(name, stream);
 
-                await Clients.Others.SendAsync("StreamCreated", name);
+                await Clients.Others.SendAsync("StreamCreated", name);//function on client Hub
                 await executeStreamTask;
             }
             finally
             {
-                await Clients.All.SendAsync("StreamRemoved", name);
+                await Clients.All.SendAsync("StreamRemoved", name);//function on client Hub
             }
         }
 

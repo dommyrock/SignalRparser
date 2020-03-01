@@ -9,18 +9,8 @@ import { HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState } fro
 const SignalRStream = () => {
     //   const [hubConnection, setHubConnection] = useState();
 
-    //NOTE : Stream will disconnect after 20 sec if it doesnt get msg from server
-    /* Retry logic ...something like this
-     * $.connection.hub.disconnected(function() {
-   setTimeout(function() {
-       $.connection.hub.start();
-   }, 5000); // Restart connection after 5 seconds.
-     *
-     */
-    //TODO : this verison works without errors , onyly need to output data to dictionary , somehow ..since "ListStreams" returns []
     useEffect(() => {
-        //--->example from signalR30SensorsDemo (replace with my hubs stream data)
-        // const latestSensorData = { x: 0, y: 0, z: 0 };  -
+        const latestSensorData = { x: 0, y: 0, z: 0 };
 
         //Set initial hub connection
         const createHubConnection = async () => {
@@ -37,43 +27,52 @@ const SignalRStream = () => {
             //    connectedClients.forEach(subscribeToStream);
             //});
 
+            try {
+                //start conn
+                await connection.start();
+                //const connectedClients = await connection.invoke("ListStreams"); //V1
+                const sensorNames = await connection.invoke("GetSensorNames");
+                sensorNames.forEach(subscribeToSensor);
+                connection.on("SensorAdded", subscribeToSensor); // we only have single "sensor" data source ...so i dont need this
+
+                // HubConnectionState.Connected;
+            } catch (error) {
+                alert(error);
+            }
+            function subscribeToSensor(sensorName) {
+                connection.stream("GetSensorData", sensorName)
+                    .subscribe({
+                        next: (item) => {
+                            latestSensorData[sensorName] = item;
+                        },
+                        complete: () => {
+                            console.log(`${sensorName} Completed`);
+                        },
+                        error: (err) => {
+                            console.log(`${sensorName} error: "${err}"`);
+                        },
+                    });
+            }
             //const connectedClients = await connection.invoke("ListStreams");
             //console.log(connectedClients);
             //subscribe - foreach client
             //connectedClients.forEach(subscribeToStream);
             //connectedClients.on("SenStreamCreated", subscribeToStream);
 
-            try {
-                //start conn
-                await connection.start();
-                console.log("Connected to hub!");
-                connection.stream("WatchStream"); //subscribe is method
-                //subscribeToStream();
-                const connectedClients = await connection.invoke("ListStreams");
-                console.log(connectedClients);
-                console.log("Connection info..")
-                console.log(connection);
-
-                // HubConnectionState.Connected;
-            } catch (error) {
-                alert(error);
-            }
-            //   setHubConnection(connection);
-
-            function subscribeToStream() {
-                console.log("Connected to hub!");
-                connection.stream("WatchStream"); //subscribe is method
-                // .subscribe({ Todoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-                //     next: (item) => {
-                //         latestSensorData[sensorName] = item;  ---->example from signalR30SensorsDemo (replace with my hubs stream data)
-                //     },
-                //     complete: () => {
-                //         console.log(`${sensorName} Completed`);
-                //     },
-                //     error: (err) => {
-                //         console.log(`${sensorName} error: "${err}"`);
-                //     },
-            }
+            //function subscribeToStream(streamName) {
+            //    console.log("Connected to hub!");
+            //    connection.stream("WatchStream")
+            //     .subscribe({
+            //         next: (item) => {
+            //             latestSensorData[sensorName] = item;
+            //         },
+            //         complete: () => {
+            //             console.log(`${sensorName} Completed`);
+            //         },
+            //         error: (err) => {
+            //             console.log(`${sensorName} error: "${err}"`);
+            //         },
+            //}
 
             //not logging anything ATM
             //connection.on("StreamCreated", stream => {
@@ -85,6 +84,15 @@ const SignalRStream = () => {
             //    console.log("Stream removed...reason (20 sec without server msg)");
             //    console.log(stream);
             //});
+
+            //NOTE : Stream will disconnect after 20 sec if it doesnt get msg from server
+            /* Retry logic ...something like this
+             * $.connection.hub.disconnected(function() {
+           setTimeout(function() {
+               $.connection.hub.start();
+           }, 5000); // Restart connection after 5 seconds.
+             *
+             */
         };
         createHubConnection();
     }, []);
