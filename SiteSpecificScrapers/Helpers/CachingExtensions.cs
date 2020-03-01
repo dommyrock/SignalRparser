@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.Json;
 
 namespace SiteSpecificScrapers.Helpers
@@ -26,9 +24,8 @@ namespace SiteSpecificScrapers.Helpers
                     return JsonSerializer.Deserialize<List<string>>(json);
                 return dataSet;
             }
+            // with newtnsoft -->return JsonConvert.DeserializeObject<List<string>>(json);
         }
-
-        // with newtnsoft -->return JsonConvert.DeserializeObject<List<string>>(json);
 
         /// <summary>
         /// Caches to local bin-debug folder [if you want to cache in memory use "Lazy Cache" nuget]
@@ -39,53 +36,26 @@ namespace SiteSpecificScrapers.Helpers
         {
             string fullpath = Path.GetFullPath(fileName);
 
-            var json = JsonSerializer.Serialize(itemsToCache, new JsonSerializerOptions { WriteIndented = true });
+            var json = JsonSerializer.Serialize(itemsToCache, new JsonSerializerOptions { WriteIndented = true, ReadCommentHandling = JsonCommentHandling.Skip, });
 
             using (FileStream file = File.Create(fullpath))
-            using (Utf8JsonWriter writer = new Utf8JsonWriter(file)) ;
-            using JsonDocument document = JsonDocument.Parse(json);
-            //document.WriteTo(writer:) TODO..... write to doc ... or replace how it was
-        }
-
-        // with newtnsoft -->  var json = JsonConvert.SerializeObject(itemsToCache, Formatting.Indented);
-        //using (JsonTextWriter writer = new JsonTextWriter(file))
-        //    {
-        //        writer.WriteRaw(json);
-        //    }
-
-        ///With MemoryStream --TODO   <see cref="https://stackoverflow.com/questions/4771582/optimized-json-serialiser-deserialiser-as-an-extension-method"/>
-
-        //public static List<string> GetFromLocalCache(bool fromCache = true, string fileName = "webshopCache.json")
-        //{
-        //    string fullpath = Path.GetFullPath(fileName);
-
-        //}
-
-        ///// <summary>
-        ///// Caches to local bin-debug folder [if you want to cache in memory use "Lazy Cache" nuget]
-        ///// </summary>
-        ///// <param name="itemsToCache">Shop list</param>
-        ///// <param name="fileName">Local file name</param>
-        //public static void CacheToLocalCache(List<string> itemsToCache, string fileName = "webshopCache.json")
-        //{
-        //    string fullpath = Path.GetFullPath(fileName);
-
-        //}
-
-        /*Example         *
-            MergeCaseObject mergeCaseObj = new MergeCaseObject();
-
-            //Serialize  JSON to .NET obj
-            using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(caseObject)))
             {
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(MergeCaseObject));
-                mergeCaseObj = (MergeCaseObject)ser.ReadObject(ms);
+                using (Utf8JsonWriter writer = new Utf8JsonWriter(file))
+                {
+                    using (JsonDocument document = JsonDocument.Parse(json))
+                        document.WriteTo(writer);
+                }
             }
-         *
-         */
+            // with newtnsoft -->  var json = JsonConvert.SerializeObject(itemsToCache, Formatting.Indented);
+            //using (JsonTextWriter writer = new JsonTextWriter(file))
+            //    {
+            //        writer.WriteRaw(json);
+            //    }
+        }
     }
 }
 
+///With MemoryStream --TODO   <see cref="https://stackoverflow.com/questions/4771582/optimized-json-serialiser-deserialiser-as-an-extension-method"/>
 //for .NET System.Text.Json.Serialization; see https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to
 // for custom converters see https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to?view=netcore-3.1
 //For generic type extension method see https://stackoverflow.com/questions/4637383/extension-method-return-using-generics

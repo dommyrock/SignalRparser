@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {}
+    "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {}
   },
   "projects": {
-    "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {
+    "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
+        "projectUniqueName": "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
         "projectName": "SiteSpecificScrapers",
-        "projectPath": "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
-        "packagesPath": "C:\\Users\\domin\\.nuget\\packages\\",
-        "outputPath": "E:\\Programming\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\obj\\",
+        "projectPath": "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\SiteSpecificScrapers.csproj",
+        "packagesPath": "C:\\Users\\dpolzer\\.nuget\\packages\\",
+        "outputPath": "D:\\GithubRepo\\SignalRparser\\SiteSpecificScrapers\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\domin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dpolzer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -69,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

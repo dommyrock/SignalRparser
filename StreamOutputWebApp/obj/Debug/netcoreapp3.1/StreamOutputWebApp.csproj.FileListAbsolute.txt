@@ -95,3 +95,6 @@ E:\Programming\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3
 E:\Programming\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\package.json
 E:\Programming\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\public\manifest.json
 E:\Programming\GithubRepo\SignalRparser\StreamOutputWebApp\obj\Debug\netcoreapp3.1\StreamOutputWebApp.csprojAssemblyReference.cache
+D:\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\package-lock.json
+D:\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\package.json
+D:\GithubRepo\SignalRparser\StreamOutputWebApp\bin\Debug\netcoreapp3.1\client-app\public\manifest.json
