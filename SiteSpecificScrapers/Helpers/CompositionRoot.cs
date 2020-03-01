@@ -70,7 +70,8 @@ namespace SiteSpecificScrapers.Helpers
                 Console.WriteLine($"Scraper [{scraper.Url}] started:");
                 try
                 {
-                    Task task = Task.Run(async () => await InitPipeline(scraper)).ContinueWith((i) => Console.WriteLine("All scrapers completed. [EXITING] Scraper now."));
+                    Task task = Task.Run(async () => await InitPipeline(scraper))
+                        .ContinueWith((i) => Console.WriteLine("All scrapers completed. [EXITING] Scraper now."));
                     //NOTE: Left InitPipeline async ...so i can reuse it for RunAllAsync
                 }
                 catch (Exception ex)
