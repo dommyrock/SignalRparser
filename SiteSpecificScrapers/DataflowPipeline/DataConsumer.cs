@@ -30,6 +30,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
                 //message.SourceHtml = //scraped data
                 message.Id = _counter;
                 message.SiteUrl = scraper.Url;
+                message.ReadingTime = DateTime.Now;
 
                 _counter++;
                 Console.WriteLine($"Read message num[{_counter}] from [{scraper.Url}] on thread [{Thread.CurrentThread.ManagedThreadId}]");//TODO: remove this temp logging

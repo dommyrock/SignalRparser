@@ -55,34 +55,6 @@ namespace SiteSpecificScrapers.DataflowPipeline
 
             #endregion Pipeline config
 
-            #region Hub Config
-
-            _hubcConnectionBuilder.WithUrl("https://localhost:5001/outputstream"); //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-                                                                                   //.WithAutomaticReconnect();
-            await using var hubConnection = _hubcConnectionBuilder.Build();
-            try
-            {
-                await hubConnection.StartAsync();
-                async IAsyncEnumerable<int> Pump()
-                {
-                    int numbers = 0;
-                    while (true)
-                    {
-                        yield return numbers;
-                        numbers++;
-
-                        await Task.Delay(1000);
-                    }
-                }
-                _ = hubConnection.InvokeAsync("Pump", Pump());
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
-
-            #endregion Hub Config
-
             //Block definitions
 
             //Download page here---> <site link,downloaded site source>
@@ -115,7 +87,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
 
             //Real time publish ...
             var realTimeFeedBlock = new ActionBlock<Message>(async (Message msg) =>
-            /*_realTimeFeedPublisher.PublishAsync(msg) */await hubConnection.SendAsync("PublishSensorData", msg.SiteUrl, msg), largeBufferOptions);
+            _realTimeFeedPublisher.PublishAsync(msg), largeBufferOptions);
 
             //Link blocks together
             transformBlock.LinkTo(broadcast, linkOptions);
