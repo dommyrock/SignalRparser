@@ -9,7 +9,6 @@ const signalR = require("@microsoft/signalr");
 
 const SignalRStream = () => {
   //   const [hubConnection, setHubConnection] = useState();
-
   useEffect(() => {
     //Set initial hub connection
     const createHubConnection = async () => {
@@ -18,14 +17,13 @@ const SignalRStream = () => {
         .withAutomaticReconnect() // add if you want auto reconnect clients to server
         .withUrl("/outputstream") //server- hub endpoint
         .configureLogging(signalR.LogLevel.Debug)
+        //   .withHubProtocol(new MessagePackHubProtocol()) adds new binary protocol
         .build();
-      //   .withHubProtocol(new MessagePackHubProtocol()) adds new binary protocol
 
-      ////reconnect  -
+      //client reconnected  -
       connection.onreconnected(async function() {
         //const connectedClients = await connection.invoke("ListStreams");
         const connectedClients = await connection.invoke("GetSensorNames");
-        //connectedClients.forEach(subscribeToStream);
         connectedClients.forEach(subscribeToSensor);
       });
 
@@ -35,7 +33,7 @@ const SignalRStream = () => {
         //const connectedClients = await connection.invoke("ListStreams"); //V1
         const sensorNames = await connection.invoke("GetSensorNames").catch(err => console.error(err.toString()));
         sensorNames.forEach(subscribeToSensor);
-        connection.on("SensorAdded", subscribeToSensor); // we only have single "sensor" data source ...so i dont need this
+        connection.on("SensorAdded", subscribeToSensor);
       } catch (error) {
         alert(error);
       }
@@ -45,11 +43,27 @@ const SignalRStream = () => {
         connection.stream("GetSensorData", sensorName).subscribe({
           next: item => {
             console.log(item);
+            //conditionaly render diff styles
+            const btn = document.createElement("button");
+            switch (sensorName) {
+              case "pink":
+                btn.className = "buttonPink";
+                btn.textContent = item;
+                document.getElementById("messagesList").appendChild(btn);
+                break;
+              case "blue":
+                btn.className = "buttonBlue";
+                btn.textContent = item;
+                document.getElementById("messagesList").appendChild(btn);
+                break;
 
-            var btn = document.createElement("button");
-            btn.className = "buttonBlue";
-            btn.textContent = item;
-            document.getElementById("messagesList").appendChild(btn);
+              default:
+                btn.className = "buttonDefault";
+                btn.textContent = item;
+                document.getElementById("messagesList").appendChild(btn);
+                break;
+            }
+
             //Scroll to bottom of  element -id =messagesList
             window.scrollTo(0, document.getElementById("messagesList").scrollHeight);
           },
@@ -58,7 +72,7 @@ const SignalRStream = () => {
             var btn = document.createElement("btn");
             btn.className = "buttonBlue";
 
-            btn.textContent = "Stream completed";
+            btn.textContent = `${sensorName} Stream Completed.`;
             document.getElementById("messagesList").appendChild(btn);
           },
           error: err => {
@@ -71,38 +85,17 @@ const SignalRStream = () => {
           }
         });
       }
-      //const connectedClients = await connection.invoke("ListStreams");
-      //console.log(connectedClients);
-      //subscribe - foreach client
-      //connectedClients.forEach(subscribeToStream);
-      //connectedClients.on("SenStreamCreated", subscribeToStream);
 
-      // from V1 (StreamOutputHub)
-      //function subscribeToStream(streamName) {
-      //    console.log("Connected to hub!");
-      //    connection.stream("WatchStream")
-      //     .subscribe({
-      //         next: (item) => {
-      //             latestSensorData[sensorName] = item;
-      //         },
-      //         complete: () => {
-      //             console.log(`${sensorName} Completed`);
-      //         },
-      //         error: (err) => {
-      //             console.log(`${sensorName} error: "${err}"`);
-      //         },
-      //}
+      //   connection.on("StreamCreated", stream => { medhod on "StreamOutputHub" Hub
+      //     console.log("Stream created");
+      //     console.log(stream);
+      //   });
 
-      //not logging anything ATM
-      //connection.on("StreamCreated", stream => {
-      //    console.log("Stream created");
-      //    console.log(stream);
-      //});
-
-      //connection.on("StreamRemoved", stream => {
-      //    console.log("Stream removed...reason (20 sec without server msg)");
-      //    console.log(stream);
-      //});
+      //metod on "StreamOutputHubV2" --> "PublishSensorData" method
+      connection.on("StreamRemoved", stream => {
+        console.log("Stream removed(Client ended stream). Disconnecting client now...");
+        console.log(stream);
+      });
 
       //NOTE : Stream will disconnect after 20 sec if it doesnt get msg from server
       /* Retry logic ...something like this
@@ -112,16 +105,6 @@ const SignalRStream = () => {
                  }, 5000); // Restart connection after 5 seconds.
                    *
                    */
-
-      //Test method
-      //var subject = new signalR.Subject();
-      //var promise = connection.invoke("Pump", subject);
-      //var count = 0;
-      //setInterval(function() {
-      //  subject.next(count);
-      //  count++;
-      //  console.log(count);
-      //}, 14);
     };
     createHubConnection();
   }, []);

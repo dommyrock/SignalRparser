@@ -36,6 +36,8 @@ namespace StreamOutputWebApp.Hubs
             }
             finally
             {
+                await Clients.All.SendAsync("StreamRemoved", sensorName);//function on client Hub
+
                 _sensorCollection.DisconnectSensor(sensorName);
             }
         }

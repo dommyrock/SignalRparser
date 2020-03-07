@@ -94,7 +94,7 @@ namespace SignalRparserApp
             {
                 counter++;
                 yield return initString + $"append num{counter}"; //return items as they arrive
-                await Task.Delay(5);
+                await Task.Delay(100);
             }
         }
     }
