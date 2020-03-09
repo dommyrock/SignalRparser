@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using ScrapySharp.Network;
+using SiteSpecificScrapers.DataflowPipeline.RealTimeFeed;
 using SiteSpecificScrapers.Helpers;
 using SiteSpecificScrapers.Scrapers;
 using System;
@@ -28,17 +29,23 @@ namespace SignalRparserApp
         {
             #region Start SignalR hub
 
+            //TODO : move this to separate console app , find out how to subscribee to event in tpl dataflow --->real time publisher, than oush event to client hub
             var hubConnectionBuilder = new HubConnectionBuilder()
                 .WithUrl("https://localhost:5001/outputstream")
                 .WithAutomaticReconnect();
-            await using var hubConnection = hubConnectionBuilder.Build();
+            await using HubConnection hubConnection = hubConnectionBuilder.Build();
 
-            //called after client sucessfuly reconnects
+            //Subscribe to events
+            //(called after client sucessfuly reconnects)
             hubConnection.Reconnected += async connectedId =>
             {
                 await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
             };
             await hubConnection.StartAsync();//connrction to server
+
+            //TODOO: subscribe & handle message every time new one hits "RealTimePublisher"
+            var realTime = new RealTimePublisher();
+            realTime.MessageReceived += realTime_MessageReceived;
 
             //Test ------------
             await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
@@ -82,7 +89,12 @@ namespace SignalRparserApp
             #endregion Composition Root
 
             Console.ReadLine();
-            //await Task.CompletedTask;
+        }
+
+        private static void realTime_MessageReceived(object sender, MessageArgs e)
+        {
+            //TODO: i want to call client hub method here ...so i need to pass hubconnection somehow ...
+            //await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
         }
 
         //Test method (like streaming vido. i stream items as they arrive.)

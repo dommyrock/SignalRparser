@@ -86,8 +86,8 @@ namespace SiteSpecificScrapers.DataflowPipeline
             var broadcast = new BroadcastBlock<Message>(msg => msg);
 
             //Real time publish ...
-            var realTimeFeedBlock = new ActionBlock<Message>(async (Message msg) =>
-            _realTimeFeedPublisher.PublishAsync(msg), largeBufferOptions);
+            var realTimeFeedBlock = new ActionBlock<Message>((Message msg) =>
+           _realTimeFeedPublisher.PublishAsync(msg), largeBufferOptions);
 
             //Link blocks together
             transformBlock.LinkTo(broadcast, linkOptions);

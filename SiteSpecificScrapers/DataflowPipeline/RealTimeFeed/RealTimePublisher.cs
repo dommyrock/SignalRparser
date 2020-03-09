@@ -1,4 +1,5 @@
-﻿using SiteSpecificScrapers.Messages;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using SiteSpecificScrapers.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,11 +8,28 @@ namespace SiteSpecificScrapers.DataflowPipeline.RealTimeFeed
 {
     public class RealTimePublisher : IRealTimePublisher
     {
+        public event EventHandler<MessageArgs> MessageReceived;
+
         public void PublishAsync(Message message)
         {
             // send over a network socket
             Console.WriteLine($"Publish in real-time message {message.SourceHtml} on thread {Thread.CurrentThread.ManagedThreadId}");
+
+            //Trigger event
+            OnMessageReceived(message);
         }
+
+        protected virtual void OnMessageReceived(Message msg)
+        {
+            if (MessageReceived != null)
+                MessageReceived(this, new MessageArgs() { Msg = msg, });
+        }
+    }
+
+    public class MessageArgs : EventArgs
+    {
+        public Message Msg { get; set; }
+        //public HubConnection HubConnection { get; set; } might need to pass hub connection as well ?
     }
 }
 
