@@ -44,6 +44,7 @@ namespace SignalRparserApp
             await hubConnection.StartAsync();//connrction to server
 
             //TODOO: subscribe & handle message every time new one hits "RealTimePublisher"
+            //...2. option(make new class ,instanciate it here and pas it through pipeline to real time publisher and trigger eevent there
             var realTime = new RealTimePublisher();
             realTime.MessageReceived += realTime_MessageReceived;
 
