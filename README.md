@@ -22,5 +22,10 @@
 
 **! transport currently upgraded to websockets if possible (could be switched to Message pack..)**! 
  
+ Big help for understanding how TLP DATAFLOW works was :
+ https://github.com/Vanlightly/StreamProcessingSeries/tree/master/src/net-apps 
  
- 
+ and for SignalR: 
+ https://github.com/halter73/SignalR30SensorDemo
+ and 
+ https://www.youtube.com/watch?v=dHiETzo6GB8&list
