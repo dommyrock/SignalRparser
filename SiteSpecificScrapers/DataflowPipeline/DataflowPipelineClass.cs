@@ -36,6 +36,8 @@ namespace SiteSpecificScrapers.DataflowPipeline
 
         public async Task StartPipelineAsync(CancellationToken token)
         {
+            //****** IMPORTANT ****** config is not yet optimized !!!! (still in testing faze)
+
             #region Pipeline config
 
             var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
@@ -80,9 +82,9 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //Branches out the messages to other consumer blocks linked!
             var broadcast = new BroadcastBlock<Message>(msg => msg);
 
-            //Real time publish ...
+            //Real time publish to SignalR hub
             var realTimeFeedBlock = new ActionBlock<Message>((Message msg) =>
-          /*_realTimeFeedPublisher.PublishAsync(msg)*/ _realTimeFeedPublisher.PublishMessageToHub(msg), largeBufferOptions);
+           _realTimeFeedPublisher.PublishMessageToHub(msg), largeBufferOptions);/*publush to console _realTimeFeedPublisher.PublishAsync(msg)*/
 
             //Link blocks together
             transformBlock.LinkTo(broadcast, linkOptions);

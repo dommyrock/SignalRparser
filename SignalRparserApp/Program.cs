@@ -34,14 +34,15 @@ namespace SignalRparserApp
                 .WithAutomaticReconnect();
             await using HubConnection hubConnection = hubConnectionBuilder.Build();
 
-            //Subscribe to events (called after client sucessfuly reconnects)
-            hubConnection.Reconnected += async connectedId =>
-            {
-                await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "default_Producer" : args[0], GenerateTestData());
-            };
             await hubConnection.StartAsync();//connrction to server
 
             #region Test_Producer for SignalR_hub
+
+            //Subscribe to events (called after client sucessfuly reconnects)
+            //hubConnection.Reconnected += async connectedId =>
+            //{
+            //    await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "default_Producer" : args[0], GenerateTestData());
+            //};
 
             //Test ------------TEMP COMENTED WHILE I TEST OUTPUT FROM TPL DATAFLOW PIPELINE
             //await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
