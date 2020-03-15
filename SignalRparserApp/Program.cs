@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using ScrapySharp.Network;
-using SiteSpecificScrapers.DataflowPipeline.RealTimeFeed;
 using SiteSpecificScrapers.Helpers;
 using SiteSpecificScrapers.Scrapers;
 using System;
@@ -39,17 +38,16 @@ namespace SignalRparserApp
             //(called after client sucessfuly reconnects)
             hubConnection.Reconnected += async connectedId =>
             {
-                await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
+                await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "default_Producer" : args[0], GenerateTestData());
             };
             await hubConnection.StartAsync();//connrction to server
 
-            //TODOO: subscribe & handle message every time new one hits "RealTimePublisher"
-            //...2. option(make new class ,instanciate it here and pas it through pipeline to real time publisher and trigger eevent there
-            var realTime = new RealTimePublisher();
-            realTime.MessageReceived += realTime_MessageReceived;
+            #region TestMethod
 
-            //Test ------------
-            await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
+            //Test ------------TEMP COMENTED WHILE I TEST OUTPUT FROM TPL DATAFLOW PIPELINE
+            //await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
+
+            #endregion TestMethod
 
             #endregion Start SignalR hub
 
@@ -69,18 +67,12 @@ namespace SignalRparserApp
             try
             {
                 //Pass all scraper clases that implement ISiteSpecific (with Polymorphism)
-                var compositionRoot = new CompositionRoot(Browser,
+                var compositionRoot = new CompositionRoot(Browser, hubConnection, args,
                         new NabavaNet()
                         //new AdmScraper(),
                         //new AbrakadabraScraper()
                         );
-
-                //TOOD : figure out how i can " yield return " 1by 1 item to stream them with signalR
-                //need to return  all the way from realTime method to here or somehow broadcast it to another service that puts it into hubConnection "SendAsync"
-
-                //await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], /*TODO : call real time method  from pipeline here here */);
-
-                //compositionRoot.RunAll();//Synchronous pipe so i dont need to await it.
+                compositionRoot.RunAll();//Synchronous pipe so i dont need to await it.
             }
             catch (Exception ex)
             {
@@ -90,12 +82,6 @@ namespace SignalRparserApp
             #endregion Composition Root
 
             Console.ReadLine();
-        }
-
-        private static void realTime_MessageReceived(object sender, MessageArgs e)
-        {
-            //TODO: i want to call client hub method here ...so i need to pass hubconnection somehow ...
-            //await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "x" : args[0], GenerateTestData());
         }
 
         //Test method (like streaming vido. i stream items as they arrive.)

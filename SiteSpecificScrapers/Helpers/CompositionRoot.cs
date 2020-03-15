@@ -18,16 +18,23 @@ namespace SiteSpecificScrapers.Helpers
         public List<string> InputList { get; set; }
         public Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }
         public string SitemapUrl { get; set; }
-        public ScrapingBrowser Browser { get; set; }
         public int PipeIndex { get; private set; } = 0;
+        private ScrapingBrowser _broser { get; }
+
+        //Passed from producers started in cli/cmd -->dotnet run "producerId"(name)
+        private HubConnection _hubConnection { get; }
+
+        private string[] _args { get; }
 
         // readonly -> indicates that assignment to the field can only occur as part of the declaration or in a constructor in the same class
         private readonly ISiteSpecific[] _specificScrapers;
 
-        public CompositionRoot(ScrapingBrowser browser, params ISiteSpecific[] scrapers)
+        public CompositionRoot(ScrapingBrowser browser, HubConnection hubConnection, string[] args, params ISiteSpecific[] scrapers)
         {
-            _specificScrapers = scrapers;
-            this.Browser = browser;
+            this._specificScrapers = scrapers;
+            this._broser = browser;
+            this._hubConnection = hubConnection;
+            this._args = args;
         }
 
         /* NOTES:
@@ -41,7 +48,7 @@ namespace SiteSpecificScrapers.Helpers
             //TODO:  await completion , than start next scraper (in future if i have more threads ...can make few pipes run in parallel as well)
             var cts = new CancellationTokenSource();
             // init
-            var pipeline = new DataflowPipelineClass(Browser, scraper, new RealTimePublisher(), new DataConsumer(), new HubConnectionBuilder());
+            var pipeline = new DataflowPipelineClass(_broser, scraper, new RealTimePublisher(_hubConnection, _args), new DataConsumer());
 
             Task pipelineTask = Task.Run(async () =>
             {

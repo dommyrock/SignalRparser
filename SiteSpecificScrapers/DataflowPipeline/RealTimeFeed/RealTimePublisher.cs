@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using SiteSpecificScrapers.Messages;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,21 +9,37 @@ namespace SiteSpecificScrapers.DataflowPipeline.RealTimeFeed
 {
     public class RealTimePublisher : IRealTimePublisher
     {
-        public event EventHandler<MessageArgs> MessageReceived;
+        private HubConnection _hubConnection { get; }
+        private string[] _args { get; }
+
+        public RealTimePublisher(HubConnection hubConnection, string[] args)
+        {
+            this._hubConnection = hubConnection;
+            this._args = args;
+        }
 
         public void PublishAsync(Message message)
         {
             // send over a network socket
-            Console.WriteLine($"Publish in real-time message {message.SourceHtml} on thread {Thread.CurrentThread.ManagedThreadId}");
-
-            //Trigger event
-            OnMessageReceived(message);
+            Console.WriteLine($"Publish in real-time message {message.SourceHtml} on thread {Thread.CurrentThread.ManagedThreadId}");// V1 --test publish to console
         }
 
-        protected virtual void OnMessageReceived(Message msg)
+        public Task PublishMessageToHub(Message message)
         {
-            if (MessageReceived != null)
-                MessageReceived(this, new MessageArgs() { Msg = msg, });
+            //Execute signalR hub method & pass the Message
+            return Task.FromResult(_hubConnection.SendAsync("PublishSensorData", _args.Length == 0 ? "default_Producer" : _args[0], GenerateStreamData(message)));
+        }
+
+        static async IAsyncEnumerable<string> GenerateStreamData(Message msg)//method doesnt access class data so it can be marked static.
+        {
+            //string initString = "Start:";
+            //int counter = 0;
+            while (true)
+            {
+                //counter++;
+                yield return msg.ReadingTime.ToString(); //return items as they arrive
+                await Task.Delay(100);
+            }
         }
     }
 

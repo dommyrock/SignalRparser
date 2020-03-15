@@ -11,5 +11,7 @@ namespace SiteSpecificScrapers.DataflowPipeline.RealTimeFeed
         /// <param name="message"></param>
         /// <returns></returns>
         void PublishAsync(Message message);
+
+        Task PublishMessageToHub(Message message);
     }
 }

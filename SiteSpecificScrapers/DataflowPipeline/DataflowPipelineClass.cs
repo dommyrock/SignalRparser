@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
-using ScrapySharp.Network;
+﻿using ScrapySharp.Network;
 using SiteSpecificScrapers.DataflowPipeline.RealTimeFeed;
 using SiteSpecificScrapers.Interfaces;
 using SiteSpecificScrapers.Messages;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
@@ -17,8 +15,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
         readonly ISiteSpecific _specificScraper;
         readonly IRealTimePublisher _realTimeFeedPublisher;
         readonly IDataConsumer _dataConsumer;
-        readonly IHubConnectionBuilder _hubcConnectionBuilder;
-        public ScrapingBrowser Browser { get; set; }
+        private ScrapingBrowser _browser { get; }
 
         /// <summary>
         /// Executes specific scraping logic for passed scraper.
@@ -29,14 +26,12 @@ namespace SiteSpecificScrapers.DataflowPipeline
         public DataflowPipelineClass(ScrapingBrowser browser,
                                     ISiteSpecific scraper,
                                     IRealTimePublisher realTimePublisher,
-                                    IDataConsumer dataConsumer,
-                                    IHubConnectionBuilder hubConnection)
+                                    IDataConsumer dataConsumer)
         {
-            Browser = browser;
-            _specificScraper = scraper;
-            _realTimeFeedPublisher = realTimePublisher;
-            _dataConsumer = dataConsumer;
-            _hubcConnectionBuilder = hubConnection;
+            this._browser = browser;
+            this._specificScraper = scraper;
+            this._realTimeFeedPublisher = realTimePublisher;
+            this._dataConsumer = dataConsumer;
         }
 
         public async Task StartPipelineAsync(CancellationToken token)
@@ -61,7 +56,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //For each message it consumes, it outputs another.
             var transformBlock = new TransformBlock<Message, Message>(async (Message msg) => //SEE"DataBusReader" Class for example !!
             {
-                await _specificScraper.RunInitMsg(this.Browser, msg);
+                await _specificScraper.RunInitMsg(this._browser, msg);
 
                 return msg;
             }, largeBufferOptionsSingleProd);
@@ -87,7 +82,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
 
             //Real time publish ...
             var realTimeFeedBlock = new ActionBlock<Message>((Message msg) =>
-           _realTimeFeedPublisher.PublishAsync(msg), largeBufferOptions);
+          /*_realTimeFeedPublisher.PublishAsync(msg)*/ _realTimeFeedPublisher.PublishMessageToHub(msg), largeBufferOptions);
 
             //Link blocks together
             transformBlock.LinkTo(broadcast, linkOptions);
