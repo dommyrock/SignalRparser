@@ -116,7 +116,7 @@ namespace SiteSpecificScrapers.Helpers
             }
             //return await Task.WhenAll<Task>(tasklist); not efficient to wait on all to complete , instead await and print/outptut each result as they arrive
             //
-            return await Task.FromResult(tasklist); //TODO: see "NEXT STEP" bellow
+            return await Task.FromResult(tasklist);
         }
 
         //*** Task.WhenAll -->asynchronously awaits the result. calling Task.WaitAll blocks the calling thread until all tasks are completed

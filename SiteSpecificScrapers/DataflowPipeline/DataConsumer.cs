@@ -30,7 +30,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
                 //message.SourceHtml = //scraped data
                 message.Id = _counter;
                 message.SiteUrl = scraper.Url;
-                message.ReadingTime = DateTime.Now;
+                message.ReadingTime = DateTime.Now; //TODO :test out incomming messages and se if timestamp printed in web app is correct
 
                 _counter++;
                 Console.WriteLine($"Read message num[{_counter}] from [{scraper.Url}] on thread [{Thread.CurrentThread.ManagedThreadId}]");//TODO: remove this temp logging
