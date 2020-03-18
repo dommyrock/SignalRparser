@@ -1,6 +1,8 @@
 # SignalRparser
  Real time parser app in.NET Core 3.1 with SignalR, TPL Dataflow and React.js client app 
  
+ Goal was to have modular/interchangeable ans domain specific scraping.
+ 
 **Startup project (Web App) --> StreamOutputWebApp (has SignalR hubs, methods defined in it.)**
 
 **Producer (Console App) ---> SignalRparserApp**
@@ -22,10 +24,10 @@
 
 **! transport currently upgraded to websockets if possible (could be switched to Message pack..)**! 
  
- Big help for understanding how TLP DATAFLOW works was :
- https://github.com/Vanlightly/StreamProcessingSeries/tree/master/src/net-apps 
+ Big help were these projects/videos:
  
- and for SignalR: 
- https://github.com/halter73/SignalR30SensorDemo
+ TPL DATAFLOW :https://github.com/Vanlightly/StreamProcessingSeries/tree/master/src/net-apps 
+ 
+ SignalR:  https://github.com/halter73/SignalR30SensorDemo
  and 
  https://www.youtube.com/watch?v=dHiETzo6GB8&list
