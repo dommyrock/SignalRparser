@@ -7,8 +7,7 @@
 
 **Producer**(Console App) = "SignalRparserApp"
 
-**FLOW**
-**!1st start WebApp , 2. Start Producer by opening directory ~/SignalRparserApp, than run console app by typing  'dotnet run +'producerName'(optional) in cmd/shell**
+**FLOW: 1st start WebApp , 2. Start Producer by opening directory ~/SignalRparserApp, than run console app by typing  'dotnet run +'producerName'(optional) in cmd/shell**
 
 1.Producer app , scrapes sites listed in SignalRparserApp ->Program.cs
 (Details of what's being scraped from listed sites is still WIP.)
