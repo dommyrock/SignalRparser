@@ -1,7 +1,7 @@
 # SignalRparser
  Real time parser app in.NET Core 3.1 with SignalR, TPL Dataflow and React.js client app 
  
- Goal was to have modular/interchangeable ans domain specific scraping.
+ Goal was to have modular/interchangeable and domain specific scraping.
  
 **Startup project (Web App) --> StreamOutputWebApp (has SignalR hubs, methods defined in it.)**
 
