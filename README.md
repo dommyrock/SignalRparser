@@ -1,15 +1,15 @@
 # SignalRparser
  Real time parser app in.NET Core 3.1 with SignalR, TPL Dataflow and React.js client app 
  
- Goal was to have modular/interchangeable and domain specific scraping.
+**Goal was to have modular/interchangeable and domain specific scraping while also having ability to stream processed data to separate web app.**
  
-**Startup project (Web App) --> StreamOutputWebApp (has SignalR hubs, methods defined in it.)**
+**Startup project** (Web App) --> **StreamOutputWebApp** (has SignalR hubs, methods defined in it.)
 
-**Producer (Console App) ---> SignalRparserApp**
+**Producer**(Console App) = "SignalRparserApp"
 
-**Start producer by opening directory ~/SignalRparserApp, than run app by typing  'dotnet run +'producerName'(optional) in cmd/shell**
-
+**FLOW**
 **!1st start WebApp , 2. than start producer -console app**
+**----Start producer by opening directory ~/SignalRparserApp, than run console app by typing  'dotnet run +'producerName'(optional) in cmd/shell**
 
 1.producer app , scrapes sites listed in SignalRparserApp ->Program.cs
 (Details of what's being scraped from listed sites is still WIP.)
