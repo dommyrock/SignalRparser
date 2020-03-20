@@ -12,7 +12,7 @@ namespace SiteSpecificScrapers.Interfaces
         List<string> InputList { get; set; }
         Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }//refactor this in hashset ? or some other key -value pair (maybe concurrent ?)
         string SitemapUrl { get; set; }
-        ScrapingBrowser Browser { get; set; }
+        ScrapingBrowser Browser { get; }
 
         Task<bool> ScrapeSitemapLinks(ScrapingBrowser browser);
 

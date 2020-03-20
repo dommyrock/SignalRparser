@@ -35,6 +35,10 @@ namespace SiteSpecificScrapers.Base
                     url = matchSitemap.Value;
                     return url;
                 }
+                else
+                {
+                    //TODO : also check https://domainname/sitemap.xml....
+                }
                 url = string.Empty;
             }
             return url;
