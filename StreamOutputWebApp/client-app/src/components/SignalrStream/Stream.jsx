@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 //import { HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState } from "@aspnet/signalr"; dont need this npm
-const signalR = require("@microsoft/signalr");
 //import { MessagePackHubProtocol } from '@aspnet/signalr-protocol-msgpack'; add npm if i want to switch protocols
-
-//See for localized css !!
-//https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
-//https://medium.com/@pioul/modular-css-with-react-61638ae9ea3e#.re1pdcz87
+import "./stream.css";
+const signalR = require("@microsoft/signalr");
 
 const SignalRStream = () => {
   //   const [hubConnection, setHubConnection] = useState();
