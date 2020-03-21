@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 //import { HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState } from "@aspnet/signalr"; dont need this npm
 //import { MessagePackHubProtocol } from '@aspnet/signalr-protocol-msgpack'; add npm if i want to switch protocols
-import "./stream.css";
+import "./stream.css"; //make strict unique classes to keep css local or styledComponents(example@ https://github.com/ashokdudhade/todo-with-hooks/blob/master/src/components/ToDoHome.js)
 const signalR = require("@microsoft/signalr");
 
+//Todo , could import data to some graph that displays number of msgs incoming per sec,min ... total count ...
 const SignalRStream = () => {
   //   const [hubConnection, setHubConnection] = useState();
   useEffect(() => {
@@ -40,7 +41,7 @@ const SignalRStream = () => {
         connection.stream("GetSensorData", sensorName).subscribe({
           next: item => {
             console.log(item);
-            //conditionaly render diff styles
+            //conditionaly render diff styles for incoming data containers
             const btn = document.createElement("button");
             switch (sensorName) {
               case "pink":
@@ -75,7 +76,7 @@ const SignalRStream = () => {
           error: err => {
             console.log(`${sensorName} error: "${err}"`);
             var btn = document.createElement("btn");
-            btn.className = "buttonBlue";
+            btn.className = "buttonPink";
 
             btn.textContent = err;
             document.getElementById("messagesList").appendChild(btn);
