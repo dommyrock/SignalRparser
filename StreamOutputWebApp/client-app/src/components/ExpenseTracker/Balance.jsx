@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { GlobalContext } from '../../Context/GlobalState';
+import React, { useContext } from "react";
+import { GlobalContext } from "../../context-providers/GlobalStateProvider";
 
 const inlineCss = {
-  'textAlign': 'center'
-}
+  textAlign: "center"
+};
 export const Balance = () => {
   const { transactions } = useContext(GlobalContext);
 
@@ -14,7 +14,7 @@ export const Balance = () => {
   return (
     <>
       <h4 style={inlineCss}>Your Balance</h4>
-      <h1  style={inlineCss}>${total}</h1>
+      <h1 style={inlineCss}>${total}</h1>
     </>
-  )
-}
+  );
+};

@@ -1,13 +1,13 @@
-import React from 'react';
-import  Layout  from "./components/Layout/Layout";
+import React from "react";
+import AppRouter from "./components/Layout/AppRouter";
 
-import { GlobalProvider } from "./Context/GlobalState";
+import { GlobalProvider } from "./context-providers/GlobalStateProvider";
 // import './App.css';
 
 function App() {
   return (
     <GlobalProvider>
-      <Layout/>
+      <AppRouter />
     </GlobalProvider>
   );
 }
