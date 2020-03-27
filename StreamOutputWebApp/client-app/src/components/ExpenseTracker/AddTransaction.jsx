@@ -11,13 +11,12 @@ export const AddTransaction = () => {
   const onSubmit = e => {
     e.preventDefault();
 
-    console.log(uuidv4());
-
     const newTransaction = {
       id: uuidv4(),
       text,
       amount: +amount
     };
+    console.log(newTransaction.id);
 
     addTransaction(newTransaction);
   };

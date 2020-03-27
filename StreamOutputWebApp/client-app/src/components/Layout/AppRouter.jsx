@@ -2,14 +2,18 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ExpenseTracker from "../ExpenseTracker/ExpenseTracker";
 import SignalRStream from "../SignalrStream/Stream";
-import DraggableList from "../draggableComponent/DraggableLists";
+import { GlobalProvider } from "../../context-providers/GlobalStateProvider";
+import SyntaxHighlighter from "../SyntaxHighlighter/SyntaxHighlighterMain";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/expenses" component={ExpenseTracker} />
-        <Route exact path="/stream" component={SignalRStream} />
+        <GlobalProvider>
+          <Route exact path="/expenses" component={ExpenseTracker} />
+          <Route exact path="/stream" component={SignalRStream} />
+          <Route exact path="/code" component={SyntaxHighlighter} />
+        </GlobalProvider>
       </Switch>
     </BrowserRouter>
   );

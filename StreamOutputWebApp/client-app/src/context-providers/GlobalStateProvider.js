@@ -1,9 +1,16 @@
 import React, { createContext, useReducer } from "react";
 import TransactionReducer from "../reducers/TransactionReducer";
+import { uuidv4 } from "../utils/helpers";
 
 // Initial state
 const initialState = {
-  transactions: []
+  transactions: [],
+  tasksFromBackend: [
+    { id: uuidv4(), content: "First task" },
+    { id: uuidv4(), content: "Second task" }, //Example ....replace thsi with transactions data
+    { id: uuidv4(), content: "Third task" },
+    { id: uuidv4(), content: "Fourth task" }
+  ]
 };
 
 // Create context
@@ -32,6 +39,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         transactions: state.transactions,
+        tasksFromBackend: state.tasksFromBackend,
         deleteTransaction,
         addTransaction
       }}
