@@ -5,7 +5,7 @@ import { uuidv4 } from "../utils/helpers";
 // Initial state
 const initialState = {
   transactions: [],
-  tasksFromBackend: [
+  mockTasks: [
     { id: uuidv4(), content: "First task" },
     { id: uuidv4(), content: "Second task" }, //Example ....replace thsi with transactions data
     { id: uuidv4(), content: "Third task" },
@@ -39,7 +39,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         transactions: state.transactions,
-        tasksFromBackend: state.tasksFromBackend,
+        mockTasks: state.mockTasks,
         deleteTransaction,
         addTransaction
       }}

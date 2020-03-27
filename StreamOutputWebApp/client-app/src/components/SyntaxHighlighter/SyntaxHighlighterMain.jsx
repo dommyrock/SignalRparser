@@ -38,6 +38,7 @@ const csscode = `
   }
 }
 `;
+
 const SyntaxHighlighterMain = () => {
   //   useEffect(() => {
   //     // Use setTimeout to push onto callback queue so it runs after the DOM is updated ---NOTE : works without hook too
@@ -45,10 +46,14 @@ const SyntaxHighlighterMain = () => {
   //   }, []);
   return (
     <>
-      <div>
+      <div className="gatsby-highlight">
         <pre>
           <code className="language-js">{code}</code>
-          <hr />
+        </pre>
+      </div>
+      <h1>shhshshhs</h1>
+      <div className="gatsby-highlight">
+        <pre>
           <code className="language-css">{csscode}</code>
         </pre>
       </div>

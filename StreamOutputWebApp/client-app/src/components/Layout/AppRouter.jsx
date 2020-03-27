@@ -5,6 +5,7 @@ import SignalRStream from "../SignalrStream/Stream";
 import { GlobalProvider } from "../../context-providers/GlobalStateProvider";
 import SyntaxHighlighter from "../SyntaxHighlighter/SyntaxHighlighterMain";
 
+//if i move aby route outside of GlobalProvider context thex dont render ...
 const AppRouter = () => {
   return (
     <BrowserRouter>
