@@ -156,12 +156,22 @@ pre[class*="language-"] {
   content: attr(data-prompt);
 }
 
-/*css from react docs page*/
+/*css added by me*/
+.gatsby-highlight {
+  transition: all 0.45s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.gatsby-highlight:hover {
+  border-radius: 30px 20px 100px 20px;
+  box-shadow: 0 0 50px #515151;
+  transform: scale(1.01, 1.05);
+}
+
 .gatsby-highlight > pre {
   color: rgb(255, 255, 255);
   tab-size: 1.5em;
   background: rgb(40, 44, 52);
-  border-radius: 10px;
+  border-radius: 30px 20px 100px 20px;
   overflow: auto;
 }
 .gatsby-highlight > pre > code {
