@@ -9,3 +9,25 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+.two-columns-row {
+  display: flex;
+}
+.two-columns-column {
+  flex: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .two-columns-row,
+  .two-columns-column {
+    display: block;
+  }
+}
+
+/* @media screen and (max-width: 500px) {
+  .two-columns-row,
+  .two-columns-column {
+    display: flex;
+    flex-wrap: wrap;
+  }
+} */

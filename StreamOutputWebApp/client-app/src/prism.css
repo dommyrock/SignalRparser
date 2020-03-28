@@ -156,7 +156,9 @@ pre[class*="language-"] {
   content: attr(data-prompt);
 }
 
-/*css added by me*/
+/*css added by me-------------------------------------------------------------*/
+
+/*code container css*/
 .gatsby-highlight {
   transition: all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -176,4 +178,15 @@ pre[class*="language-"] {
 }
 .gatsby-highlight > pre > code {
   color: rgb(255, 255, 255);
+}
+
+/*right side container css*/
+.right-div-highlight {
+  transition: all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+  border-radius: 20px 30px 20px 100px;
+  box-shadow: 0 0 50px #515151;
+}
+
+.right-div-highlight:hover {
+  transform: scale(1.01, 1.05);
 }
