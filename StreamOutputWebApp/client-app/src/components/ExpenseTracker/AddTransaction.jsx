@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { GlobalContext } from "../../context-providers/GlobalStateProvider";
+import { GlobalContext } from "../../context-providers/GlobalContextProvider";
 import { uuidv4 } from "../../utils/helpers";
 
 export const AddTransaction = () => {

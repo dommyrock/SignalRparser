@@ -2,7 +2,7 @@ import React from "react";
 import AppRouter from "./components/Layout/AppRouter";
 // import './App.css';
 
-import { GlobalProvider } from "./context-providers/GlobalStateProvider";
+import { GlobalProvider } from "./context-providers/GlobalContextProvider";
 function App() {
   return (
     <GlobalProvider>

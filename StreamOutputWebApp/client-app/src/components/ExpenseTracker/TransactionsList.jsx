@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Transaction } from "./Transaction";
-import { GlobalContext } from "../../context-providers/GlobalStateProvider";
+import { GlobalContext } from "../../context-providers/GlobalContextProvider";
 import DragList from "../draggableComponent/DraggableLists";
 import { uuidv4 } from "../../utils/helpers";
 

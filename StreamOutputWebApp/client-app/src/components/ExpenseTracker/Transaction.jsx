@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { GlobalContext } from "../../context-providers/GlobalStateProvider";
+import { GlobalContext } from "../../context-providers/GlobalContextProvider";
 
 export const Transaction = ({ transaction }) => {
   const { deleteTransaction } = useContext(GlobalContext);
