@@ -2,9 +2,12 @@ import React, { useEffect } from "react";
 import Prism from "prismjs";
 import "../../prism.css";
 
-const code = `const dictionary = {the: 22038615, be: 12545825, and: 10741073, of: 10343885, a: 10144200, in: 6996437, to: 6332195 /* ... */};
+//works with Regex in background
 
-function getWordFrequency(dictionary, word) {
+const code = `const dictionary = {the: 22038615, be: 12545825, and: 10741073, 
+  of: 10343885, a: 10144200, in: 6996437, to: 6332195 /* ... */};
+
+function etWordFrequency(dictionary, word) {
   return dictionary[word];
 }
 
@@ -51,7 +54,7 @@ const SyntaxHighlighterMain = () => {
           <code className="language-js">{code}</code>
         </pre>
       </div>
-      <h1>shhshshhs</h1>
+      <h1>css</h1>
       <div className="gatsby-highlight">
         <pre>
           <code className="language-css">{csscode}</code>

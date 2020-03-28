@@ -55,3 +55,5 @@ export const TransactionList = () => {
     </>
   );
 };
+
+//sfc snippet for func component !!!!!!!!
