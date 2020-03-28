@@ -6,13 +6,18 @@ const ExampleHighlighter = () => {
   return (
     <>
       <div style={inlineCss}>
+        <h1>js</h1>
         <SyntaxHighlighterMain {...{ code: code, language: "js" }} />
       </div>
       <div style={inlineCss}>
+        <h1>css</h1>
+
         <SyntaxHighlighterMain {...{ code: csscode, language: "css" }} />
       </div>
       <div style={inlineCss}>
-        <SyntaxHighlighterMain {...{ code: jsxcode, language: "css" }} />
+        <h1>jsx</h1>
+
+        <SyntaxHighlighterMain {...{ code: jsxcode, language: "jsx" }} />
       </div>
     </>
   );
