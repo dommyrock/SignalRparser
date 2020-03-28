@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import Prism from "prismjs";
+import "prismjs";
 import "../../prism.css";
-
-//works with Regex in background
+//prismjs import is only thing needed for now-->works with Regex in background
 
 const code = `const dictionary = {the: 22038615, be: 12545825, and: 10741073, 
   of: 10343885, a: 10144200, in: 6996437, to: 6332195 /* ... */};

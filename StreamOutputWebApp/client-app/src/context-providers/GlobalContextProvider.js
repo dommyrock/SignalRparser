@@ -1,10 +1,8 @@
 // PROVIDERS PROVIDE STATE AND METHODS TO CHILDREN NESTED IN THEM , WITHOUT PROVIDED STATE AND METHODS THEY DONT RENDER PROPERLY !
-
 //NOTE : If i need separate ContextProviders...
-//make new files "NewContextProvider", duplicate this structure ..than nest it in AppRouter above component that needs access to ctx
+//make "NewLocalContextProvider", duplicate this structure ,add it to same folder, than nest it in AppRouter above component that needs access to ctx
 import React, { createContext, useReducer } from "react";
 import { uuidv4 } from "../utils/helpers";
-
 //Reducers (reducers contain functions for state mutations/updates)
 import { transactionReducer, ADD_TRANSACTION, DELETE_TRANSACTION } from "../reducers/TransactionReducer";
 
