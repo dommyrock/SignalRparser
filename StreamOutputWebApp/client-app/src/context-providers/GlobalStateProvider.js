@@ -1,6 +1,8 @@
 import React, { createContext, useReducer } from "react";
-import TransactionReducer from "../reducers/TransactionReducer";
+import { transactionReducer, ADD_TRANSACTION, DELETE_TRANSACTION } from "../reducers/TransactionReducer";
 import { uuidv4 } from "../utils/helpers";
+
+//Import specific reducers here, and useReducer for each one .(reducers contain functions for state mutations/updates)
 
 // Initial state
 const initialState = {
@@ -17,23 +19,22 @@ const initialState = {
 export const GlobalContext = createContext(initialState);
 
 // Provider component
-export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(TransactionReducer, initialState);
+export const GlobalProvider = props => {
+  const [state, dispatch] = useReducer(transactionReducer, initialState);
 
-  // Actions
-  function deleteTransaction(id) {
-    dispatch({
-      type: "DELETE_TRANSACTION",
-      payload: id
-    });
+  //#region  Actions
+
+  //delete after 500ms delay (like debounce...)
+  function deleteTransaction(transactionId) {
+    setTimeout(() => {
+      dispatch({ type: DELETE_TRANSACTION, payload: transactionId });
+    }, 500);
   }
 
   function addTransaction(transaction) {
-    dispatch({
-      type: "ADD_TRANSACTION",
-      payload: transaction
-    });
+    dispatch({ type: ADD_TRANSACTION, payload: transaction });
   }
+  //#endregion
 
   return (
     <GlobalContext.Provider
@@ -44,7 +45,7 @@ export const GlobalProvider = ({ children }) => {
         addTransaction
       }}
     >
-      {children}
+      {props.children}
     </GlobalContext.Provider>
   );
 };
