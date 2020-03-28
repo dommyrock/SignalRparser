@@ -11,7 +11,18 @@ const ExampleHighlighter = () => {
           <SyntaxHighlighterMain {...{ code: code, language: "js" }} />
         </div>
         <div className="two-columns-column right-div-highlight" style={margin_top}>
+          {" "}
+          //extract this div to separate component ...
           <h1>title placeholders</h1>
+          <iframe
+            class="IRDadbHkJGPfjbO4QZWKA"
+            style={{ margin: "10px" }}
+            width="300"
+            height="150"
+            src="https://www.youtube.com/embed/0eJEUOk6eCU"
+            frameborder="0"
+            allowfullscreen=""
+          ></iframe>
         </div>
       </div>
       <div className="two-columns-row" style={margin_bottom}>
@@ -26,7 +37,7 @@ const ExampleHighlighter = () => {
           <h1>jsx</h1>
           <SyntaxHighlighterMain {...{ code: jsxcode, language: "jsx" }} />
         </div>
-        <div className="two-columns-column">
+        <div className="two-columns-column right-div-highlight" style={margin_top}>
           <h2>dont even need text</h2>
         </div>
       </div>
