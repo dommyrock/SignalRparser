@@ -12,12 +12,13 @@ code {
 
 .two-columns-row {
   display: flex;
+  /* margin-bottom: 50px; */
 }
 .two-columns-column {
   flex: 50%;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 950px) {
   .two-columns-row,
   .two-columns-column {
     display: block;
