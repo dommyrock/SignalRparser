@@ -138,8 +138,6 @@ div {
 }
 .column .flex-row:hover {
   background: #f5f5f5;
-  /* -webkit-transition: 500ms;
-  transition: 500ms; */
 }
 
 .flex-cell {
