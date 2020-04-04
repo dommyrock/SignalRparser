@@ -4,10 +4,10 @@ import { IncomeExpenses } from "../ExpenseTracker/IncomeExpenses";
 import { TransactionList } from "../ExpenseTracker/TransactionsList";
 import { AddTransaction } from "../ExpenseTracker/AddTransaction";
 
-import "./expenses.css"; //cascades all the way to parent....for scoped css use css modals,styled components
+// import "./expenses.css"; //cascades all the way to parent....for scoped css use css modals,styled components
 
 const inlineCss = {
-  textAlign: "center"
+  textAlign: "center",
 };
 const ExpenseTracker = () => {
   return (

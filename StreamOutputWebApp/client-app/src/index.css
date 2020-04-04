@@ -1,12 +1,25 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 body {
   margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif; */
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+  "Droid Sans", "Helvetica Neue", sans-serif; */
+
+/* THIS BODY CSS MOVED FROM expenses.css because it was leaking to global css  */
+/* body { 
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -14,10 +27,10 @@ code {
 
 .two-columns-row {
   display: flex;
-  /* margin-bottom: 50px; */
 }
 .two-columns-column {
   flex: 50%;
+  max-width: 800px;
 }
 
 @media screen and (max-width: 950px) {
@@ -49,7 +62,8 @@ div {
   font-size: 20px;
   display: block;
   margin: 2em auto;
-  /* width: 90%; */
+  width: 90%;
+  max-width: 1200px;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);

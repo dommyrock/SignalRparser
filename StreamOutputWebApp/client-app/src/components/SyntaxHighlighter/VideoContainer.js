@@ -3,10 +3,10 @@ import React from "react";
 const margin_top_left_col2 = {
   marginTop: "45px",
   marginLeft: "10px",
-  paddingLeft: "50px"
+  paddingLeft: "50px",
 };
 
-const VideoContainer = props => {
+const VideoContainer = (props) => {
   return (
     <div className="two-columns-column right-div-highlight" style={margin_top_left_col2}>
       <h1>title placeholders</h1>
@@ -16,8 +16,8 @@ const VideoContainer = props => {
           width={props.width}
           height={props.height}
           src={props.src}
-          frameborder="0"
-          allowfullscreen=""
+          frameBorder="0"
+          allowFullScreen=""
         ></iframe>
       </div>
     </div>
