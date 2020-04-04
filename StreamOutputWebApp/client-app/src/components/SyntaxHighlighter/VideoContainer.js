@@ -12,7 +12,6 @@ const VideoContainer = props => {
       <h1>title placeholders</h1>
       <div style={{ position: "relative" }}>
         <iframe
-          class="IRDadbHkJGPfjbO4QZWKA"
           style={{ margin: "10px" }}
           width={props.width}
           height={props.height}
