@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 //import { HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState } from "@aspnet/signalr"; dont need this npm
 //import { MessagePackHubProtocol } from '@aspnet/signalr-protocol-msgpack'; add npm if i want to switch protocols
 import "./stream.css"; //make strict unique classes to keep css local or styledComponents(example@ https://github.com/ashokdudhade/todo-with-hooks/blob/master/src/components/ToDoHome.js)
+import styles from "../ExpenseTracker/expenses.module.css";
 const signalR = require("@microsoft/signalr");
 
 //Todo , could import data to some graph that displays number of msgs incoming per sec,min ... total count ...
@@ -19,7 +20,7 @@ const SignalRStream = () => {
         .build();
 
       //client reconnected  -
-      connection.onreconnected(async function() {
+      connection.onreconnected(async function () {
         //const connectedClients = await connection.invoke("ListStreams");
         const connectedClients = await connection.invoke("GetSensorNames");
         connectedClients.forEach(subscribeToSensor);
@@ -29,7 +30,7 @@ const SignalRStream = () => {
         //start conn
         await connection.start();
         //const connectedClients = await connection.invoke("ListStreams"); //V1
-        const sensorNames = await connection.invoke("GetSensorNames").catch(err => console.error(err.toString()));
+        const sensorNames = await connection.invoke("GetSensorNames").catch((err) => console.error(err.toString()));
         sensorNames.forEach(subscribeToSensor);
         connection.on("SensorAdded", subscribeToSensor);
       } catch (error) {
@@ -39,7 +40,7 @@ const SignalRStream = () => {
         console.log(`Client: ${sensorName} Subscribed! -->Starting to read data produced by ${sensorName}`);
 
         connection.stream("GetSensorData", sensorName).subscribe({
-          next: item => {
+          next: (item) => {
             console.log(item);
             //conditionaly render diff styles for incoming data containers
             const btn = document.createElement("button");
@@ -73,14 +74,14 @@ const SignalRStream = () => {
             btn.textContent = `${sensorName} Stream Completed.`;
             document.getElementById("messagesList").appendChild(btn);
           },
-          error: err => {
+          error: (err) => {
             console.log(`${sensorName} error: "${err}"`);
             var btn = document.createElement("btn");
             btn.className = "buttonPink";
 
             btn.textContent = err;
             document.getElementById("messagesList").appendChild(btn);
-          }
+          },
         });
       }
 
@@ -90,7 +91,7 @@ const SignalRStream = () => {
       //   });
 
       //metod on "StreamOutputHubV2" --> "PublishSensorData" method
-      connection.on("StreamRemoved", stream => {
+      connection.on("StreamRemoved", (stream) => {
         console.log("Stream removed(Client ended stream). Disconnecting client now...");
         console.log(stream);
       });
@@ -109,7 +110,7 @@ const SignalRStream = () => {
   // [] -->specifies that we will be calling this effect only when the component first mounts.
   return (
     <>
-      <div className="inc-exp-container">
+      <div className={styles.inc_exp_container}>
         <h1>SignalR Stream component</h1>
       </div>
       <div id="messagesList"></div>
