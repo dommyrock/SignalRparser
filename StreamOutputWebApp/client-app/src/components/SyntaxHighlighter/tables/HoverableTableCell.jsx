@@ -1,13 +1,15 @@
 import React from "react";
-// import proptypes from "prop-types";
+import PropTypes from "prop-types";
 
-const HoverableTableCell = (cellText) => {
+const HoverableTableCell = ({ cell }) => {
+  let cellText = cell; /* cellText passed from HoverableTableCell parent*/
   return (
-    /* cellText passed from HoverableTableCell parent*/
     <div className="flex-row first" role="cell">
       {cellText}
     </div>
   );
 };
-
+HoverableTableCell.propTypes = {
+  cell: PropTypes.string.isRequired, //axample of prop type setting
+};
 export default HoverableTableCell;
