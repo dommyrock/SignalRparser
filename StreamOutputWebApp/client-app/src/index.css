@@ -279,3 +279,24 @@ div {
     border-bottom: solid 1px #d9d9d9;
   }
 }
+/*extended css table w 10 columns  ends*/
+
+/*Link css*/
+
+a.a-wiki-custom {
+  color: #2378d8;
+}
+/*a:visited - a link the user has visited*/
+a.a-wiki-custom:visited {
+  color: blueviolet;
+  text-decoration: solid;
+}
+a.a-wiki-custom:hover {
+  color: rgb(226, 43, 195);
+  text-decoration: underline;
+}
+a.a-wiki-custom:active {
+  color: rgb(57, 228, 148);
+  text-decoration: underline;
+}
+/*Link css ends*/

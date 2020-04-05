@@ -10,6 +10,10 @@ const HoverableTable = ({ firstHeader, restOfHeaders, rowsData }) => {
       <div className="flex-table header" role="rowgroup">
         <div className="flex-row-6 first" role="columnheader">
           {firstHeader}
+          <br />
+          <a className="a-wiki-custom" href="https://en.wikipedia.org/wiki/Best,_worst_and_average_case">
+            Wiki
+          </a>
         </div>
         {restOfHeaders.map((header, index) => (
           <div className="flex-row-6" role="columnheader" key={index}>
