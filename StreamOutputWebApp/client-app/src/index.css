@@ -159,7 +159,7 @@ div {
     width: 100%;
   }
 }
-@media all and (max-width: 500px) {
+@media all and (max-width: 650px) {
   .flex-table .flex-row-6 {
     border-bottom: 0;
   }
@@ -252,7 +252,7 @@ div {
     width: 100%;
   }
 }
-@media all and (max-width: 500px) {
+@media all and (max-width: 650px) {
   .flex-table .flex-row-10 {
     border-bottom: 0;
   }
