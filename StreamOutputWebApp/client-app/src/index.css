@@ -82,12 +82,12 @@ div {
   border-top: solid 1px #000000;
   border-left: solid 1px #000000;
 } */
-.flex-table:first-of-type .flex-row {
+.flex-table:first-of-type .flex-row-6 {
   background: rgb(66, 65, 65);
   color: white;
   border-color: rgb(45, 45, 45);
 }
-.flex-table.row:nth-child(odd) .flex-row {
+.flex-table.row:nth-child(odd) .flex-row-6 {
   background: #f4f2f1;
 }
 .flex-table:hover {
@@ -96,7 +96,7 @@ div {
   transform: scale(1.01, 1.05);
 }
 
-.flex-row {
+.flex-row-6 {
   width: calc(100% / 6);
   text-align: center;
   padding: 0.5em 0.5em;
@@ -125,7 +125,7 @@ div {
   width: 75%;
   padding: 0;
 }
-.column .flex-row {
+.column .flex-row-6 {
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: horizontal;
@@ -136,10 +136,10 @@ div {
   border: 0;
   border-bottom: solid 1px #d9d9d9;
 }
-.column .flex-row:hover {
+.column .flex-row-6:hover {
   background: #f5f5f5;
 }
-
+/*flex-cell used only nested cell structure*/
 .flex-cell {
   width: calc(100% / 4);
   text-align: center;
@@ -148,10 +148,10 @@ div {
 }
 
 @media all and (max-width: 767px) {
-  .flex-row {
+  .flex-row-6 {
     width: calc(100% / 5);
   }
-  .flex-row.first {
+  .flex-row-6.first {
     width: 100%;
   }
 
@@ -160,21 +160,21 @@ div {
   }
 }
 @media all and (max-width: 500px) {
-  .flex-table .flex-row {
+  .flex-table .flex-row-6 {
     border-bottom: 0;
   }
-  .flex-table .flex-row:last-of-type {
+  .flex-table .flex-row-6:last-of-type {
     border-bottom: solid 1px #d9d9d9;
   }
 
-  .header .flex-row {
+  .header .flex-row-6 {
     border-bottom: solid 1px;
   }
 
-  .flex-row {
+  .flex-row-6 {
     width: 100%;
   }
-  .flex-row.first {
+  .flex-row-6.first {
     width: 100%;
     border-bottom: solid 1px #d9d9d9;
   }
@@ -182,7 +182,7 @@ div {
   .column {
     width: 100%;
   }
-  .column .flex-row {
+  .column .flex-row-6 {
     border-bottom: solid 1px #d9d9d9;
   }
 
