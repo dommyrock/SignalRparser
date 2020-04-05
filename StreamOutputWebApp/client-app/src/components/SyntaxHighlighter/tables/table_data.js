@@ -1,4 +1,5 @@
-export const headers = [
+export const algorithmHeaders = [
+  "Algorithm",
   "Data structure",
   "Time complexity:Best",
   "Time complexity:Average",
@@ -6,7 +7,7 @@ export const headers = [
   "Space complexity:Worst",
 ];
 //Sorting algorithms TC
-export const rows = [
+export const algorithmRows = [
   ["Quick sort", "Array", "O(n log(n))", "O(n log(n))", "O(n2)", "O(n)"],
   ["Merge sort", "Array", "O(n log(n))", "O(n log(n))", "O(n log(n))", "O(n)"],
   ["Heap sort", "Array", "O(n log(n))", "O(n log(n))", "O(n log(n))", "O(1)"],
@@ -18,7 +19,19 @@ export const rows = [
 ];
 
 //Data structures TC
-export const dataSturctures = [
+export const dataStructureHeaders = [
+  "Data structure",
+  "Avg: Indexing",
+  "Avg: Search",
+  "Avg: Insertion",
+  "Avg: Deletion",
+  "Worst: Indexing",
+  "Worst: Search",
+  "Worst: Insertion",
+  "Worst: Deletion",
+  "Space complexity:worst",
+];
+export const dataStructureRows = [
   ["Basic array", "O(1)", "O(n)", "—", "—", "O(1)", "O(n)", "—", "—", "O(n)"],
   ["Dynamic array", "O(1)", "O(n)", "O(n)", "—", "O(1)", "O(n)", "O(n)", "—", "O(n)"],
   ["Singly linked", "list	O(n)", "O(n)", "O(1)", "O(1)", "O(n)", "O(n)", "O(1)", "O(1)", "O(n)"],
