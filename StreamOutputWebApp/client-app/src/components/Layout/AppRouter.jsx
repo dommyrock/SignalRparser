@@ -5,7 +5,7 @@ import SignalRStream from "../SignalrStream/Stream";
 import ExampleHighlighter from "../SyntaxHighlighter/ExampleHighlighter";
 import GithubFeaturedList from "../SyntaxHighlighter/GithubFeatured/GithubFeaturedList";
 import HoverableTableExample from "../SyntaxHighlighter/tables/HoverableTableExample";
-
+//Router info https://reacttraining.com/react-router/web/api/BrowserRouter (browser router /hash router (for static files) should wrap whole App.js in index.js to work properly!)
 const AppRouter = () => {
   return (
     <Switch>
