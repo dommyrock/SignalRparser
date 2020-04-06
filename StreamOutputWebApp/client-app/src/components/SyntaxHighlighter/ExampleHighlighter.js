@@ -2,15 +2,20 @@ import React from "react";
 import { jscode, jsxcode, csscode } from "./codeContainer";
 import SyntaxHighlighterMain from "./SyntaxHighlighterMain";
 import VideoContainer from "./VideoContainer";
+import { Link } from "react-router-dom";
 
 const ExampleHighlighter = () => {
   const width = "300";
   const height = "150";
   return (
     <>
-      <a href="/table">
-        <h2>Table example</h2>
-      </a>
+      <Link to="/table">
+        <h2>-Table example</h2>
+      </Link>
+      <Link to="/featured">
+        <h2>-Animated data example</h2>
+      </Link>
+
       <div className="two-columns-row" style={center_children}>
         <div className="two-columns-column">
           <h1>js</h1>

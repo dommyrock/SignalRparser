@@ -2,7 +2,7 @@
   "name": "client-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dommyrock.github.io/SignalRparser",
+  "homepage": "https://dommyrock.github.io/gh-deploy",
   "dependencies": {
     "@aspnet/signalr": "^1.1.4",
     "@babel/compat-data": "^7.8.0",
