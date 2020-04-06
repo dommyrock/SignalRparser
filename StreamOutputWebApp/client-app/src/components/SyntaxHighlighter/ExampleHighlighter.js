@@ -8,6 +8,9 @@ const ExampleHighlighter = () => {
   const height = "150";
   return (
     <>
+      <a href="/table">
+        <h2>Table example</h2>
+      </a>
       <div className="two-columns-row" style={center_children}>
         <div className="two-columns-column">
           <h1>js</h1>
