@@ -9,19 +9,20 @@ const ExampleHighlighter = () => {
   const height = "150";
   return (
     <>
-      <Link to="/table">
-        <h2>-Table example</h2>
-      </Link>
-      <Link to="/featured">
-        <h2>-Animated data example</h2>
-      </Link>
-      <Link to="/expenses">
-        <h2>-Expenses calculator example</h2>
-      </Link>
-      <Link to="/stream">
-        <h2>-stream route</h2>
-      </Link>
-
+      <div>
+        <Link to="/table">
+          <h2>-Table example</h2>
+        </Link>
+        <Link to="/featured">
+          <h2>Animated data example</h2>
+        </Link>
+        <Link to="/expenses">
+          <h2>Expenses calculator example</h2>
+        </Link>
+        <Link to="/stream">
+          <h2>Stream route</h2>
+        </Link>
+      </div>
       <div className="two-columns-row" style={center_children}>
         <div className="two-columns-column">
           <h1>js</h1>
