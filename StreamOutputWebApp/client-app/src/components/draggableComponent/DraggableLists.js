@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 // import uuidv4 from "uuidv4/v4"; guid library, dont have npm for it here
 
-const DraggableList = dataArray => {
+const DraggableList = (dataArray) => {
   // debugger;
   console.log(dataArray);
 
@@ -24,12 +24,12 @@ const DraggableList = dataArray => {
         ...columns,
         [source.droppableId]: {
           ...sourceColumn,
-          items: sourceItems
+          items: sourceItems,
         },
         [destination.droppableId]: {
           ...destColumn,
-          items: destItems
-        }
+          items: destItems,
+        },
       });
     } else {
       const column = columns[source.droppableId];
@@ -40,8 +40,8 @@ const DraggableList = dataArray => {
         ...columns,
         [source.droppableId]: {
           ...column,
-          items: copiedItems
-        }
+          items: copiedItems,
+        },
       });
     }
   };
@@ -49,14 +49,14 @@ const DraggableList = dataArray => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
-      <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
+      <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
         {Object.entries(columns).map(([columnId, column], index) => {
           return (
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center"
+                alignItems: "center",
               }}
               key={columnId}
             >
@@ -72,7 +72,7 @@ const DraggableList = dataArray => {
                           background: snapshot.isDraggingOver ? "lightblue" : "lightgrey",
                           padding: 4,
                           width: 250,
-                          minHeight: 500
+                          minHeight: 500,
                         }}
                       >
                         {column.items.map((item, index) => {
@@ -91,7 +91,7 @@ const DraggableList = dataArray => {
                                       minHeight: "50px",
                                       backgroundColor: snapshot.isDragging ? "#263B4A" : "#456C86", //changes elements color onDrag
                                       color: "white",
-                                      ...provided.draggableProps.style
+                                      ...provided.draggableProps.style,
                                     }}
                                   >
                                     {item.content}

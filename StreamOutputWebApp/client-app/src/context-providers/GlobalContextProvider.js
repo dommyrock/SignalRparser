@@ -13,17 +13,16 @@ const initialState = {
     { id: uuidv4(), content: "First task" },
     { id: uuidv4(), content: "Second task" },
     { id: uuidv4(), content: "Third task" },
-    { id: uuidv4(), content: "Fourth task" }
-  ]
+    { id: uuidv4(), content: "Fourth task" },
+  ],
 };
 
 // Create context
 export const GlobalContext = createContext(initialState);
 
 // Provider component
-export const GlobalProvider = props => {
+export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(transactionReducer, initialState);
-
   //#region  Actions
 
   //delete after 500ms delay (like debounce...)
@@ -44,7 +43,7 @@ export const GlobalProvider = props => {
         transactions: state.transactions,
         mockTasks: state.mockTasks,
         deleteTransaction,
-        addTransaction
+        addTransaction,
       }}
     >
       {props.children}
