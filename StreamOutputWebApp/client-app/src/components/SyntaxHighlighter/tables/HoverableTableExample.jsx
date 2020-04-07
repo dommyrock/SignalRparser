@@ -1,7 +1,6 @@
 import React from "react";
 import HoverableTable from "./HoverableTable";
 import { algorithmHeaders, algorithmRows, dataStructureHeaders, dataStructureRows } from "./table_data";
-import Hoverable10ColTable from "./10columnTable/Hoverable10ColTable";
 // beutifull dnd table example :https://github.com/atlassian/react-beautiful-dnd/blob/master/stories/src/table/with-fixed-columns.jsx
 
 /*data  @src https://en.wikipedia.org/wiki/Best,_worst_and_average_case */
@@ -17,7 +16,7 @@ const HoverableTableExample = () => {
 
   return (
     <>
-      <div className="table-container" role="table" aria-label="Destinations">
+      <div className="table-container-6" role="table" aria-label="Destinations">
         <div className="flex-table header" role="rowgroup">
           <div className="flex-row-6 first" role="columnheader">
             Country
@@ -60,52 +59,58 @@ const HoverableTableExample = () => {
         </div>
         {/*aditional grids inside row example */}
         {/* <div className="flex-table row" role="rowgroup">
-        <div className="flex-row-6 rowspan first">United States</div>
-        <div className="column">
-          <div className="flex-row-6">
-            <div className="flex-cell" role="cell">
-              Napa and Sonoma Wine Country Tour
+          <div className="flex-row-6 rowspan first">United States</div>
+          <div className="column">
+            <div className="flex-row-6">
+              <div className="flex-cell" role="cell">
+                Napa and Sonoma Wine Country Tour
+              </div>
+              <div className="flex-cell" role="cell">
+                5 Sep, 9p.m.
+              </div>
+              <div className="flex-cell" role="cell">
+                US$600
+              </div>
+              <div className="flex-cell" role="cell">
+                US$600
+              </div>
+              <div className="flex-cell" role="cell">
+                US$65
+              </div>
             </div>
-            <div className="flex-cell" role="cell">
-              5 Sep, 9p.m.
+            <div className="flex-row-6" role="rowgroup">
+              <div className="flex-cell" role="cell">
+                Day Trip to Martha's Vineyard
+              </div>
+              <div className="flex-cell" role="cell">
+                12 Sep, 5p.m.
+              </div>
+              <div className="flex-cell" role="cell">
+                US$600
+              </div>
+              <div className="flex-cell" role="cell">
+                US$600
+              </div>
             </div>
-            <div className="flex-cell" role="cell">
-              US$600
-            </div>
-            <div className="flex-cell" role="cell">
-              US$600
+            <div className="flex-row-6" role="rowgroup">
+              <div className="flex-cell" role="cell">
+                Grand Canyon West Rim and Hoover Dam Tour
+              </div>
+              <div className="flex-cell" role="cell">
+                5 Sep, 2p.m.
+              </div>
+              <div className="flex-cell" role="cell">
+                US$550
+              </div>
+              <div className="flex-cell" role="cell">
+                US$550
+              </div>
+              <div className="flex-cell" role="cell">
+                US$65
+              </div>
             </div>
           </div>
-          <div className="flex-row-6" role="rowgroup">
-            <div className="flex-cell" role="cell">
-              Day Trip to Martha's Vineyard
-            </div>
-            <div className="flex-cell" role="cell">
-              12 Sep, 5p.m.
-            </div>
-            <div className="flex-cell" role="cell">
-              US$600
-            </div>
-            <div className="flex-cell" role="cell">
-              US$600
-            </div>
-          </div>
-          <div className="flex-row-6" role="rowgroup">
-            <div className="flex-cell" role="cell">
-              Grand Canyon West Rim and Hoover Dam Tour
-            </div>
-            <div className="flex-cell" role="cell">
-              5 Sep, 2p.m.
-            </div>
-            <div className="flex-cell" role="cell">
-              US$550
-            </div>
-            <div className="flex-cell" role="cell">
-              US$550
-            </div>
-          </div>
-        </div>
-      </div> */}
+        </div> */}
         <div className="flex-table row" role="rowgroup">
           <div className="flex-row-6 first" role="cell">
             {" "}
@@ -128,8 +133,12 @@ const HoverableTableExample = () => {
           </div>
         </div>
       </div>
-      <HoverableTable {...{ firstHeader: firstHeader, restOfHeaders: restOfHeaders, rowsData: algorithmRows }} />
-      <Hoverable10ColTable {...{ firstHeader: first10, restOfHeaders: restOfH10, rowsData: dataStructureRows }} />
+      <HoverableTable
+        {...{ firstHeader: firstHeader, restOfHeaders: restOfHeaders, rowsData: algorithmRows, columns: 6 }}
+      />
+      <HoverableTable
+        {...{ firstHeader: first10, restOfHeaders: restOfH10, rowsData: dataStructureRows, columns: 10 }}
+      />
     </>
   );
 };
