@@ -58,7 +58,7 @@ div {
   box-sizing: border-box;
 }
 
-.table-container {
+.table-container-6 {
   font-size: 20px;
   display: block;
   margin: 2em auto;
@@ -141,7 +141,7 @@ div {
 }
 /*flex-cell used only nested cell structure*/
 .flex-cell {
-  width: calc(100% / 4);
+  width: calc(100% / 5);
   text-align: center;
   padding: 0.5em 0.5em;
   border-right: solid 1px #d9d9d9;
