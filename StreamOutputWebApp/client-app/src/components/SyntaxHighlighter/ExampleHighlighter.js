@@ -1,5 +1,5 @@
-import React from "react";
-import { jscode, jsxcode, csscode } from "./codeContainer";
+import React, { useState, useCallback } from "react";
+import { jscode, jsxcode, csscode, optimalHMImplementation } from "./codeContainer";
 import SyntaxHighlighterMain from "./SyntaxHighlighterMain";
 import VideoContainer from "./VideoContainer";
 import { Link } from "react-router-dom";
@@ -7,6 +7,13 @@ import { Link } from "react-router-dom";
 const ExampleHighlighter = () => {
   const width = "300";
   const height = "150";
+
+  const [showOptimalHMBtnState, setShowHMBtnState] = useState(false);
+  //memoized callBACK
+  const handleClickOptimalHM = useCallback(() => {
+    setShowHMBtnState(!showOptimalHMBtnState);
+  }, [showOptimalHMBtnState]);
+  // TODO: OPTIMIZE RE-RENDERING OF OTHER SyntaxHighlighterMain WHEN STATE CHANGES ONLY "showOptimalHMBtnState"
   return (
     <>
       <div>
@@ -46,6 +53,19 @@ const ExampleHighlighter = () => {
           <h2>dont even need text</h2>
         </div>
       </div>
+      <div style={{ textAlign: "center" }}>
+        <button className="buttonBlue" onClick={handleClickOptimalHM}>
+          Show Optimal Hash Map code
+        </button>
+      </div>
+      {showOptimalHMBtnState && (
+        <div className="two-columns-row" style={center_children}>
+          <div className="two-columns-column">
+            <h1>Optimal Hash Map implementation</h1>
+            <SyntaxHighlighterMain {...{ code: optimalHMImplementation, language: "js" }} />
+          </div>
+        </div>
+      )}
       <h2>testing img linking(by default react knows they are in pub folder)</h2>
       <img src={process.env.PUBLIC_URL + "/big-o-running-time-complexity.png"} alt="image" />
     </>
@@ -53,7 +73,15 @@ const ExampleHighlighter = () => {
 };
 
 export default ExampleHighlighter;
+/*conditional rendering info :https://reactjs.org/docs/conditional-rendering.html
 
+---passing  params to event handlers -->
+---hoooks -->https://stackoverflow.com/questions/55001372/correct-way-to-create-event-handlers-using-hooks-in-react
+---classes -->https://stackoverflow.com/questions/29810914/react-js-onclick-cant-pass-value-to-method
+
+--preventing all components to rereneder on state change:https://medium.com/@guptagaruda/react-hooks-understanding-component-re-renders-9708ddee9928#204b
+--re renderign FAQ :https://stackoverflow.com/questions/55373878/what-are-the-differences-when-re-rendering-after-state-was-set-with-hooks-compar
+*/
 const center_children = {
   justifyContent: "center",
 };

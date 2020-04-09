@@ -57,3 +57,26 @@ export const dataStructureRows = [
   ["AVL tree", "—", "O(log (n))", "O(log (n))", "O(log (n))", "—", "O(log (n))", "O(log (n))", "O(log (n))", "O(n)"],
   ,
 ];
+/**function description example
+ * @param commonJSfunc
+ * param description example
+ */
+export const commonJSfunc = [
+  ["array.push", "O(1)", "Insert element to the end of the array"],
+  ["array.pop", "O(1)", "Remove element to the end of the array"],
+  ["array.shift", "O(n)", "Remove element to the beginning of the"],
+  ["array.unshift", "O(n)", "Insert element(s) to the beginning of the"],
+  ["array.slice", "O(n)", "Returns a copy of the array from beginning"],
+  ["array.splice", "O(n)", "Changes (add/remove) the array"],
+];
+export const commonJSfuncHeaders = ["Function", "Runtime", "Description"];
+
+//Array operations time complexity
+export const arrayOTCHeaders = ["Operation", "Worst"];
+export const arrayOTC = [
+  ["Access (Array.[])", "O(1)"],
+  ["Insert head (Array.unshift)", "O(n)"],
+  ["Insert tail (Array.push)", "O(1)"],
+  ["Search (for value)", "O(n)"],
+  ["Delete (Array.splice)", "O(n)"],
+];

@@ -1,6 +1,15 @@
 import React from "react";
 import HoverableTable from "./HoverableTable";
-import { algorithmHeaders, algorithmRows, dataStructureHeaders, dataStructureRows } from "./table_data";
+import {
+  algorithmHeaders,
+  algorithmRows,
+  dataStructureHeaders,
+  dataStructureRows,
+  commonJSfunc,
+  commonJSfuncHeaders,
+  arrayOTCHeaders,
+  arrayOTC,
+} from "./table_data";
 // beutifull dnd table example :https://github.com/atlassian/react-beautiful-dnd/blob/master/stories/src/table/with-fixed-columns.jsx
 
 /*data  @src https://en.wikipedia.org/wiki/Best,_worst_and_average_case */
@@ -8,14 +17,22 @@ const HoverableTableExample = () => {
   const firstHeader = algorithmHeaders[0];
   algorithmHeaders.shift(); //remove 1st element
   const restOfHeaders = algorithmHeaders;
-
   //10 col table data
   const first10 = dataStructureHeaders[0];
   dataStructureHeaders.shift();
   const restOfH10 = dataStructureHeaders;
+  //common js func
+  const firstCommonjs = commonJSfuncHeaders[0];
+  commonJSfuncHeaders.shift();
+  const restOfCOmmonJS = commonJSfuncHeaders;
+  //array ops tc
+  const arrOpsTCFirst = arrayOTCHeaders[0];
+  arrayOTCHeaders.shift();
+  const restarrOpsTC = arrayOTCHeaders;
 
   return (
     <>
+      {/* Exaple with nested cells as well */}
       <div className="table-container-6" role="table" aria-label="Destinations">
         <div className="flex-table header" role="rowgroup">
           <div className="flex-row-6 first" role="columnheader">
@@ -136,11 +153,26 @@ const HoverableTableExample = () => {
       <HoverableTable
         {...{ firstHeader: firstHeader, restOfHeaders: restOfHeaders, rowsData: algorithmRows, columns: 6 }}
       />
+      <h3 style={inlineCss}>Data Structures Big-O</h3>
       <HoverableTable
         {...{ firstHeader: first10, restOfHeaders: restOfH10, rowsData: dataStructureRows, columns: 10 }}
+      />
+      {/* 3 col eample */}
+      <h3 style={inlineCss}>Common JS Array built-in functions</h3>
+      <HoverableTable
+        {...{ firstHeader: firstCommonjs, restOfHeaders: restOfCOmmonJS, rowsData: commonJSfunc, columns: 3 }}
+      />
+      <h3 style={inlineCss}>Array operations time complexity</h3>
+      <HoverableTable
+        {...{ firstHeader: arrOpsTCFirst, restOfHeaders: restarrOpsTC, rowsData: arrayOTC, columns: 2 }}
       />
     </>
   );
 };
 
 export default HoverableTableExample;
+const inlineCss = {
+  textAlign: "center",
+};
+
+//if i vant to hide something form page -->style="visiblity:hidden"
