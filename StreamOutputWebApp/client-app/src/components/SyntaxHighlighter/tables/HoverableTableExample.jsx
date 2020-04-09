@@ -1,6 +1,13 @@
 import React from "react";
 import HoverableTable from "./HoverableTable";
-import { algorithmHeaders, algorithmRows, dataStructureHeaders, dataStructureRows } from "./table_data";
+import {
+  algorithmHeaders,
+  algorithmRows,
+  dataStructureHeaders,
+  dataStructureRows,
+  commonJSfunc,
+  commonJSfuncHeaders,
+} from "./table_data";
 // beutifull dnd table example :https://github.com/atlassian/react-beautiful-dnd/blob/master/stories/src/table/with-fixed-columns.jsx
 
 /*data  @src https://en.wikipedia.org/wiki/Best,_worst_and_average_case */
@@ -13,6 +20,10 @@ const HoverableTableExample = () => {
   const first10 = dataStructureHeaders[0];
   dataStructureHeaders.shift();
   const restOfH10 = dataStructureHeaders;
+  //common js func
+  const firstCommonjs = commonJSfuncHeaders[0];
+  commonJSfuncHeaders.shift();
+  const restOfCOmmonJS = commonJSfuncHeaders;
 
   return (
     <>
@@ -138,6 +149,10 @@ const HoverableTableExample = () => {
       />
       <HoverableTable
         {...{ firstHeader: first10, restOfHeaders: restOfH10, rowsData: dataStructureRows, columns: 10 }}
+      />
+      {/* 3 col eample */}
+      <HoverableTable
+        {...{ firstHeader: firstCommonjs, restOfHeaders: restOfCOmmonJS, rowsData: commonJSfunc, columns: 3 }}
       />
     </>
   );
