@@ -52,3 +52,6 @@ const MyComponent = (props) => {
 }
 
 */
+
+// git new branches in vs code https://www.youtube.com/watch?v=X9-iaXfKY5g
+// stage commits ns vs code https://www.youtube.com/watch?v=NFK18j-HUNU&feature=emb_rel_end
