@@ -11,7 +11,6 @@ const ExpenseTracker = () => {
     <>
       <div className={styles.bodyexpenses}>
         <h2 style={inlineCss}>Expense tracker</h2>
-        <hr />
         <div className={styles.expensescontainer}>
           <Balance />
           <IncomeExpenses />

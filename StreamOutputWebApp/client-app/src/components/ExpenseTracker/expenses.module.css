@@ -150,3 +150,14 @@
 .listexpenses li:hover .deletebtnexpenses {
   opacity: 1;
 }
+
+@media (prefers-color-scheme: dark) {
+  .bodyexpenses,
+  .inc_exp_container {
+    background: #2b2a2ac0;
+  }
+  .inputexpenses[type="text"],
+  .inputexpenses[type="number"] {
+    color: #fff;
+  }
+}
