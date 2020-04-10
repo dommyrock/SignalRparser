@@ -34,4 +34,5 @@ HoverableTable.propTypes = {
   rowsData: PropTypes.array.isRequired,
   columns: PropTypes.number.isRequired,
 };
+// HoverableTableRow.defaultProps={firstHeader:'Ananas'}
 export default HoverableTable;

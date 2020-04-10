@@ -175,4 +175,4 @@ const inlineCss = {
   textAlign: "center",
 };
 
-//if i vant to hide something form page -->style="visiblity:hidden"
+//if i want to hide something form page -->style="visiblity:hidden"

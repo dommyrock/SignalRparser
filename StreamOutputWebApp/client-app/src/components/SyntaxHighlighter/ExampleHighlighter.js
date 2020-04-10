@@ -12,7 +12,7 @@ const ExampleHighlighter = () => {
   //memoized callBACK
   const handleClickOptimalHM = useCallback(() => {
     setShowHMBtnState(!showOptimalHMBtnState);
-  }, [showOptimalHMBtnState]);
+  });
   // TODO: OPTIMIZE RE-RENDERING OF OTHER SyntaxHighlighterMain WHEN STATE CHANGES ONLY "showOptimalHMBtnState"
   return (
     <>
@@ -81,6 +81,11 @@ export default ExampleHighlighter;
 
 --preventing all components to rereneder on state change:https://medium.com/@guptagaruda/react-hooks-understanding-component-re-renders-9708ddee9928#204b
 --re renderign FAQ :https://stackoverflow.com/questions/55373878/what-are-the-differences-when-re-rendering-after-state-was-set-with-hooks-compar
+
+useCallack() mostly to watch props change in chuld components to not re render them all if their state stayed the same
+useMemo() on expensive compoenets to render ....dont overuse 
+
+throttle,debounce hooks https://stackoverflow.com/questions/54666401/how-to-use-throttle-or-debounce-with-react-hook
 */
 const center_children = {
   justifyContent: "center",
