@@ -190,3 +190,12 @@ pre[class*="language-"] {
 .right-div-highlight:hover {
   transform: scale(1.01, 1.05);
 }
+
+/* WINDOWS DARK MODE MEDIA QUERY */
+@media (prefers-color-scheme: dark) {
+  .right-div-highlight,
+  .gatsby-highlight:hover {
+    box-shadow: 0 0 50px #cecece;
+  }
+}
+/* WINDOWS DARK MODE MEDIA QUERY ENDS */
