@@ -37,6 +37,7 @@ const ExampleHighlighter = () => {
         </div>
         <VideoContainer {...{ width: width, height: height, src: "https://www.youtube.com/embed/0eJEUOk6eCU" }} />
       </div>
+      {/* Example without right div container */}
       <div className="two-columns-row" style={center_children}>
         <div className="two-columns-column">
           <h1>css</h1>
@@ -66,13 +67,35 @@ const ExampleHighlighter = () => {
           </div>
         </div>
       )}
-      <h2>testing img linking(by default react knows they are in pub folder)</h2>
-      <img src={process.env.PUBLIC_URL + "/big-o-running-time-complexity.png"} alt="image" />
+      <div className="two-columns-row" style={center_children}>
+        <div className="two-columns-column">
+          <h2>testing img linking(by default react knows they are in pub folder)</h2>
+          <img
+            src={process.env.PUBLIC_URL + "/big-o-running-time-complexity.png"}
+            className="img-aspect-ratio-kept"
+            alt="image"
+          />
+        </div>
+        <div className="two-columns-column"></div>
+      </div>
     </>
   );
 };
 
 export default ExampleHighlighter;
+
+const center_children = {
+  justifyContent: "center",
+};
+const margin_bottom = {
+  marginBottom: "50px",
+};
+const margin_top_left_col2 = {
+  marginTop: "45px",
+  marginLeft: "10px",
+  paddingLeft: "50px",
+};
+//rest of container css in index.css
 /*conditional rendering info :https://reactjs.org/docs/conditional-rendering.html
 
 ---passing  params to event handlers -->
@@ -87,15 +110,3 @@ useMemo() on expensive compoenets to render ....dont overuse
 
 throttle,debounce hooks https://stackoverflow.com/questions/54666401/how-to-use-throttle-or-debounce-with-react-hook
 */
-const center_children = {
-  justifyContent: "center",
-};
-const margin_bottom = {
-  marginBottom: "50px",
-};
-const margin_top_left_col2 = {
-  marginTop: "45px",
-  marginLeft: "10px",
-  paddingLeft: "50px",
-};
-//rest of container css in index.css

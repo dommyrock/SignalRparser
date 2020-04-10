@@ -20,7 +20,37 @@ code {
   flex: 50%;
   max-width: 800px;
 }
+/*Link css*/
 
+a.a-wiki-custom {
+  color: #2378d8;
+}
+/*a:visited - a link the user has visited*/
+a.a-wiki-custom:visited {
+  color: blueviolet;
+  text-decoration: solid;
+}
+a.a-wiki-custom:hover {
+  color: rgb(226, 43, 195);
+  text-decoration: underline;
+}
+a.a-wiki-custom:active {
+  color: rgb(57, 228, 148);
+  text-decoration: underline;
+}
+/*Link css ends*/
+
+/* IMG CSS multiply max-width with 2.42 to keep espect ratio */
+.img-aspect-ratio-kept {
+  display: block;
+  max-width: 1400px;
+  max-height: 579px;
+  width: auto;
+  height: auto;
+}
+/* IMG CSS ends */
+
+/*APP MEDIA QUERIES CSS */
 @media screen and (max-width: 950px) {
   .two-columns-row,
   .two-columns-column {
@@ -40,6 +70,7 @@ code {
     flex-wrap: wrap;
   }
 } */
+/*APP MEDIA QUERIES CSS ENDS*/
 
 /* tables CSS*/
 div {
@@ -66,7 +97,7 @@ div {
   transition: all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
   border-radius: 5px 5px 5px 5px;
 }
-/* .flex-table:first-of-type {
+/* .flex-table:first-of-type { add  borders if u wish later
   border-top: solid 1px #000000;
   border-left: solid 1px #000000;
 } */
@@ -135,49 +166,6 @@ div {
   border-right: solid 1px #d9d9d9;
 }
 
-@media all and (max-width: 767px) {
-  .flex-row-6 {
-    width: calc(100% / 5);
-  }
-  .flex-row-6.first {
-    width: 100%;
-  }
-
-  .column {
-    width: 100%;
-  }
-}
-@media all and (max-width: 650px) {
-  .flex-table .flex-row-6 {
-    border-bottom: 0;
-  }
-  .flex-table .flex-row-6:last-of-type {
-    border-bottom: solid 1px #d9d9d9;
-  }
-
-  .header .flex-row-6 {
-    border-bottom: solid 1px;
-  }
-
-  .flex-row-6 {
-    width: 100%;
-  }
-  .flex-row-6.first {
-    width: 100%;
-    border-bottom: solid 1px #d9d9d9;
-  }
-
-  .column {
-    width: 100%;
-  }
-  .column .flex-row-6 {
-    border-bottom: solid 1px #d9d9d9;
-  }
-
-  .flex-cell {
-    width: 100%;
-  }
-}
 /*Table css ends */
 
 /*extended css table w 10 columns */
@@ -199,10 +187,6 @@ div {
 .flex-table.row:nth-child(odd) .flex-row-10 {
   background: #f4f2f1;
 }
-/* .flex-table:hover {
-  box-shadow: 30px 0 30px #515151;
-  transform: scale(1.01, 1.05);
-} */
 
 .flex-row-10 {
   width: calc(100% / 10);
@@ -226,47 +210,8 @@ div {
 .column .flex-row-10:hover {
   background: #f5f5f5;
 }
-
-@media all and (max-width: 767px) {
-  .flex-row-10 {
-    width: calc(100% / 9);
-  }
-  .flex-row-10.first {
-    width: 100%;
-  }
-
-  .column {
-    width: 100%;
-  }
-}
-@media all and (max-width: 650px) {
-  .flex-table .flex-row-10 {
-    border-bottom: 0;
-  }
-  .flex-table .flex-row-10:last-of-type {
-    border-bottom: solid 1px #d9d9d9;
-  }
-
-  .header .flex-row-10 {
-    border-bottom: solid 1px;
-  }
-
-  .flex-row-10 {
-    width: 100%;
-  }
-  .flex-row-10.first {
-    width: 100%;
-    border-bottom: solid 1px #d9d9d9;
-  }
-
-  .column {
-    width: 100%;
-  }
-  .column .flex-row-10 {
-    border-bottom: solid 1px #d9d9d9;
-  }
-}
 /*extended css table w 10 columns  ends*/
+
 /*extended css table w 3 columns */
 .table-container-3 {
   font-size: 20px;
@@ -286,10 +231,6 @@ div {
 .flex-table.row:nth-child(odd) .flex-row-3 {
   background: #f4f2f1;
 }
-/* .flex-table:hover {
-  box-shadow: 30px 0 30px #515151;
-  transform: scale(1.01, 1.05);
-} */
 
 .flex-row-3 {
   width: calc(100% / 3);
@@ -313,48 +254,8 @@ div {
 .column .flex-row-3:hover {
   background: #f5f5f5;
 }
-
-@media all and (max-width: 767px) {
-  .flex-row-3 {
-    width: calc(100% / 2);
-  }
-  .flex-row-3.first {
-    width: 100%;
-  }
-
-  .column {
-    width: 100%;
-  }
-}
-@media all and (max-width: 650px) {
-  .flex-table .flex-row-3 {
-    border-bottom: 0;
-  }
-  .flex-table .flex-row-3:last-of-type {
-    border-bottom: solid 1px #d9d9d9;
-  }
-
-  .header .flex-row-3 {
-    border-bottom: solid 1px;
-  }
-
-  .flex-row-3 {
-    width: 100%;
-  }
-  .flex-row-3.first {
-    width: 100%;
-    border-bottom: solid 1px #d9d9d9;
-  }
-
-  .column {
-    width: 100%;
-  }
-  .column .flex-row-3 {
-    border-bottom: solid 1px #d9d9d9;
-  }
-}
-
 /*extended css table w 3 columns ends*/
+
 /*extended css table w 2 columns*/
 .table-container-2 {
   font-size: 20px;
@@ -374,10 +275,6 @@ div {
 .flex-table.row:nth-child(odd) .flex-row-2 {
   background: #f4f2f1;
 }
-/* .flex-table:hover {
-  box-shadow: 30px 0 30px #515151;
-  transform: scale(1.01, 1.05);
-} */
 
 .flex-row-2 {
   width: calc(100% / 2);
@@ -401,34 +298,65 @@ div {
 .column .flex-row-2:hover {
   background: #f5f5f5;
 }
+/*extended css table w 2 columns ends*/
+
+/*ALL  TABLES MEDIA QUERIES */
+@media all and (max-width: 925px) {
+  .flex-row-10 {
+    width: calc(100% / 9);
+  }
+  .flex-row-10.first {
+    width: 100%;
+  }
+}
 
 @media all and (max-width: 767px) {
-  .flex-row-2 {
-    width: calc(100% / 1);
+  .flex-row-6 {
+    width: calc(100% / 5);
   }
-  .flex-row-2.first {
+  .flex-row-6.first {
     width: 100%;
   }
 
   .column {
     width: 100%;
   }
+
+  .img-aspect-ratio-kept {
+    max-width: 1100px;
+    max-height: 458px;
+  }
 }
 @media all and (max-width: 650px) {
+  .flex-table .flex-row-10,
+  .flex-table .flex-row-6,
+  .flex-table .flex-row-3,
   .flex-table .flex-row-2 {
     border-bottom: 0;
   }
+  .flex-table .flex-row-10:last-of-type,
+  .flex-table .flex-row-6:last-of-type,
+  .flex-table .flex-row-3:last-of-type,
   .flex-table .flex-row-2:last-of-type {
     border-bottom: solid 1px #d9d9d9;
   }
 
+  .header .flex-row-10,
+  .header .flex-row-6,
+  .header .flex-row-3,
   .header .flex-row-2 {
     border-bottom: solid 1px;
   }
 
+  .flex-row-10,
+  .flex-row-6,
+  .flex-row-3,
   .flex-row-2 {
     width: 100%;
   }
+  .flex-row-10.first,
+  .flex-row-6.first,
+  .flex-row-3.first,
   .flex-row-2.first {
     width: 100%;
     border-bottom: solid 1px #d9d9d9;
@@ -437,31 +365,23 @@ div {
   .column {
     width: 100%;
   }
+  .column .flex-row-10,
+  .column .flex-row-6,
+  .column .flex-row-3,
   .column .flex-row-2 {
     border-bottom: solid 1px #d9d9d9;
   }
-}
-/*extended css table w 2 columns ends*/
 
-/*Link css*/
+  .flex-cell {
+    width: 100%;
+  }
+  .img-aspect-ratio-kept {
+    max-width: 750px;
+    max-height: 310px;
+  }
+}
+/*ALL  TABLES MEDIA QUERIES ENDS*/
 
-a.a-wiki-custom {
-  color: #2378d8;
-}
-/*a:visited - a link the user has visited*/
-a.a-wiki-custom:visited {
-  color: blueviolet;
-  text-decoration: solid;
-}
-a.a-wiki-custom:hover {
-  color: rgb(226, 43, 195);
-  text-decoration: underline;
-}
-a.a-wiki-custom:active {
-  color: rgb(57, 228, 148);
-  text-decoration: underline;
-}
-/*Link css ends*/
 /* WINDOWS DARK MODE WILL SWITCH SITE TO DARK AS WELL*/
 /*  all classes that set elements background to white should be added here , and also to dark section*/
 /*and make sure we add media queryes bellow the classes we want to override */
