@@ -13,15 +13,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.two-columns-row {
+.display-flex {
   display: flex;
 }
-.two-columns-column {
+.nav-buttons-flex-container {
+  background-color: rgb(57, 59, 59);
+  /*resize: horizontal; row can be resized by hand with bottom right arrow  */
+  /* overflow: hidden; */
+  display: flex;
+  align-items: center;
+  margin: 1em;
+  max-width: 1000px;
+}
+.two-columns-row {
   flex: 50%;
   max-width: 800px;
 }
+/* .four-columns-row {
+  flex: auto;
+} */
 /*Link css*/
-
 a.a-wiki-custom {
   color: #2378d8;
 }
@@ -51,21 +62,25 @@ a.a-wiki-custom:active {
 /* IMG CSS ends */
 
 /*APP MEDIA QUERIES CSS */
-@media screen and (max-width: 950px) {
-  .two-columns-row,
-  .two-columns-column {
+@media screen and (max-width: 990px) {
+  .display-flex {
     display: block;
   }
 }
-/* @media screen and (max-width: 555px) {
-  .two-columns-column {
-    flex-basis: 100%;
+@media screen and (max-width: 555px) {
+  .nav-buttons-flex-container {
+    display: block;
+    /* width: 100%; */
   }
-} */
+  button.buttonBlue {
+    /*set btn width in stream.css file from index.css */
+    width: 100%;
+  }
+}
 
 /* @media screen and (max-width: 500px) {
-  .two-columns-row,
-  .two-columns-column {
+  .display-flex,
+  .two-columns-row {
     display: flex;
     flex-wrap: wrap;
   }

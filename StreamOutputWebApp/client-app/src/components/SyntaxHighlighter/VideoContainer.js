@@ -8,7 +8,7 @@ const margin_top_left_col2 = {
 
 const VideoContainer = (props) => {
   return (
-    <div className="two-columns-column right-div-highlight" style={margin_top_left_col2}>
+    <div className="two-columns-row right-div-highlight" style={margin_top_left_col2}>
       <h1>title placeholders</h1>
       <div style={{ position: "relative" }}>
         <iframe
@@ -17,7 +17,7 @@ const VideoContainer = (props) => {
           height={props.height}
           src={props.src}
           frameBorder="0"
-          allowFullScreen=""
+          allowFullScreen="true"
         ></iframe>
       </div>
     </div>

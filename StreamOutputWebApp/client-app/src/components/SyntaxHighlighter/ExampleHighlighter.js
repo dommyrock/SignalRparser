@@ -16,41 +16,44 @@ const ExampleHighlighter = () => {
   // TODO: OPTIMIZE RE-RENDERING OF OTHER SyntaxHighlighterMain WHEN STATE CHANGES ONLY "showOptimalHMBtnState"
   return (
     <>
-      <div>
+      <div className="nav-buttons-flex-container" style={center_children}>
         <Link to="/table">
-          <h2>-Table example</h2>
+          <button className="buttonBlue">Table example</button>
         </Link>
+
         <Link to="/featured">
-          <h2>Animated data example</h2>
+          <button className="buttonBlue">Animated data example</button>
         </Link>
+
         <Link to="/expenses">
-          <h2>Expenses calculator example</h2>
+          <button className="buttonBlue">Expenses calculator example</button>
         </Link>
+
         <Link to="/drag">
-          <h2>Draggable/droppable</h2>
+          <button className="buttonBlue">Draggable/droppable</button>
         </Link>
       </div>
-      <div className="two-columns-row" style={center_children}>
-        <div className="two-columns-column">
+      <div className="display-flex" style={center_children}>
+        <div className="two-columns-row">
           <h1>js</h1>
           <SyntaxHighlighterMain {...{ code: jscode, language: "js" }} />
         </div>
         <VideoContainer {...{ width: width, height: height, src: "https://www.youtube.com/embed/0eJEUOk6eCU" }} />
       </div>
       {/* Example without right div container */}
-      <div className="two-columns-row" style={center_children}>
-        <div className="two-columns-column">
+      <div className="display-flex" style={center_children}>
+        <div className="two-columns-row">
           <h1>css</h1>
           <SyntaxHighlighterMain {...{ code: csscode, language: "css" }} />
         </div>
-        <div className="two-columns-column"></div>
+        <div className="two-columns-row"></div>
       </div>
-      <div className="two-columns-row" style={center_children}>
-        <div className="two-columns-column">
+      <div className="display-flex" style={center_children}>
+        <div className="two-columns-row">
           <h1>jsx</h1>
           <SyntaxHighlighterMain {...{ code: jsxcode, language: "jsx" }} />
         </div>
-        <div className="two-columns-column right-div-highlight" style={margin_top_left_col2}>
+        <div className="two-columns-row right-div-highlight" style={margin_top_left_col2}>
           <h2>dont even need text</h2>
         </div>
       </div>
@@ -60,15 +63,15 @@ const ExampleHighlighter = () => {
         </button>
       </div>
       {showOptimalHMBtnState && (
-        <div className="two-columns-row" style={center_children}>
-          <div className="two-columns-column">
+        <div className="display-flex" style={center_children}>
+          <div className="two-columns-row">
             <h1>Optimal Hash Map implementation</h1>
             <SyntaxHighlighterMain {...{ code: optimalHMImplementation, language: "js" }} />
           </div>
         </div>
       )}
-      <div className="two-columns-row" style={center_children}>
-        <div className="two-columns-column">
+      <div className="display-flex" style={center_children}>
+        <div className="two-columns-row">
           <h2>testing img linking(by default react knows they are in pub folder)</h2>
           <img
             src={process.env.PUBLIC_URL + "/big-o-running-time-complexity.png"}
@@ -76,7 +79,7 @@ const ExampleHighlighter = () => {
             alt="image"
           />
         </div>
-        <div className="two-columns-column"></div>
+        <div className="two-columns-row"></div>
       </div>
     </>
   );
