@@ -80,3 +80,16 @@ export const arrayOTC = [
   ["Search (for value)", "O(n)"],
   ["Delete (Array.splice)", "O(n)"],
 ];
+
+//Big O notation names
+export const bigONamesHeaders = ["Big O Notation", "Name", "Examples"];
+export const bigONames = [
+  ["O(1)", "Constant", " link data placeholder"],
+  ["O(log n)", "Logarithmic"],
+  ["O(n)", "Linear"],
+  ["O(n log n)", "Linearithmic"],
+  ["O(n^2)", "Quadratic"],
+  ["O(n^3)", "Cubic"],
+  ["O(2^n)", "Exponential"],
+  ["O(n!)", "Factorial"],
+];

@@ -3,8 +3,12 @@ import HoverableTableRow from "./HoverableTableRow";
 import PropTypes from "prop-types";
 //css from index.css
 
+//TODO : here i have same problem with rendering as in ExampleHighlighter.jsx... use react dev tools -->profiler for help!!
+//  <div className={`flex-row-${columns} first`} role="columnheader"> "flex-row-6 first".... doesnt
+//get all data so each time i back out i lose 1 table header value
+
 //if i make this reusable , props would be : {string:firstHeader, array:headers, array:rows}
-const HoverableTable = ({ firstHeader, restOfHeaders, rowsData, columns }) => {
+const HoverableTable = ({ firstHeader, restOfHeaders, rowsData, columns, cellColor }) => {
   return (
     <div className={`table-container-${columns}`} role="table" aria-label="Destinations">
       <div className="flex-table header" role="rowgroup">
@@ -23,7 +27,7 @@ const HoverableTable = ({ firstHeader, restOfHeaders, rowsData, columns }) => {
       </div>
       {/*Each row has cell's data for its row   */}
       {rowsData.map((row, index) => (
-        <HoverableTableRow {...{ row, columns: columns }} key={index} />
+        <HoverableTableRow {...{ row, columns: columns, cellColor, rowIndex: index }} key={index} />
       ))}
     </div>
   );
@@ -33,6 +37,7 @@ HoverableTable.propTypes = {
   restOfHeaders: PropTypes.array.isRequired,
   rowsData: PropTypes.array.isRequired,
   columns: PropTypes.number.isRequired,
+  cellColor: PropTypes.object,
 };
 // HoverableTableRow.defaultProps={firstHeader:'Ananas'}
 export default HoverableTable;

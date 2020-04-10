@@ -17,7 +17,7 @@ const VideoContainer = (props) => {
           height={props.height}
           src={props.src}
           frameBorder="0"
-          allowFullScreen="true"
+          allowFullScreen={true}
         ></iframe>
       </div>
     </div>
