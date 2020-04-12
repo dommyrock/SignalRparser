@@ -38,9 +38,7 @@ export const dataStructureRows = [
   ["Doubly linked", "list	O(n)", "O(n)", "O(1)", "O(1)", "O(n)", "O(n)", "O(1)", "O(1)", "O(n)"],
   ["Hash table", "—", "O(1)", "O(1)", "O(1)", "—", "O(n)", "O(n)", "O(n)", "O(n)"],
   ["Binary search tree", "—", "O(log (n))", "O(log (n))", "O(log (n))", "—", "O(n)", "O(n)", "O(n)", "O(n)"],
-  ,
   ["B-tree", "—", "O(log (n))", "O(log (n))", "O(log (n))", "—", "O(log (n))", "O(log (n))", "O(log (n))", "O(n)"],
-  ,
   [
     "Red-black tree",
     "—",
@@ -53,9 +51,7 @@ export const dataStructureRows = [
     "O(log (n))",
     "O(n)",
   ],
-  ,
   ["AVL tree", "—", "O(log (n))", "O(log (n))", "O(log (n))", "—", "O(log (n))", "O(log (n))", "O(log (n))", "O(n)"],
-  ,
 ];
 /**function description example
  * @param commonJSfunc

@@ -35,6 +35,7 @@ code {
 /*Link css*/
 a.a-wiki-custom {
   color: #2378d8;
+  text-decoration: none;
 }
 /*a:visited - a link the user has visited*/
 a.a-wiki-custom:visited {

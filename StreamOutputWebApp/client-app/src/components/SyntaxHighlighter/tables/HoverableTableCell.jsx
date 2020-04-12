@@ -34,7 +34,6 @@ export default HoverableTableCell;
  * Cell index
  */
 function colorCell(color, rowIndex) {
-  console.log(rowIndex);
   if (rowIndex < 4) return color.green;
   else if (rowIndex > 3 && rowIndex < 6) return color.yellow;
   else return color.red;
