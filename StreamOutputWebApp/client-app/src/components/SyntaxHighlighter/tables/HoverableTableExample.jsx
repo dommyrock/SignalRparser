@@ -44,7 +44,7 @@ const HoverableTableExample = () => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       //if route != /tables observer.disconnect()
-      entries.forEach((entry) => {
+      for (const entry of entries) {
         const id = entry.target.getAttribute("id");
         const node = document.querySelector(`nav li a[href="#${id}"]`);
         // {entry.intersectionRatio} threshold can be any ratio from 0 to 1 where 1 means the element is 100% in the viewport and 0 is 100% out of the viewport. By default, the threshold is set to 0.
@@ -53,10 +53,14 @@ const HoverableTableExample = () => {
         } else {
           if (node) {
             node.classList.remove("active_section");
-          } else observer.disconnect();
+          } else {
+            observer.disconnect();
+            break;
+          }
         }
-      });
+      }
     });
+
     // Track all sections that have an `id` applied
     document.querySelectorAll("section[id]").forEach((section) => {
       observer.observe(section);
