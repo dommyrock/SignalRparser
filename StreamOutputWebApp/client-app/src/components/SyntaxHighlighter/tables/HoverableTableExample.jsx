@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 // import OriginalTableExample from "./originalTable";
 import HoverableTable from "./HoverableTable";
 import {
@@ -35,27 +35,33 @@ const bigONamesFirst = bigONamesHeaders[0];
 bigONamesHeaders.shift();
 const restOfbigONamesHeaders = bigONamesHeaders;
 
+// const buildThresholdArray = () => Array.from(Array(100).keys(), (i) => i / 100);
+
 const HoverableTableExample = () => {
+  //NOTE : This works only with HashRouter ... because of #tags it breaks without
   //Color elements in view (Table of content elements on right)
-  window.addEventListener("DOMContentLoaded", () => {
+  // let observer = useRef(null);
+  useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
+      //if route != /tables observer.disconnect()
       entries.forEach((entry) => {
         const id = entry.target.getAttribute("id");
-        console.log(id);
-
+        const node = document.querySelector(`nav li a[href="#${id}"]`);
+        // {entry.intersectionRatio} threshold can be any ratio from 0 to 1 where 1 means the element is 100% in the viewport and 0 is 100% out of the viewport. By default, the threshold is set to 0.
         if (entry.intersectionRatio > 0) {
-          document.querySelector(`nav li a[href="#${id}"]`).classList.add("active_section");
+          node.classList.add("active_section");
         } else {
-          document.querySelector(`nav li a[href="#${id}"]`).classList.remove("active_section");
+          if (node) {
+            node.classList.remove("active_section");
+          } else observer.disconnect();
         }
       });
     });
-
     // Track all sections that have an `id` applied
     document.querySelectorAll("section[id]").forEach((section) => {
       observer.observe(section);
     });
-  });
+  }, []);
 
   return (
     <>
@@ -64,7 +70,7 @@ const HoverableTableExample = () => {
       <main className="main_scrollable">
         <div>
           <section id="algorithms_TC">
-            <h3>Algorithm time complexity</h3>
+            <h3 style={center_text_inline}>Algorithm time complexity</h3>
             <HoverableTable
               {...{ firstHeader: firstHeader, restOfHeaders: restOfHeaders, rowsData: algorithmRows, columns: 6 }}
             />
@@ -157,6 +163,13 @@ export default HoverableTableExample;
 const center_text_inline = {
   textAlign: "center",
 };
+
+/* replaced DOMContentLoaded with useEffect because....
+ The DOMContentLoaded event is exclusive to when the entire HTML page loads. Therefore, this event is only fired once and only once, throughout the entirety of the web page's lifetime.
+*/
+
+/* HOW TO USE  OBSERVERS IN REACT
+https://medium.com/the-non-traditional-developer/how-to-use-an-intersectionobserver-in-a-react-hook-9fb061ac6cb5*/
 
 //if i want to hide something form page -->style="visiblity:hidden"
 

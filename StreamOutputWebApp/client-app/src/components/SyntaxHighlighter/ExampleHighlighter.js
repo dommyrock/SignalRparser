@@ -12,7 +12,7 @@ const ExampleHighlighter = () => {
   //memoized callBACK
   const handleClickOptimalHM = useCallback(() => {
     setShowHMBtnState(!showOptimalHMBtnState);
-  });
+  }, [showOptimalHMBtnState]);
   // TODO: OPTIMIZE RE-RENDERING OF OTHER SyntaxHighlighterMain WHEN STATE CHANGES ONLY "showOptimalHMBtnState"
   return (
     <>

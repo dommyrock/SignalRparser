@@ -27,6 +27,7 @@ export default function AppRouter() {
 //could also use next.js routing https://nextjs.org/docs/routing/introduction
 
 //useEffect() ...runs after state update and screen repaint by browser
+//The function you return from the useEffect hook is run when the component is unmounting,!!!!..(cleanup oportunity)
 //data fetching :https://www.robinwieruch.de/react-hooks-fetch-data
 /*React remembers the effect function you provided, and runs it after flushing changes to the DOM and letting the browser paint the screen.
  Inside the scope of a single render, props and state stay the same. 
@@ -57,6 +58,7 @@ Since fetchData only changes inside Parent when its query state changes, our Chi
 */
 
 //useRef() faq --https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
+//Also, updating the value of a ref will not signal a rerender, where updating the state will.
 // Like obj instance variable (mutable)
 /*Example
  function Example() {
