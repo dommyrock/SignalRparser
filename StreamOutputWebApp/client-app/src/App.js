@@ -4,7 +4,7 @@ import AppRouter from "./components/Layout/AppRouter";
 
 //moved out into index.js because this need to wrapp router since i render components from inside it!
 import { GlobalProvider } from "./context-providers/GlobalContextProvider";
-import { /*HashRouter*/ BrowserRouter as Router } from "react-router-dom"; //was BrowserRouter
+import { HashRouter as Router } from "react-router-dom"; //was BrowserRouter
 function App() {
   return (
     <GlobalProvider>
