@@ -70,7 +70,6 @@ const HoverableTableExample = () => {
   return (
     <>
       <h1 style={center_text_inline}>Example of all custom tables I have </h1>
-      <h3 style={center_text_inline}>There is also sticky table of contents on the right</h3>
       <main className="main_scrollable">
         <div>
           <section id="algorithms_TC">
@@ -173,7 +172,7 @@ const center_text_inline = {
 */
 
 /* HOW TO USE  OBSERVERS IN REACT
-https://medium.com/the-non-traditional-developer/how-to-use-an-intersectionobserver-in-a-react-hook-9fb061ac6cb5*/
+https://medium.com/the-non-traditional-developer/how-to-use-an-intersectionobserver-in-a-react-hook-9fb061ac6cb5 */
 
 //if i want to hide something form page -->style="visiblity:hidden"
 
