@@ -317,6 +317,15 @@ div {
 /*extended css table w 2 columns ends*/
 
 /*ALL  TABLES MEDIA QUERIES */
+@media all and (max-width: 1450px) {
+  /*CSS PROPAGATES TO ALL OTHER WIDTHS BELLOW SO I DONT HAVE TU REPEAT THIS RULE */
+  nav.section_nav {
+    visibility: hidden;
+  }
+  main.main_scrollable {
+    display: inherit;
+  }
+}
 @media all and (max-width: 925px) {
   .flex-row-10 {
     width: calc(100% / 9);
