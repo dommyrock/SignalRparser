@@ -25,3 +25,10 @@ export const Shell_sort_rev_20_gif = require("./gifs/shell-sort-reversed.gif");
 //Images
 export const Temp_static_file_img = require("./images/temp-static-file.jpg");
 export const Big_o_TC_png = require("./images/big-o-running-time-complexity.png");
+
+//Socials
+export const Fb_logo = require("./images/facebook_logo.png");
+export const Twitter_logo = require("./images/twitter_logo.png");
+export const Linkedin_logo = require("./images/linkedin_logo.png");
+export const Git_logo = require("./images/GitHub-Mark-64px.png");
+export const Git_logo32 = require("./images/GitHub-Mark-32px.png");

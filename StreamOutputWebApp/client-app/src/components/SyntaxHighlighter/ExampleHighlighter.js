@@ -19,6 +19,8 @@ import {
   Temp_static_file_img,
   Big_o_TC_png,
 } from "../../assets";
+import SocialMediaContainer from "../social_media/SocialMediaContainer";
+//TODO : examples https://www.toptal.com/developers/sorting-algorithms
 
 const ExampleHighlighter = () => {
   const width = "300";
@@ -97,6 +99,7 @@ const ExampleHighlighter = () => {
           <button className="buttonBlue">Draggable/droppable</button>
         </Link>
       </div>
+      <SocialMediaContainer />
       <h1 style={{ textAlign: "center" }}>Syntax highliter example</h1>
       <div className="display-flex" style={center_children}>
         <div className="two-columns-row">
