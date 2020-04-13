@@ -3,12 +3,43 @@ import { jscode, jsxcode, csscode, optimalHMImplementation } from "./codeContain
 import SyntaxHighlighterMain from "./SyntaxHighlighterMain";
 import VideoContainer from "./VideoContainer";
 import { Link } from "react-router-dom";
+import {
+  Bubble_sort_rnd_20_gif,
+  Bubble_sort_nr_20_gif,
+  Bubble_sort_rev_20_gif,
+  Bubble_sort_fu_20_gif,
+  Temp_static_file_img,
+  Big_o_TC_png,
+} from "../../assets";
 
 const ExampleHighlighter = () => {
   const width = "300";
   const height = "150";
 
   const [showOptimalHMBtnState, setShowHMBtnState] = useState(false);
+  const [gif, setGif] = useState(Temp_static_file_img);
+
+  const handleGifSrcReplace = (value) => {
+    const gif = document.getElementById(value.id);
+    switch (value.id) {
+      case "gif1":
+        gif.src = Bubble_sort_fu_20_gif;
+        break;
+      case "gif2":
+        gif.src = Bubble_sort_rnd_20_gif;
+        break;
+      case "gif3":
+        gif.src = Bubble_sort_nr_20_gif;
+        break;
+      case "gif4":
+        gif.src = Bubble_sort_rev_20_gif;
+        break;
+      default:
+        break;
+    }
+
+    console.log(gif);
+  };
   //memoized callBACK
   const handleClickOptimalHM = useCallback(() => {
     setShowHMBtnState(!showOptimalHMBtnState);
@@ -73,13 +104,22 @@ const ExampleHighlighter = () => {
       <div className="display-flex" style={center_children}>
         <div className="two-columns-row">
           <h2>testing img linking(by default react knows they are in pub folder)</h2>
-          <img
-            src={process.env.PUBLIC_URL + "/big-o-running-time-complexity.png"}
-            className="img-aspect-ratio-kept"
-            alt="image"
-          />
+          <img src={Big_o_TC_png} className="img-aspect-ratio-kept" alt="image" />
         </div>
-        <div className="two-columns-row"></div>
+        <div className="two-columns-row">
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif1" className="img-aspect-ratio-kept" src={gif} />
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif2" className="img-aspect-ratio-kept" src={gif} />
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif3" className="img-aspect-ratio-kept" src={gif} />
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif4" className="img-aspect-ratio-kept" src={gif} />
+          </button>
+        </div>
       </div>
     </>
   );
