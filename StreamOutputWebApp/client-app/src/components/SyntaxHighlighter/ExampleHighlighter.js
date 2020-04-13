@@ -8,6 +8,14 @@ import {
   Bubble_sort_nr_20_gif,
   Bubble_sort_rev_20_gif,
   Bubble_sort_fu_20_gif,
+  Insertion_sort_rnd_20_gif,
+  Insertion_sort_nr_20_gif,
+  Insertion_sort_rev_20_gif,
+  Insertion_sort_fu_20_gif,
+  Merge_sort_rnd_20_gif,
+  Merge_sort_nr_20_gif,
+  Merge_sort_fu_20_gif,
+  Merge_sort_rev_20_gif,
   Temp_static_file_img,
   Big_o_TC_png,
 } from "../../assets";
@@ -19,6 +27,7 @@ const ExampleHighlighter = () => {
   const [showOptimalHMBtnState, setShowHMBtnState] = useState(false);
   const [gif, setGif] = useState(Temp_static_file_img);
 
+  //TOOD: replace this with useReducer later
   const handleGifSrcReplace = (value) => {
     const gif = document.getElementById(value.id);
     switch (value.id) {
@@ -33,6 +42,30 @@ const ExampleHighlighter = () => {
         break;
       case "gif4":
         gif.src = Bubble_sort_rev_20_gif;
+        break;
+      case "gif5":
+        gif.src = Insertion_sort_fu_20_gif;
+        break;
+      case "gif6":
+        gif.src = Insertion_sort_rnd_20_gif;
+        break;
+      case "gif7":
+        gif.src = Insertion_sort_nr_20_gif;
+        break;
+      case "gif8":
+        gif.src = Insertion_sort_rev_20_gif;
+        break;
+      case "gif9":
+        gif.src = Merge_sort_fu_20_gif;
+        break;
+      case "gif10":
+        gif.src = Merge_sort_rnd_20_gif;
+        break;
+      case "gif11":
+        gif.src = Merge_sort_nr_20_gif;
+        break;
+      case "gif12":
+        gif.src = Merge_sort_rev_20_gif;
         break;
       default:
         break;
@@ -64,6 +97,7 @@ const ExampleHighlighter = () => {
           <button className="buttonBlue">Draggable/droppable</button>
         </Link>
       </div>
+      <h1 style={{ textAlign: "center" }}>Syntax highliter example</h1>
       <div className="display-flex" style={center_children}>
         <div className="two-columns-row">
           <h1>js</h1>
@@ -106,19 +140,62 @@ const ExampleHighlighter = () => {
           <h2>testing img linking(by default react knows they are in pub folder)</h2>
           <img src={Big_o_TC_png} className="img-aspect-ratio-kept" alt="image" />
         </div>
-        <div className="two-columns-row">
+        <div style={{ marginLeft: "10px", textAlign: "center" }} className="two-columns-row">
+          <h2>CLICK [img] TO PLAY</h2>
+          <h3>Bubble sort</h3>
           <button onClick={(e) => handleGifSrcReplace(e.target)}>
             <img id="gif1" className="img-aspect-ratio-kept" src={gif} />
+            Few unique
           </button>
           <button onClick={(e) => handleGifSrcReplace(e.target)}>
             <img id="gif2" className="img-aspect-ratio-kept" src={gif} />
+            Random
           </button>
           <button onClick={(e) => handleGifSrcReplace(e.target)}>
             <img id="gif3" className="img-aspect-ratio-kept" src={gif} />
+            Nearly sorted
           </button>
           <button onClick={(e) => handleGifSrcReplace(e.target)}>
             <img id="gif4" className="img-aspect-ratio-kept" src={gif} />
+            Reversed
           </button>
+          <hr />
+          <h3>Insertion sort</h3>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif5" className="img-aspect-ratio-kept" src={gif} />
+            Few unique
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif6" className="img-aspect-ratio-kept" src={gif} />
+            Random
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif7" className="img-aspect-ratio-kept" src={gif} />
+            Nearly sorted
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif8" className="img-aspect-ratio-kept" src={gif} />
+            Reversed
+          </button>
+          <hr />
+          <h3>Merge sort</h3>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif9" className="img-aspect-ratio-kept" src={gif} />
+            Few unique
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif10" className="img-aspect-ratio-kept" src={gif} />
+            Random
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif11" className="img-aspect-ratio-kept" src={gif} />
+            Nearly sorted
+          </button>
+          <button onClick={(e) => handleGifSrcReplace(e.target)}>
+            <img id="gif12" className="img-aspect-ratio-kept" src={gif} />
+            Reversed
+          </button>
+          <hr />
         </div>
       </div>
     </>
@@ -130,14 +207,13 @@ export default ExampleHighlighter;
 const center_children = {
   justifyContent: "center",
 };
-const margin_bottom = {
-  marginBottom: "50px",
-};
+
 const margin_top_left_col2 = {
   marginTop: "45px",
   marginLeft: "10px",
   paddingLeft: "50px",
 };
+
 //rest of container css in index.css
 /*conditional rendering info :https://reactjs.org/docs/conditional-rendering.html
 
