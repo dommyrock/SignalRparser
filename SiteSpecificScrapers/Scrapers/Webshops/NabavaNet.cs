@@ -13,6 +13,8 @@ namespace SiteSpecificScrapers.Scrapers
 {
     public class NabavaNet : BaseScraperClass, ISiteSpecific
     {
+        //NOTE :(ScrapySharp is wrapper around html agility pack , it exposses its jquery like markup parsing methods)
+
         public string Url { get; set; }
         public List<string> InputList { get; set; }
         public string SitemapUrl { get; set; }
@@ -23,18 +25,19 @@ namespace SiteSpecificScrapers.Scrapers
         public NabavaNet()
         {
             this.Url = "http://nabava.net";
-            InputList = new List<string>(); //TODO:change to be same instance from main else i lose this
+            InputList = new List<string>(); //TODO:use instance passd from main , else this gets oveerriden
         }
 
         public async Task<bool> ScrapeSitemapLinks(ScrapingBrowser browser)
         {
             this.Browser = browser;
 
+            //Call common sitemapFetch method from Base class
             SitemapUrl = await base.GetSitemap(Browser, Url);
 
             if (SitemapUrl != string.Empty)
             {
-                WebPage document = await Browser.NavigateToPageAsync(new Uri(SitemapUrl));//might replace with basic downloadstrignasync...
+                WebPage document = Browser.NavigateToPage(new Uri(SitemapUrl));//might replace with basic downloadstrignasync...
 
                 //Specific  query for nabava.net
                 var nodes = document.Html.CssSelect("loc").Select(i => i.InnerText).ToList();
@@ -117,7 +120,7 @@ namespace SiteSpecificScrapers.Scrapers
             await Task.Yield();
         }
 
-        //NOTE:  NOT USED AT THE MOMENT --- ONLY USING SINGLE TRANSFORM BLOCK --->BROADCAST --->ACTION BLOCK (REALTIMEPUBLISHER) --->SIGNALR
+        //NOTE:  NOT USED AT THE MOMENT
         async Task<IEnumerable<ProcessedMessage>> ISiteSpecific.Run(ScrapingBrowser browser, Message message)
         {
             //TODO: make this method get shops/link data and assigns it to message.Webshops ---TEST FLOW ON "RunInitMsg" FIST HAN REPLACE IT WITH THIS METHOD

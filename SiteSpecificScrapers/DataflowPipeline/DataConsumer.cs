@@ -22,13 +22,24 @@ namespace SiteSpecificScrapers.DataflowPipeline
         /// <see cref=""/>
         public Task StartConsuming(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)
         {
-            return Task.Factory.StartNew(() => ConsumeWithDiscard(target, token, scraper), TaskCreationOptions.LongRunning);
+            return Task.Factory.StartNew(async () => await ConsumeWithDiscard(target, token, scraper), TaskCreationOptions.LongRunning);
         }
 
         //TODO : data scraped from different site should enter into pipeline through this method !!!
 
-        private void ConsumeWithDiscard(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)//Maybe make this method async IAsyncEnumerable so can push msgs as they arrive
+        private async Task ConsumeWithDiscard(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)//Maybe make this method async IAsyncEnumerable so can push msgs as they arrive
         {
+            //TODO : coud use await foreach here since its perfect for passing site's markup as it is being scraped
+            if (scraper.Url == "nabava.net")
+            {
+                //scraper its sites .... else do normal flow
+            }
+
+            //await foreach (var item in collection)
+            //{
+            //    //replace while loop with  this one
+            //    //pass fetched markup here to forward msgs to pipeline
+            //}
             while (!token.IsCancellationRequested)
             {
                 //TODO : in current state , i should init scraping here and post it into pipeline 1by 1 (for that i would need to pass "ITargetBlock<Message> target"  as param to scraper)
@@ -40,7 +51,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
                 message.Read = DateTime.Now;
 
                 _counter++;
-                Console.WriteLine($"Read message num[{_counter}] from [{scraper.Url}] on thread [{Thread.CurrentThread.ManagedThreadId}]");//TODO: remove this temp logging
+                Console.WriteLine($"Read message num[{_counter}] from [{scraper.Url}] on thread [{Thread.CurrentThread.ManagedThreadId}]");// temp logging
 
                 var post = target.Post(message);
                 if (!post)

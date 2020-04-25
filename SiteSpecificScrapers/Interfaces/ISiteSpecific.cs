@@ -10,9 +10,9 @@ namespace SiteSpecificScrapers.Interfaces
     {
         string Url { get; set; }
         List<string> InputList { get; set; }
-        Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }//refactor this in hashset ? or some other key -value pair (maybe concurrent ?)
         string SitemapUrl { get; set; }
-        ScrapingBrowser Browser { get; }
+        ScrapingBrowser Browser { get; set; }
+        //Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }//refactor this in hashset ? or some other key -value pair (maybe concurrent ?)
 
         Task<bool> ScrapeSitemapLinks(ScrapingBrowser browser);
 

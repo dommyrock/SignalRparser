@@ -9,10 +9,13 @@ namespace SiteSpecificScrapers.Base
     {
         private ScrapingBrowser Browser { get; set; }
 
-        protected BaseScraperClass()// Base constructor called before derived constructor
+        //Protected member is accessible within its class and by derived class instances.
 
-        {
-        }
+        //Dont need constructor since im not init any instance here
+        //protected BaseScraperClass(ScrapingBrowser browser)// Base constructor called before derived constructor
+        //{
+        //    this.Browser = browser;
+        //}
 
         /// <summary>
         /// Derived classes should call this method to fetch .sitemap file if it exists.

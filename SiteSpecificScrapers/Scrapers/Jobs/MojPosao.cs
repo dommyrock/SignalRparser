@@ -17,7 +17,7 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
         public Dictionary<string, bool> ScrapedKeyValuePairs { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string SitemapUrl { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public ScrapingBrowser Browser { get; }
+        public ScrapingBrowser Browser { get; set; }
 
         public MojPosao()
         {

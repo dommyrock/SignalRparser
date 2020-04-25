@@ -75,6 +75,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //For each message it consumes, it outputs another(with optional clonning filter/alter func ).
             var transformBlock = new TransformBlock<Message, Message>(async (Message msg) => //SEE"DataBusReader" Class for example !!
             {
+                //TODO msg is passed here from DataConsumer class , so there i need to init scraper , and here fetch site markup
                 var testPassedMsgValue = msg;
                 //Call some cloning function here if i need to alter/filter incomming messages
                 //await _specificScraper.RunInitMsg(this._browser, msg);// TODO: REMOVE this line is wrong , since im not sraping from insde pipeline ...

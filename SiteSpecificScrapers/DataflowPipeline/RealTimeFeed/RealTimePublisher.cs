@@ -14,6 +14,7 @@ namespace SiteSpecificScrapers.DataflowPipeline.RealTimeFeed
 
         public RealTimePublisher(HubConnection hubConnection, string[] args)
         {
+            //instances passed from CompositionRoot class
             this._hubConnection = hubConnection;
             this._args = args;
         }

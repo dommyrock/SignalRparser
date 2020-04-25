@@ -14,7 +14,14 @@ namespace SiteSpecificScrapers.Helpers
 {
     public class CompositionRoot : IComposition
     {
-        //Passed from producers started in cli/cmd -->dotnet run "producerId"(name)
+        /* NOTES:
+         * 1.2. respect politeness policy --delay requests to single domain ..., and NEVER make async requests to same domain (only async other site scrapers)
+         * 1.3. make QUEUES SPECIFIC to  sites --ONE QUEUE per site !!
+         * 1.4 run scraper and await task completion...than run next one
+         */
+
+        #region Properties,fields
+
         private HubConnection _hubConnection { get; }
 
         // readonly -> indicates that assignment to the field can only occur as part of the declaration or in a constructor in the same class
@@ -22,8 +29,11 @@ namespace SiteSpecificScrapers.Helpers
 
         private ScrapingBrowser _browser { get; }
         public int PipeIndex { get; private set; } = 0;
+
+        //Passed from producers started in cli/cmd -->dotnet run "producerId"(name)
         private string[] _args { get; }
-        //readonly IRealTimePublisher _realTimeFeedPublisher;
+
+        #endregion Properties,fields
 
         public CompositionRoot(ScrapingBrowser browser, HubConnection hubConnection, string[] args, params ISiteSpecific[] scrapers)
         {
@@ -31,21 +41,18 @@ namespace SiteSpecificScrapers.Helpers
             this._browser = browser;
             this._hubConnection = hubConnection;
             this._args = args;
-            //this._realTimeFeedPublisher = new RealTimePublisher(_hubConnection,_args);
         }
 
-        /* NOTES:
-         * 1.2. respect politeness policy --delay requests to single domain ..., and NEVER make async requests to same domain (only async other site scrapers)
-         * 1.3. make QUEUES SPECIFIC to  sites --ONE QUEUE per site !!
-         * 1.4 run scraper and await task completion...than run next one
-         */
-
-        protected async Task InitPipeline(ISiteSpecific scraper)
+        protected async Task InitSinglePipeline(ISiteSpecific scraper)
         {
             //TODO:  await completion , than start next scraper (in future if i have more threads ...can make few pipes run in parallel as well)
+            //TODO: throw this class init and cts , one leayer out ..into "RunAll" method when i'll have more scrapers running
+            //-->>>later make method where we continously scrape on same pipeline aka dont init DataflowPipelineClass() here
+
             var cts = new CancellationTokenSource();
-            // init
-            var pipeline = new DataflowPipelineClass(_browser, scraper, new RealTimePublisher(_hubConnection, _args), new DataConsumer());//TODO: throw this class init and cts , one leayer out ..into "RunAll" method when i'll have more scrapers running
+            // init new TPL pipeline for each new scraper ...
+
+            var pipeline = new DataflowPipelineClass(_browser, scraper, new RealTimePublisher(_hubConnection, _args), new DataConsumer());
 
             Task pipelineTask = Task.Run(async () =>
             {
@@ -62,13 +69,17 @@ namespace SiteSpecificScrapers.Helpers
                 Console.WriteLine($"Pipe -->[{++PipeIndex}] done processing Messages!");
             });
 
-            //2 .or use TPLChannels instead ...
+            #region TPL Channels option
+
+            //2 .or use TPLChannels instead ... (in my case 3rd option is better!)
             //var channel = new TPLChannelsClass();
             //channel.EnqueueAsync("llalall");
 
             //3. or directly output to signalR since it uses channels too
             // with RealTimePublisher -->PublishMessageToHub()
             //_realTimeFeedPublisher.PublishMessageToHub();
+
+            #endregion TPL Channels option
         }
 
         /// <summary>
@@ -79,10 +90,13 @@ namespace SiteSpecificScrapers.Helpers
         {
             foreach (ISiteSpecific scraper in _specificScrapers)
             {
+                //pass browser instance to scraper
+                scraper.Browser = _browser;
+
                 Console.WriteLine($"Scraper [{scraper.Url}] started:");
                 try
                 {
-                    Task task = Task.Run(async () => await InitPipeline(scraper))
+                    Task task = Task.Run(async () => await InitSinglePipeline(scraper))
                         .ContinueWith((i) => Console.WriteLine($"All scrapers completed. [EXITING] {scraper.Url} Scraper now."));
                     //NOTE: Left InitPipeline async ...so i can reuse it for RunAllAsync
                 }
@@ -106,7 +120,7 @@ namespace SiteSpecificScrapers.Helpers
             {
                 try
                 {
-                    await InitPipeline(scraper); //I ONLY WANT 1 PIPE FOR NOW (RUN MSG PASSING INSIDE PIPE ASYNC INSTEAD + MAKE ANOTHER SYNC VESION OF "RunAll" since i dont async run pipes atm)
+                    await InitSinglePipeline(scraper); //I ONLY WANT 1 PIPE FOR NOW (RUN MSG PASSING INSIDE PIPE ASYNC INSTEAD + MAKE ANOTHER SYNC VESION OF "RunAll" since i dont async run pipes atm)
 
                     //Await completion , than go to next Task
                     //var completedTask = await scraper.Run(browser);
