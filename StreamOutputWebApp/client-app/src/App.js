@@ -4,7 +4,7 @@ import AppRouter from "./components/Layout/AppRouter";
 
 //moved out into index.js because this need to wrapp router since i render components from inside it!
 import { GlobalProvider } from "./context-providers/GlobalContextProvider";
-import { /*HashRouter*/ BrowserRouter as Router } from "react-router-dom"; //was BrowserRouter
+import { HashRouter /*BrowserRouter*/ as Router } from "react-router-dom"; //was BrowserRouter
 function App() {
   return (
     <GlobalProvider>
@@ -16,6 +16,8 @@ function App() {
 }
 
 export default App;
+//Deploy NOTE:
+//npm run deploy (builds app for github static pages)it also runs "predeploy" script before "gh-pages -d build" cmd
 
 // for context API see https://reactjs.org/docs/context.html
 // passing dispatch deep in commponent tree https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down
