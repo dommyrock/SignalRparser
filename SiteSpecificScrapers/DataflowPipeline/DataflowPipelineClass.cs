@@ -58,8 +58,8 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //var batchOptions = new GroupingDataflowBlockOptions() { BoundedCapacity = 1000 };
 
             //Optimized block config
-            var largeBufferOptions = new ExecutionDataflowBlockOptions() { BoundedCapacity = 100 };
-            var largeBufferOptionsSingleProd = new ExecutionDataflowBlockOptions() { BoundedCapacity = 100, SingleProducerConstrained = true };
+            var largeBufferOptions = new ExecutionDataflowBlockOptions() { BoundedCapacity = 2 };
+            var largeBufferOptionsSingleProd = new ExecutionDataflowBlockOptions() { BoundedCapacity = 2, SingleProducerConstrained = true };//MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded
             //BatchBlock
             //One caveat with this solution is that the resulting array is not sorted: you're not going to know which item came from which source.
             //And I have no idea how does its performance compare with JoinBlock, you'll have to test that by yourself.
@@ -83,8 +83,8 @@ namespace SiteSpecificScrapers.DataflowPipeline
             }, largeBufferOptionsSingleProd);
 
             //It is like the TransformBlock but it outputs an IEnumerable<TOutput> for each message it consumes.
-            var scrapeManyBlock = new TransformManyBlock<Message, ProcessedMessage>(async (Message msg) =>
-               await _specificScraper.Run(_browser, msg), largeBufferOptions);  //TODO :SINCE "RUN" THROWS NOT IMPLEMENTED EX. BLOCK COMPLETES AND STOPS RECEIVEING MSG'S ...
+            //var scrapeManyBlock = new TransformManyBlock<Message, ProcessedMessage>(async (Message msg) =>
+            //   await _specificScraper.Run(_browser, msg), largeBufferOptions);  //TODO :SINCE "RUN" THROWS NOT IMPLEMENTED EX. BLOCK COMPLETES AND STOPS RECEIVEING MSG'S ...
 
             #region BroadcasterBlock info
 

@@ -1,5 +1,6 @@
 ﻿using ScrapySharp.Network;
 using SiteSpecificScrapers.Messages;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +13,9 @@ namespace SiteSpecificScrapers.Interfaces
         List<string> InputList { get; set; }
         string SitemapUrl { get; set; }
         ScrapingBrowser Browser { get; set; }
+
         //Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }//refactor this in hashset ? or some other key -value pair (maybe concurrent ?)
+        Task<Tuple<List<string>, Dictionary<string, bool>>> ScrapeWebshops();
 
         Task<bool> ScrapeSitemapLinks(ScrapingBrowser browser);
 

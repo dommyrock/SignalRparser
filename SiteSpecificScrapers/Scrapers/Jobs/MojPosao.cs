@@ -3,7 +3,6 @@ using SiteSpecificScrapers.Interfaces;
 using SiteSpecificScrapers.Messages;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SiteSpecificScrapers.Scrapers.Jobs
@@ -34,6 +33,11 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
         }
 
         public Task<bool> ScrapeSitemapLinks(ScrapingBrowser browser)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Tuple<List<string>, Dictionary<string, bool>>> ISiteSpecific.ScrapeWebshops()
         {
             throw new NotImplementedException();
         }

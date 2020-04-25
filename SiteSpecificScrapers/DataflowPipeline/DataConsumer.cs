@@ -29,10 +29,30 @@ namespace SiteSpecificScrapers.DataflowPipeline
 
         private async Task ConsumeWithDiscard(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)//Maybe make this method async IAsyncEnumerable so can push msgs as they arrive
         {
-            //TODO : coud use await foreach here since its perfect for passing site's markup as it is being scraped
-            if (scraper.Url == "nabava.net")
+            //TODO : could use await foreach here since its perfect for passing site's markup as it is being scraped
+            if (scraper.Url == "http://nabava.net")
             {
-                //scraper its sites .... else do normal flow
+                var scrapedData = await scraper.ScrapeWebshops();
+
+                while (!token.IsCancellationRequested)
+                {
+                    foreach (string item in scrapedData.Item1) //Right now im just posting same webshops over and over to pipeline
+                    {
+                        //create, than Pass msg to pipeline
+                        var message = new Message();
+                        //message.SourceHtml = //scraped data
+                        message.Id = _counter;
+                        message.SiteUrl = item;
+                        message.Read = DateTime.Now;
+
+                        _counter++;
+                        Console.WriteLine($"Read mdg num[{_counter}] from [{message.SiteUrl}] @ [{message.Read}] on thread [{Thread.CurrentThread.ManagedThreadId}]");// temp logging
+
+                        var post = target.Post(message);
+                        if (!post)
+                            Console.WriteLine("Buffer full, Could not post!");
+                    }
+                }
             }
 
             //await foreach (var item in collection)
@@ -40,23 +60,25 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //    //replace while loop with  this one
             //    //pass fetched markup here to forward msgs to pipeline
             //}
-            while (!token.IsCancellationRequested)
-            {
-                //TODO : in current state , i should init scraping here and post it into pipeline 1by 1 (for that i would need to pass "ITargetBlock<Message> target"  as param to scraper)
-                //scraper.RunInitMsg(...,...,target)
-                var message = new Message();
-                //message.SourceHtml = //scraped data
-                message.Id = _counter;
-                message.SiteUrl = scraper.Url;
-                message.Read = DateTime.Now;
 
-                _counter++;
-                Console.WriteLine($"Read message num[{_counter}] from [{scraper.Url}] on thread [{Thread.CurrentThread.ManagedThreadId}]");// temp logging
+            //PREVOUS VERSION ...
+            //while (!token.IsCancellationRequested)
+            //{
+            //    //TODO : in current state , i should init scraping here and post it into pipeline 1by 1 (for that i would need to pass "ITargetBlock<Message> target"  as param to scraper)
+            //    //scraper.RunInitMsg(...,...,target)
+            //    var message = new Message();
+            //    //message.SourceHtml = //scraped data
+            //    message.Id = _counter;
+            //    message.SiteUrl = scraper.Url;
+            //    message.Read = DateTime.Now;
 
-                var post = target.Post(message);
-                if (!post)
-                    Console.WriteLine("Buffer full, Could not post!");
-            }
+            //    _counter++;
+            //    Console.WriteLine($"Read message num[{_counter}] from [{scraper.Url}] on thread [{Thread.CurrentThread.ManagedThreadId}]");// temp logging
+
+            //    var post = target.Post(message);
+            //    if (!post)
+            //        Console.WriteLine("Buffer full, Could not post!");
+            //}
         }
     }
 }

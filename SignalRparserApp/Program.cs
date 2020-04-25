@@ -12,6 +12,7 @@ namespace SignalRparserApp
     {
         // ALWAYS CHECK FOR " robots.txt" BEFORE SCRAPING WHOLE PAGE !
         // NOTE : !!!! When I need to test producers flow , set it as startup project and start webApp/ hub though cmd instead !!!!!
+        //VS studio shortcuts: https://www.dofactory.com/reference/visual-studio-shortcuts
 
         #region Properties
 

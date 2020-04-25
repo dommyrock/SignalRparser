@@ -53,13 +53,18 @@ namespace SiteSpecificScrapers.Scrapers
         /// <summary>
         /// Adds webshops scraped from sitemap to "WebShops" list.
         /// </summary>
-        private async Task ScrapeWebshops()
+        public async Task<Tuple<List<string>, Dictionary<string, bool>>> ScrapeWebshops()//it has to be public since its exposed through ISiteSpecific interface
         {
             WebShops = new List<string>();
             ScrapedKeyValuePairs = new Dictionary<string, bool>();
 
             WebShops = CachingExtensions.GetFromLocalCache(WebShops);
             InputList = CachingExtensions.GetFromLocalCache(InputList, true, "nNetSections.json");
+
+            //Return Tuple https://stackoverflow.com/questions/748062/return-multiple-values-to-a-method-caller
+            var result = Tuple.Create(WebShops, ScrapedKeyValuePairs);
+            //FOR NOW only return collection of previously scraperd sites___________________________TODO: TEMP for testing....refactor after
+            return result;
 
             if (WebShops.Count == 0)
             {
@@ -107,14 +112,15 @@ namespace SiteSpecificScrapers.Scrapers
             }
         }
 
-        // Encapsulates scraping logic for each site specific scraper.(Must be async if it encapsulates async code)     OLD METHOD,,,REMOVE WHEN REPLACED
+        // OLD METHOD, was used inside DF pipeline which was false,,REMOVE WHEN REPLACED
+        // Encapsulates scraping logic for each site specific scraper.(Must be async if it encapsulates async code)
         public async Task RunInitMsg(ScrapingBrowser browser, Message msg)
         {
             var success = await ScrapeSitemapLinks(browser);
 
             if (success)
             {
-                await ScrapeWebshops().ContinueWith(i => Console.WriteLine("Scraping Webshops in Nabava.net DONE"));
+                //await ScrapeWebshops().ContinueWith(i => Console.WriteLine("Scraping Webshops in Nabava.net DONE"));
             }
 
             await Task.Yield();

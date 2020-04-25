@@ -35,6 +35,7 @@ namespace SiteSpecificScrapers.Helpers
 
         #endregion Properties,fields
 
+        //FLOW : CompositionRoot --->RunAll() -->InitSinglePipeline() -->StartPipelineAsync()--->DataflowPipelineClass -->DataConsumer -->StartConsuming()-->pass msgs 1st TPL block & propagate down the pipe
         public CompositionRoot(ScrapingBrowser browser, HubConnection hubConnection, string[] args, params ISiteSpecific[] scrapers)
         {
             this._specificScrapers = scrapers;
@@ -50,7 +51,7 @@ namespace SiteSpecificScrapers.Helpers
             //-->>>later make method where we continously scrape on same pipeline aka dont init DataflowPipelineClass() here
 
             var cts = new CancellationTokenSource();
-            // init new TPL pipeline for each new scraper ...
+            // init new TPL pipeline for each new scraper , and all other requred classes in pipeline
 
             var pipeline = new DataflowPipelineClass(_browser, scraper, new RealTimePublisher(_hubConnection, _args), new DataConsumer());
 
@@ -62,6 +63,7 @@ namespace SiteSpecificScrapers.Helpers
                 }
                 catch (AggregateException ae)
                 {
+                    //NOTE :each exception in TPL DF will wrap it in its own layer of AggregateException
                     //ae.Flatten(); to pull out nested exception under aggregate exceptions thrown form tpl pipeline
 
                     Console.WriteLine($"Pipeline {PipeIndex} terminated due to error {ae}");
@@ -151,7 +153,7 @@ namespace SiteSpecificScrapers.Helpers
          ///for less memory alocation (non reference & return types <see cref="https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.valuetask-1?view=netcore-3.0"/>
          */
 
-        /// <remarks The task-Result property is a blocking property. ></remarks>
+        /// <remarks The Task.Result property is a blocking property. ></remarks>
         /// In most cases, you should access the value by using await instead of accessing the property directly.
         /// exceptions <see cref="https://markheath.net/post/async-antipatterns"/>
         ///
@@ -165,6 +167,23 @@ namespace SiteSpecificScrapers.Helpers
         ///For ERROR metadata file <see cref="https://stackoverflow.com/questions/1421862/metadata-file-dll-could-not-be-found"/>
         ///
         //Parallel.Foreach & For are blocking (like built in await all)... they block code execution untill loop is done iterating !!!
+
+        //OR Task.FromResult<TResult> https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task.fromresult?view=netcore-3.1
+        //The method is commonly used when the return value of a task is immediately known without executing a longer code path.
+
+        //EXAMPLES
+
+        //return value from async method
+        /*
+         * public async Task<bool> doAsyncOperation()
+        {
+            // do work
+            return true;
+        }
+
+        bool result = await doAsyncOperation();
+
+        */
 
         #region LoopAsyncExample
 
