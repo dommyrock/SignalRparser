@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SiteSpecificScrapers.Messages
 {
+    /// <summary>
+    /// Payload class [contains payload props].
+    /// </summary>
     public class Message
     {
         public string SourceHtml { get; set; }
@@ -13,7 +16,7 @@ namespace SiteSpecificScrapers.Messages
         public string Category { get; set; }
         public string CurrencyCode { get; set; }
         public string JSON { get; set; }
-        public DateTime ReadingTime { get; set; }
+        public DateTime Read { get; set; }
         public List<string> Webshops { get; set; }
     }
 }

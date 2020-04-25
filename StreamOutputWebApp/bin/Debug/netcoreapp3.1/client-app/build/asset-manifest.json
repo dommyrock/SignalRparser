@@ -1,22 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.22d138e9.chunk.css",
-    "main.js": "/static/js/main.05f9ed4e.chunk.js",
-    "main.js.map": "/static/js/main.05f9ed4e.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.18857d71.js",
-    "runtime-main.js.map": "/static/js/runtime-main.18857d71.js.map",
-    "static/js/2.8f01a7e9.chunk.js": "/static/js/2.8f01a7e9.chunk.js",
-    "static/js/2.8f01a7e9.chunk.js.map": "/static/js/2.8f01a7e9.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.40aeb1151f0a21f9512fa9af094ad4f4.js": "/precache-manifest.40aeb1151f0a21f9512fa9af094ad4f4.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.22d138e9.chunk.css.map": "/static/css/main.22d138e9.chunk.css.map",
-    "static/js/2.8f01a7e9.chunk.js.LICENSE.txt": "/static/js/2.8f01a7e9.chunk.js.LICENSE.txt"
+    "main.css": "/gh-deploy/static/css/main.cb535c7d.chunk.css",
+    "main.js": "/gh-deploy/static/js/main.e084a16c.chunk.js",
+    "main.js.map": "/gh-deploy/static/js/main.e084a16c.chunk.js.map",
+    "runtime-main.js": "/gh-deploy/static/js/runtime-main.376e5779.js",
+    "runtime-main.js.map": "/gh-deploy/static/js/runtime-main.376e5779.js.map",
+    "static/js/2.f2947c3c.chunk.js": "/gh-deploy/static/js/2.f2947c3c.chunk.js",
+    "static/js/2.f2947c3c.chunk.js.map": "/gh-deploy/static/js/2.f2947c3c.chunk.js.map",
+    "index.html": "/gh-deploy/index.html",
+    "precache-manifest.22101d8045c2e00e361d84026413d53b.js": "/gh-deploy/precache-manifest.22101d8045c2e00e361d84026413d53b.js",
+    "service-worker.js": "/gh-deploy/service-worker.js",
+    "static/css/main.cb535c7d.chunk.css.map": "/gh-deploy/static/css/main.cb535c7d.chunk.css.map",
+    "static/js/2.f2947c3c.chunk.js.LICENSE.txt": "/gh-deploy/static/js/2.f2947c3c.chunk.js.LICENSE.txt",
+    "static/media/big-o-running-time-complexity.png": "/gh-deploy/static/media/big-o-running-time-complexity.b426e2be.png",
+    "static/media/bubble-sort-random.gif": "/gh-deploy/static/media/bubble-sort-random.977818e8.gif",
+    "static/media/bubble-sort-reversed.gif": "/gh-deploy/static/media/bubble-sort-reversed.deb42adb.gif",
+    "static/media/insertion-sort-reversed.gif": "/gh-deploy/static/media/insertion-sort-reversed.c3fe7745.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.18857d71.js",
-    "static/js/2.8f01a7e9.chunk.js",
-    "static/css/main.22d138e9.chunk.css",
-    "static/js/main.05f9ed4e.chunk.js"
+    "static/js/runtime-main.376e5779.js",
+    "static/js/2.f2947c3c.chunk.js",
+    "static/css/main.cb535c7d.chunk.css",
+    "static/js/main.e084a16c.chunk.js"
   ]
 }

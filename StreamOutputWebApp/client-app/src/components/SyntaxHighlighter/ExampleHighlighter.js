@@ -100,7 +100,7 @@ const ExampleHighlighter = () => {
         </Link>
       </div>
       <SocialMediaContainer />
-      <h1 style={{ textAlign: "center" }}>Syntax highliter example</h1>
+      <h1 style={{ textAlign: "center" }}>Syntax highlighter example</h1>
       <div className="display-flex" style={center_children}>
         <div className="two-columns-row">
           <h1>js</h1>

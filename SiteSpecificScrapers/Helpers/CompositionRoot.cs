@@ -14,27 +14,24 @@ namespace SiteSpecificScrapers.Helpers
 {
     public class CompositionRoot : IComposition
     {
-        public string Url { get; set; }
-        public List<string> InputList { get; set; }
-        public Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }
-        public string SitemapUrl { get; set; }
-        public int PipeIndex { get; private set; } = 0;
-        private ScrapingBrowser _broser { get; }
-
         //Passed from producers started in cli/cmd -->dotnet run "producerId"(name)
         private HubConnection _hubConnection { get; }
-
-        private string[] _args { get; }
 
         // readonly -> indicates that assignment to the field can only occur as part of the declaration or in a constructor in the same class
         private readonly ISiteSpecific[] _specificScrapers;
 
+        private ScrapingBrowser _browser { get; }
+        public int PipeIndex { get; private set; } = 0;
+        private string[] _args { get; }
+        //readonly IRealTimePublisher _realTimeFeedPublisher;
+
         public CompositionRoot(ScrapingBrowser browser, HubConnection hubConnection, string[] args, params ISiteSpecific[] scrapers)
         {
             this._specificScrapers = scrapers;
-            this._broser = browser;
+            this._browser = browser;
             this._hubConnection = hubConnection;
             this._args = args;
+            //this._realTimeFeedPublisher = new RealTimePublisher(_hubConnection,_args);
         }
 
         /* NOTES:
@@ -48,22 +45,30 @@ namespace SiteSpecificScrapers.Helpers
             //TODO:  await completion , than start next scraper (in future if i have more threads ...can make few pipes run in parallel as well)
             var cts = new CancellationTokenSource();
             // init
-            var pipeline = new DataflowPipelineClass(_broser, scraper, new RealTimePublisher(_hubConnection, _args), new DataConsumer());
+            var pipeline = new DataflowPipelineClass(_browser, scraper, new RealTimePublisher(_hubConnection, _args), new DataConsumer());//TODO: throw this class init and cts , one leayer out ..into "RunAll" method when i'll have more scrapers running
 
             Task pipelineTask = Task.Run(async () =>
             {
                 try
                 {
-                    await pipeline.StartPipelineAsync(cts.Token);   //ORDER IS ---> Start consuming ---> ConsumeWithDIscard -->
+                    await pipeline.StartPipelineAsync(cts.Token);
                 }
-                catch (Exception ex)
+                catch (AggregateException ae)
                 {
-                    Console.WriteLine($"Pipeline {PipeIndex} terminated due to error {ex}");
+                    //ae.Flatten(); to pull out nested exception under aggregate exceptions thrown form tpl pipeline
+
+                    Console.WriteLine($"Pipeline {PipeIndex} terminated due to error {ae}");
                 }
                 Console.WriteLine($"Pipe -->[{++PipeIndex}] done processing Messages!");
             });
 
-            await pipelineTask;
+            //2 .or use TPLChannels instead ...
+            //var channel = new TPLChannelsClass();
+            //channel.EnqueueAsync("llalall");
+
+            //3. or directly output to signalR since it uses channels too
+            // with RealTimePublisher -->PublishMessageToHub()
+            //_realTimeFeedPublisher.PublishMessageToHub();
         }
 
         /// <summary>
@@ -78,7 +83,7 @@ namespace SiteSpecificScrapers.Helpers
                 try
                 {
                     Task task = Task.Run(async () => await InitPipeline(scraper))
-                        .ContinueWith((i) => Console.WriteLine("All scrapers completed. [EXITING] Scraper now."));
+                        .ContinueWith((i) => Console.WriteLine($"All scrapers completed. [EXITING] {scraper.Url} Scraper now."));
                     //NOTE: Left InitPipeline async ...so i can reuse it for RunAllAsync
                 }
                 catch (Exception ex)
@@ -109,9 +114,9 @@ namespace SiteSpecificScrapers.Helpers
                     //tasklist.Add(scraper.Run(Browser)); //TODO:  call awaitAll() just for testing 2,3 sites , else catch and store/print results as they arive .
                     //await Task.Run(async () => await scraper.Run(Browser));
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    throw ex;
+                    throw e;
                 }
             }
             //return await Task.WhenAll<Task>(tasklist); not efficient to wait on all to complete , instead await and print/outptut each result as they arrive

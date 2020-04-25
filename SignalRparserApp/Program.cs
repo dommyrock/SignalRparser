@@ -34,7 +34,7 @@ namespace SignalRparserApp
                 .WithAutomaticReconnect();
             await using HubConnection hubConnection = hubConnectionBuilder.Build();
 
-            await hubConnection.StartAsync();//connrction to server
+            //await hubConnection.StartAsync();//connection to server (commment this line while testing produce.)
 
             #region Test_Producer for SignalR_hub
 
@@ -72,7 +72,8 @@ namespace SignalRparserApp
                         new NabavaNet()
                         //TODO
                         //new AdmScraper(),
-                        //new AbrakadabraScraper()
+                        //new AbrakadabraScraper() todo extractinto separate class "InitScrapers:ISiteSpecific"
+                        //new MojPosao()
                         );
                 compositionRoot.RunAll();//Synchronous pipe so i dont need to await it.
             }
@@ -82,6 +83,51 @@ namespace SignalRparserApp
             }
 
             #endregion Composition Root
+
+            #region tpl error catching
+
+            //var throwIfNegative = new ActionBlock<int>(n =>
+            //{
+            //    Console.WriteLine("n = {0}", n);
+            //    if (n < 0)
+            //    {
+            //        throw new ArgumentOutOfRangeException();
+            //    }
+            //});
+            //// Create a continuation task that prints the overall
+            //// task status to the console when the block finishes.
+            //throwIfNegative.Completion.ContinueWith(task =>
+            //{
+            //    Console.WriteLine("The status of the completion task is '{0}'.",
+            //       task.Status);
+            //});
+
+            //// Post values to the block.
+            //throwIfNegative.Post(0);
+            //throwIfNegative.Post(12);
+            //throwIfNegative.Post(-1);
+            //throwIfNegative.Post(1);
+            //throwIfNegative.Post(-2);
+            //throwIfNegative.Complete();
+
+            //// Wait for completion in a try/catch block.
+            //try
+            //{
+            //    throwIfNegative.Completion.Wait();
+            //}
+            //catch (AggregateException ae)
+            //{
+            //    // If an unhandled exception occurs during dataflow processing, all
+            //    // exceptions are propagated through an AggregateException object.
+            //    ae.Handle(e =>
+            //    {
+            //        Console.WriteLine("Encountered {0}: {1}",
+            //           e.GetType().Name, e.Message);
+            //        return true;
+            //    });
+            //}
+
+            #endregion tpl error catching
 
             Console.ReadLine();
         }

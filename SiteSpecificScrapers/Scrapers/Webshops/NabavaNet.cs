@@ -107,7 +107,7 @@ namespace SiteSpecificScrapers.Scrapers
         // Encapsulates scraping logic for each site specific scraper.(Must be async if it encapsulates async code)     OLD METHOD,,,REMOVE WHEN REPLACED
         public async Task RunInitMsg(ScrapingBrowser browser, Message msg)
         {
-            var success = ScrapeSitemapLinks(browser).GetAwaiter().GetResult();
+            var success = await ScrapeSitemapLinks(browser);
 
             if (success)
             {

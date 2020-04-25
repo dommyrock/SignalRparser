@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 
 namespace SiteSpecificScrapers.Services
 {
-    interface IComposition
+    public interface IComposition
     {
         Task<List<Task<Message>>> RunAllAsync();
+
+        void RunAll();
     }
 }

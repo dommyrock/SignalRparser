@@ -1,10 +1,25 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+:root {
+  --bg-color: #f7f7f7; /* css variable example */
+}
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-color);
 }
+/* 
+  dark mode switch https://stackoverflow.com/questions/56300132/how-to-over-ride-css-prefers-color-scheme-setting
+  dark mode query https://hankchizljaw.com/wrote/create-a-user-controlled-dark-or-light-mode/
+  https://web.dev/prefers-color-scheme/
+
+[data-theme="dark"] {
+    --font-color: #c1bfbd; 
+    --link-color:#0a86da;
+    --link-white-color:#c1bfbd;
+    --bg-color: #333;
+} */
 
 /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   "Droid Sans", "Helvetica Neue", sans-serif; */

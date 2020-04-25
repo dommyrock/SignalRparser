@@ -16,26 +16,32 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //TODO: init scraping class here or implement its scraping method through interface
         }
 
+        /// <summary>
+        ///This is the entry point into the TPL dataflow , data is than propagated through TPL blocks in pipeline (1stblock (TransformBlock) in my case)
+        /// </summary>
+        /// <see cref=""/>
         public Task StartConsuming(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)
         {
             return Task.Factory.StartNew(() => ConsumeWithDiscard(target, token, scraper), TaskCreationOptions.LongRunning);
         }
 
-        //Post messages to the 1st block and propagate them through pipeline.
-        private void ConsumeWithDiscard(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)
+        //TODO : data scraped from different site should enter into pipeline through this method !!!
+
+        private void ConsumeWithDiscard(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)//Maybe make this method async IAsyncEnumerable so can push msgs as they arrive
         {
             while (!token.IsCancellationRequested)
             {
+                //TODO : in current state , i should init scraping here and post it into pipeline 1by 1 (for that i would need to pass "ITargetBlock<Message> target"  as param to scraper)
+                //scraper.RunInitMsg(...,...,target)
                 var message = new Message();
                 //message.SourceHtml = //scraped data
                 message.Id = _counter;
                 message.SiteUrl = scraper.Url;
-                message.ReadingTime = DateTime.Now; //TODO :test out incomming messages and se if timestamp printed in web app is correct
+                message.Read = DateTime.Now;
 
                 _counter++;
                 Console.WriteLine($"Read message num[{_counter}] from [{scraper.Url}] on thread [{Thread.CurrentThread.ManagedThreadId}]");//TODO: remove this temp logging
 
-                //Post MSG TO 1ST BLOCK IN PIPELINE!! & Report if buffer is full
                 var post = target.Post(message);
                 if (!post)
                     Console.WriteLine("Buffer full, Could not post!");
@@ -43,3 +49,10 @@ namespace SiteSpecificScrapers.DataflowPipeline
         }
     }
 }
+
+//pipeline example https://stackoverflow.com/questions/32073831/tpl-dataflow-to-be-implemented-for-a-website-scraper
+
+//4.5. Parallel Processing with Dataflow Blocks
+/// <see cref="https://www.oreilly.com/library/view/concurrency-in-c/9781491906675/ch04.html"/>
+/// MSDN https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/dataflow-task-parallel-library
+/// injectable broadcast example https://www.ajeetyelandur.com/2016/07/Events-Part-3-with-dataflow/
