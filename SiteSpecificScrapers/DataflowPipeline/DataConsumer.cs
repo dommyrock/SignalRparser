@@ -25,20 +25,19 @@ namespace SiteSpecificScrapers.DataflowPipeline
             return Task.Factory.StartNew(async () => await ConsumeWithDiscard(target, token, scraper), TaskCreationOptions.LongRunning);
         }
 
-        //TODO : data scraped from different site should enter into pipeline through this method !!!
-
         private async Task ConsumeWithDiscard(ITargetBlock<Message> target, CancellationToken token, ISiteSpecific scraper)//Maybe make this method async IAsyncEnumerable so can push msgs as they arrive
         {
-            //TODO : could use await foreach here since its perfect for passing site's markup as it is being scraped
             if (scraper.Url == "http://nabava.net")
             {
+                //TODO :this is FUCKED ..ERROR IS IM NOW AWAITING RESULT IN ASYNC METHOD ,replace with separate method that only Fetches markup
                 var scrapedData = await scraper.ScrapeWebshops();
+                //TODO: streaming atm streams x100 or to fast anyway for some reasonable data... maybe make timer that sends batches of data every min or so !!!!
 
                 while (!token.IsCancellationRequested)
                 {
                     foreach (string item in scrapedData.Item1) //Right now im just posting same webshops over and over to pipeline
                     {
-                        //create, than Pass msg to pipeline
+                        //map, than Pass msg to pipeline
                         var message = new Message();
                         //message.SourceHtml = //scraped data
                         message.Id = _counter;

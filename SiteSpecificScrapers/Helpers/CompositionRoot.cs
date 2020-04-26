@@ -55,21 +55,29 @@ namespace SiteSpecificScrapers.Helpers
 
             var pipeline = new DataflowPipelineClass(_browser, scraper, new RealTimePublisher(_hubConnection, _args), new DataConsumer());
 
-            Task pipelineTask = Task.Run(async () =>
+            try
             {
-                try
+                await Task.Run(async () =>
                 {
-                    await pipeline.StartPipelineAsync(cts.Token);
-                }
-                catch (AggregateException ae)
-                {
-                    //NOTE :each exception in TPL DF will wrap it in its own layer of AggregateException
-                    //ae.Flatten(); to pull out nested exception under aggregate exceptions thrown form tpl pipeline
+                    try
+                    {
+                        await pipeline.StartPipelineAsync(cts.Token);
+                    }
+                    catch (AggregateException ae)
+                    {
+                        //NOTE :each exception in TPL DF will wrap it in its own layer of AggregateException
+                        //ae.Flatten(); to pull out nested exception under aggregate exceptions thrown form tpl pipeline
 
-                    Console.WriteLine($"Pipeline {PipeIndex} terminated due to error {ae}");
-                }
-                Console.WriteLine($"Pipe -->[{++PipeIndex}] done processing Messages!");
-            });
+                        Console.WriteLine($"Pipeline {PipeIndex} terminated due to error {ae}");
+                    }
+                    Console.WriteLine($"Pipe -->[{++PipeIndex}] done processing Messages!");
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //throw ex;
+            }
 
             #region TPL Channels option
 

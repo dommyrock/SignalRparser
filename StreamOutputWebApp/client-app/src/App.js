@@ -4,15 +4,15 @@ import AppRouter from "./components/Layout/AppRouter";
 
 //moved out into index.js because this need to wrapp router since i render components from inside it!
 import { GlobalProvider } from "./context-providers/GlobalContextProvider";
-import { HashRouter /*BrowserRouter*/ as Router } from "react-router-dom"; //was BrowserRouter
+import { /*HashRouter*/ BrowserRouter as Router } from "react-router-dom"; //was BrowserRouter
 function App() {
-  return (
-    <GlobalProvider>
-      <Router>
-        <AppRouter />
-      </Router>
-    </GlobalProvider>
-  );
+    return (
+        <GlobalProvider>
+            <Router>
+                <AppRouter />
+            </Router>
+        </GlobalProvider>
+    );
 }
 
 export default App;
@@ -29,7 +29,7 @@ export default App;
   contexts.reduce((acc, [Context, value]) => {
     return <Context.Provider value={value}>{acc}</Context.Provider>;
   }, children);
-  
+
 and use it as:
 
 import Context1 from './context1';

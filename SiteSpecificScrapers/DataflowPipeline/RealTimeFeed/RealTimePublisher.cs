@@ -44,7 +44,7 @@ namespace SiteSpecificScrapers.DataflowPipeline.RealTimeFeed
             while (true)
             {
                 //counter++;
-                yield return msg.Read.ToString(); //return items as they arrive
+                yield return $"Msg num[{msg.Id}]{msg.SiteUrl}"; //return items as they arrive
                 await Task.Delay(100);
             }
         }

@@ -37,7 +37,7 @@ namespace SiteSpecificScrapers.Scrapers
 
             if (SitemapUrl != string.Empty)
             {
-                WebPage document = Browser.NavigateToPage(new Uri(SitemapUrl));//might replace with basic downloadstrignasync...
+                WebPage document = Browser.NavigateToPage(new Uri(SitemapUrl));
 
                 //Specific  query for nabava.net
                 var nodes = document.Html.CssSelect("loc").Select(i => i.InnerText).ToList();
@@ -55,6 +55,8 @@ namespace SiteSpecificScrapers.Scrapers
         /// </summary>
         public async Task<Tuple<List<string>, Dictionary<string, bool>>> ScrapeWebshops()//it has to be public since its exposed through ISiteSpecific interface
         {
+            Console.WriteLine("Entered ScrapeWebshops method");
+
             WebShops = new List<string>();
             ScrapedKeyValuePairs = new Dictionary<string, bool>();
 
@@ -62,9 +64,8 @@ namespace SiteSpecificScrapers.Scrapers
             InputList = CachingExtensions.GetFromLocalCache(InputList, true, "nNetSections.json");
 
             //Return Tuple https://stackoverflow.com/questions/748062/return-multiple-values-to-a-method-caller
-            var result = Tuple.Create(WebShops, ScrapedKeyValuePairs);
-            //FOR NOW only return collection of previously scraperd sites___________________________TODO: TEMP for testing....refactor after
-            return result;
+            var result = Tuple.Create(WebShops, ScrapedKeyValuePairs);//TODO : REMOVE THIS IS TEMP
+            Console.WriteLine($"From inside of ScrapeWebshops method: {result.Item1.Count}");
 
             if (WebShops.Count == 0)
             {
@@ -110,6 +111,8 @@ namespace SiteSpecificScrapers.Scrapers
                     Url = InputList[0];
                 }
             }
+            //FOR NOW only return collection of previously scraperd sites___________________________TODO: TEMP for testing....refactor after
+            return Task.FromResult(result).Result;//TODO : REMOVE THIS IS TEMP
         }
 
         // OLD METHOD, was used inside DF pipeline which was false,,REMOVE WHEN REPLACED
@@ -120,7 +123,7 @@ namespace SiteSpecificScrapers.Scrapers
 
             if (success)
             {
-                //await ScrapeWebshops().ContinueWith(i => Console.WriteLine("Scraping Webshops in Nabava.net DONE"));
+                await ScrapeWebshops().ContinueWith(i => Console.WriteLine("Scraping Webshops in Nabava.net DONE"));
             }
 
             await Task.Yield();

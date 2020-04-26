@@ -18,7 +18,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
         readonly ISiteSpecific _specificScraper;
         readonly IRealTimePublisher _realTimeFeedPublisher;
         readonly IDataConsumer _dataConsumer;
-        private ScrapingBrowser _browser { get; }
+        public ScrapingBrowser _browser { get; }
 
         /// <summary>
         /// Executes specific scraping logic for passed scraper.
@@ -73,7 +73,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //       3) Broadcast block into SignalR stream
 
             //For each message it consumes, it outputs another(with optional clonning filter/alter func ).
-            var transformBlock = new TransformBlock<Message, Message>(async (Message msg) => //SEE"DataBusReader" Class for example !!
+            var transformBlock = new TransformBlock<Message, Message>((Message msg) => //SEE"DataBusReader" Class for example !! //This was (async (Message msg) => before
             {
                 //TODO msg is passed here from DataConsumer class , so there i need to init scraper , and here fetch site markup
                 var testPassedMsgValue = msg;
@@ -120,7 +120,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
             while (!token.IsCancellationRequested
                && !realTimeFeedBlock.Completion.IsCompleted)
             {
-                await Task.Delay(1000);
+                await Task.Delay(100);
             }
 
             //the CancellationToken has been cancelled and our producer has stopped producing
@@ -129,7 +129,7 @@ namespace SiteSpecificScrapers.DataflowPipeline
             //scrapeManyBlock.Complete();
 
             //Wait for all blocks to finish processing their data
-            await Task.WhenAll(realTimeFeedBlock.Completion, consumerTask);
+            await Task.WhenAll(realTimeFeedBlock.Completion, consumerTask).ContinueWith((i) => System.Console.WriteLine("Task.WhenAll() executed ...all tasks completed"));
 
             // clean up any other resources like ZeroMQ/kafka for example
         }
