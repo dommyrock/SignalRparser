@@ -28,11 +28,13 @@ namespace SignalRparserApp
 
         static async Task Main(string[] args)
         {
+            TODO: work on scrapers...ignore the rest , and asume it works !!when is have few scrapers working, test completing 1 and swithching to other !
+
             #region SignalR_hub config
 
-            var hubConnectionBuilder = new HubConnectionBuilder()
-                .WithUrl("https://localhost:5001/outputstream")
-                .WithAutomaticReconnect();
+          var hubConnectionBuilder = new HubConnectionBuilder()
+              .WithUrl("https://localhost:5001/outputstream")
+              .WithAutomaticReconnect();
             await using HubConnection hubConnection = hubConnectionBuilder.Build();
             //Subscribe to onReconnect event (called after web app is restarted after crash/close)
             hubConnection.Reconnected += async connectedId =>
