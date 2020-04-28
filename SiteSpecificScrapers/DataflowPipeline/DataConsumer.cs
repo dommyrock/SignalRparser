@@ -33,25 +33,26 @@ namespace SiteSpecificScrapers.DataflowPipeline
                 var scrapedData = await scraper.ScrapeWebshops();
                 //TODO: streaming atm streams x100 or to fast anyway for some reasonable data... maybe make timer that sends batches of data every min or so !!!!
 
-                while (!token.IsCancellationRequested)
+                //while (!token.IsCancellationRequested)
+                //{
+                foreach (string item in scrapedData.Item1) //Right now im just posting same webshops over and over to pipeline
                 {
-                    foreach (string item in scrapedData.Item1) //Right now im just posting same webshops over and over to pipeline
-                    {
-                        //map, than Pass msg to pipeline
-                        var message = new Message();
-                        //message.SourceHtml = //scraped data
-                        message.Id = _counter;
-                        message.SiteUrl = item;
-                        message.Read = DateTime.Now;
+                    //map, than Pass msg to pipeline
+                    var message = new Message();
+                    //message.SourceHtml = //scraped data
+                    message.Id = _counter;
+                    message.SiteUrl = item;
+                    message.Read = DateTime.Now;
 
-                        _counter++;
-                        Console.WriteLine($"Read mdg num[{_counter}] from [{message.SiteUrl}] @ [{message.Read}] on thread [{Thread.CurrentThread.ManagedThreadId}]");// temp logging
+                    _counter++;
+                    Console.WriteLine($"Read mdg num[{_counter}] from [{message.SiteUrl}] @ [{message.Read}] on thread [{Thread.CurrentThread.ManagedThreadId}]");// temp logging
 
-                        var post = target.Post(message);
-                        if (!post)
-                            Console.WriteLine("Buffer full, Could not post!");
-                    }
+                    var post = target.Post(message);
+                    if (!post)
+                        Console.WriteLine("Buffer full, Could not post!");
                 }
+                target.Complete();
+                //}
             }
 
             //await foreach (var item in collection)

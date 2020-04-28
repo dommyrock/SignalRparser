@@ -34,8 +34,13 @@ namespace SignalRparserApp
                 .WithUrl("https://localhost:5001/outputstream")
                 .WithAutomaticReconnect();
             await using HubConnection hubConnection = hubConnectionBuilder.Build();
-
-            //await hubConnection.StartAsync();//connection to server (commment this line while testing produce.)
+            //Subscribe to onReconnect event (called after web app is restarted after crash/close)
+            hubConnection.Reconnected += async connectedId =>
+            {
+                await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "default_Producer" : args[0], GenerateTestData());//TEMP Testing only
+            };
+            //connection to server (commment this line while testing producer.)
+            //await hubConnection.StartAsync(); //this will fail if "StreamOutputWebApp" isnt started
 
             #region Test_Producer for SignalR_hub
 

@@ -28,10 +28,10 @@ namespace SiteSpecificScrapers.DataflowPipeline.RealTimeFeed
         public Task PublishMessageToHub(Message message)
         {
             //Subscribe to onReconnect event (called after web app is restarted after crash/close)
-            _hubConnection.Reconnected += async connectedId =>
-            {
-                await _hubConnection.SendAsync("PublishSensorData", _args.Length == 0 ? "default_Producer" : _args[0], GenerateStreamData(message));
-            };
+            //_hubConnection.Reconnected += async connectedId =>
+            //{
+            //    await _hubConnection.SendAsync("PublishSensorData", _args.Length == 0 ? "default_Producer" : _args[0], GenerateStreamData(message)); TODO move this to main , not supposed to be called here
+            //};
 
             //Execute signalR hub method & pass the Message
             return Task.FromResult(_hubConnection.SendAsync("PublishSensorData", _args.Length == 0 ? "default_Producer" : _args[0], GenerateStreamData(message)));
