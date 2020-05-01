@@ -35,10 +35,6 @@ namespace SiteSpecificScrapers.Base
                     url = matchSitemap.Value;
                     return url;
                 }
-                else
-                {
-                    //TODO : also check https://domainname/sitemap.xml....
-                }
                 url = string.Empty;
             }
             return url;
@@ -58,7 +54,7 @@ namespace SiteSpecificScrapers.Base
 
             if (sitemapUrl != string.Empty)
             {
-                WebPage document = browser.NavigateToPage(new Uri(url));
+                WebPage document = await browser.NavigateToPageAsync(new Uri(url));
 
                 //TODO: Scrape all links from "document"
 

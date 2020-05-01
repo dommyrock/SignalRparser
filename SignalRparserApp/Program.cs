@@ -2,6 +2,7 @@
 using ScrapySharp.Network;
 using SiteSpecificScrapers.Helpers;
 using SiteSpecificScrapers.Scrapers;
+using SiteSpecificScrapers.Scrapers.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,19 +29,17 @@ namespace SignalRparserApp
 
         static async Task Main(string[] args)
         {
-            TODO: work on scrapers...ignore the rest , and asume it works !!when is have few scrapers working, test completing 1 and swithching to other !
-
             #region SignalR_hub config
 
-          var hubConnectionBuilder = new HubConnectionBuilder()
-              .WithUrl("https://localhost:5001/outputstream")
-              .WithAutomaticReconnect();
-            await using HubConnection hubConnection = hubConnectionBuilder.Build();
-            //Subscribe to onReconnect event (called after web app is restarted after crash/close)
-            hubConnection.Reconnected += async connectedId =>
-            {
-                await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "default_Producer" : args[0], GenerateTestData());//TEMP Testing only
-            };
+            //var hubConnectionBuilder = new HubConnectionBuilder()
+            //    .WithUrl("https://localhost:5001/outputstream")
+            //    .WithAutomaticReconnect();
+            //await using HubConnection hubConnection = hubConnectionBuilder.Build();
+            ////Subscribe to onReconnect event (called after web app is restarted after crash/close)
+            //hubConnection.Reconnected += async connectedId =>
+            //{
+            //    await hubConnection.SendAsync("PublishSensorData", args.Length == 0 ? "default_Producer" : args[0], GenerateTestData());//TEMP Testing only
+            //};
             //connection to server (commment this line while testing producer.)
             //await hubConnection.StartAsync(); //this will fail if "StreamOutputWebApp" isnt started
 
@@ -75,15 +74,22 @@ namespace SignalRparserApp
 
             try
             {
-                //Pass all scraper clases that implement ISiteSpecific (with Polymorphism)
-                var compositionRoot = new CompositionRoot(Browser, hubConnection, args,
-                        new NabavaNet()
-                        //TODO
-                        //new AdmScraper(),
-                        //new AbrakadabraScraper() todo extractinto separate class "InitScrapers:ISiteSpecific"
-                        //new MojPosao()
-                        );
-                compositionRoot.RunAll();//Synchronous pipe so i dont need to await it.
+                //Only run scraper (no TPL DF , no SignalR)
+                //init
+                var compositionRoot = new CompositionRoot(Browser, new MojPosao());
+                //run
+                compositionRoot.RunListedScrapers();
+
+                //NOTE : Version with SignalR stream from producer to webApp (using TPL Dataflow)
+                ////Pass all scraper clases that implement ISiteSpecific (with Polymorphism)
+                //var compositionRoot = new CompositionRoot(Browser, hubConnection, args,
+                //        new NabavaNet()
+                //        //TODO
+                //        //new AdmScraper(),
+                //        //new AbrakadabraScraper() todo extractinto separate class "InitScrapers:ISiteSpecific"
+                //        //new MojPosao()
+                //        );
+                //compositionRoot.RunDataflow();//Synchronous pipe so i dont need to await it.
             }
             catch (Exception ex)
             {

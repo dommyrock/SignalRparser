@@ -35,6 +35,8 @@ namespace SiteSpecificScrapers.Helpers
 
         #endregion Properties,fields
 
+        #region Constructors
+
         //FLOW : CompositionRoot --->RunAll() -->InitSinglePipeline() -->StartPipelineAsync()--->DataflowPipelineClass -->DataConsumer -->StartConsuming()-->pass msgs 1st TPL block & propagate down the pipe
         public CompositionRoot(ScrapingBrowser browser, HubConnection hubConnection, string[] args, params ISiteSpecific[] scrapers)
         {
@@ -44,7 +46,37 @@ namespace SiteSpecificScrapers.Helpers
             this._args = args;
         }
 
-        protected async Task InitSinglePipeline(ISiteSpecific scraper)
+        //Start scrapers without TPL DF And SignalR
+        public CompositionRoot(ScrapingBrowser browser, params ISiteSpecific[] scrapers)
+        {
+            this._specificScrapers = scrapers;
+            this._browser = browser;
+        }
+
+        #endregion Constructors
+
+        public void RunListedScrapers()
+        {
+            foreach (ISiteSpecific scraper in _specificScrapers)
+            {
+                //pass browser instance to scraper
+                scraper.Browser = _browser;
+
+                Console.WriteLine($"Scraper [{scraper.Url}] started:");
+                try
+                {
+                    Task.Run(async () => await scraper.ScrapeSiteData())
+                            .ContinueWith((i) => Console.WriteLine($"All scrapers completed. [EXITING] {scraper.Url} Scraper now."));
+                    //NOTE: Left InitPipeline async ...so i can reuse it for RunAllAsync
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        protected async Task InitSingleTDataflowPipeline(ISiteSpecific scraper)
         {
             //TODO:  await completion , than start next scraper (in future if i have more threads ...can make few pipes run in parallel as well)
             //TODO: throw this class init and cts , one leayer out ..into "RunAll" method when i'll have more scrapers running
@@ -57,7 +89,7 @@ namespace SiteSpecificScrapers.Helpers
 
             try
             {
-                await Task.Run(async () =>
+                await Task.Run(async () => //TODO:might need to be moved inside try to catch  ex
                 {
                     try
                     {
@@ -96,7 +128,7 @@ namespace SiteSpecificScrapers.Helpers
         /// Runs SINGLE synchronous pipe & await completion , than run next.
         /// </summary>
         /// <returns></returns>
-        public void RunAll()
+        public void RunDataflow()
         {
             foreach (ISiteSpecific scraper in _specificScrapers)
             {
@@ -106,7 +138,7 @@ namespace SiteSpecificScrapers.Helpers
                 Console.WriteLine($"Scraper [{scraper.Url}] started:");
                 try
                 {
-                    Task task = Task.Run(async () => await InitSinglePipeline(scraper))
+                    Task task = Task.Run(async () => await InitSingleTDataflowPipeline(scraper))
                         .ContinueWith((i) => Console.WriteLine($"All scrapers completed. [EXITING] {scraper.Url} Scraper now."));
                     //NOTE: Left InitPipeline async ...so i can reuse it for RunAllAsync
                 }
@@ -121,7 +153,7 @@ namespace SiteSpecificScrapers.Helpers
         /// Runs multiple pipeline's in parallel(not supported yet since i dont have that many threads for this to be efficient.)
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Task<Message>>> RunAllAsync()
+        public async Task<List<Task<Message>>> RunDataflowAsync()
         {
             //List of completed tasks
             List<Task<Message>> tasklist = new List<Task<Message>>();
@@ -130,7 +162,7 @@ namespace SiteSpecificScrapers.Helpers
             {
                 try
                 {
-                    await InitSinglePipeline(scraper); //I ONLY WANT 1 PIPE FOR NOW (RUN MSG PASSING INSIDE PIPE ASYNC INSTEAD + MAKE ANOTHER SYNC VESION OF "RunAll" since i dont async run pipes atm)
+                    await InitSingleTDataflowPipeline(scraper); //I ONLY WANT 1 PIPE FOR NOW (RUN MSG PASSING INSIDE PIPE ASYNC INSTEAD + MAKE ANOTHER SYNC VESION OF "RunAll" since i dont async run pipes atm)
 
                     //Await completion , than go to next Task
                     //var completedTask = await scraper.Run(browser);
@@ -148,7 +180,8 @@ namespace SiteSpecificScrapers.Helpers
             return await Task.FromResult(tasklist);
         }
 
-        //*** Task.WhenAll -->asynchronously awaits the result. calling Task.WaitAll blocks the calling thread until all tasks are completed
+        //*** Task.WhenAll -->asynchronously awaits the result.
+        //*** Task.WaitAll blocks the calling thread until all tasks are completed
 
         /// ildasm ...> <see cref="https://www.youtube.com/watch?v=eZFtSwh0k4E&list=PLRwVmtr-pp05brRDYXh-OTAIi-9kYcw3r&index=20&frags=wn"/>
 
@@ -181,7 +214,7 @@ namespace SiteSpecificScrapers.Helpers
 
         //EXAMPLES
 
-        //return value from async method
+        //Return value from async method
         /*
          * public async Task<bool> doAsyncOperation()
         {
@@ -192,6 +225,8 @@ namespace SiteSpecificScrapers.Helpers
         bool result = await doAsyncOperation();
 
         */
+
+        //REFLECTION (get all classes implementing Iinterface https://stackoverflow.com/questions/26733/getting-all-types-that-implement-an-interface)
 
         #region LoopAsyncExample
 

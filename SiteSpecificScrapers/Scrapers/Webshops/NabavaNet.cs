@@ -5,6 +5,7 @@ using SiteSpecificScrapers.Helpers;
 using SiteSpecificScrapers.Interfaces;
 using SiteSpecificScrapers.Messages;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ namespace SiteSpecificScrapers.Scrapers
 
         public string Url { get; set; }
         public List<string> InputList { get; set; }
-        public string SitemapUrl { get; set; }
         public ScrapingBrowser Browser { get; set; }
         public Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }
         private List<string> WebShops { get; set; }
+        public ConcurrentDictionary<string, List<string>> ScrapedArticlesInSites { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public NabavaNet()
         {
@@ -28,16 +29,14 @@ namespace SiteSpecificScrapers.Scrapers
             InputList = new List<string>(); //TODO:use instance passd from main , else this gets oveerriden
         }
 
-        public async Task<bool> ScrapeSitemapLinks(ScrapingBrowser browser)
+        public async Task<bool> ScrapeSitemapLinks()
         {
-            this.Browser = browser;
-
             //Call common sitemapFetch method from Base class
-            SitemapUrl = await base.GetSitemap(Browser, Url);
+            string sitemapUrl = await base.GetSitemap(Browser, Url);
 
-            if (SitemapUrl != string.Empty)
+            if (sitemapUrl != string.Empty)
             {
-                WebPage document = Browser.NavigateToPage(new Uri(SitemapUrl));
+                WebPage document = await Browser.NavigateToPageAsync(new Uri(sitemapUrl));
 
                 //Specific  query for nabava.net
                 var nodes = document.Html.CssSelect("loc").Select(i => i.InnerText).ToList();
@@ -115,25 +114,23 @@ namespace SiteSpecificScrapers.Scrapers
             return Task.FromResult(result).Result;//TODO : REMOVE THIS IS TEMP
         }
 
+        public Task ScrapeSiteData()
+        {
+            throw new NotImplementedException();
+        }
+
         // OLD METHOD, was used inside DF pipeline which was false,,REMOVE WHEN REPLACED
         // Encapsulates scraping logic for each site specific scraper.(Must be async if it encapsulates async code)
-        public async Task RunInitMsg(ScrapingBrowser browser, Message msg)
-        {
-            var success = await ScrapeSitemapLinks(browser);
+        //public async Task RunInitMsg(ScrapingBrowser browser, Message msg)
+        //{
+        //    var success = await ScrapeSitemapLinks(browser);
 
-            if (success)
-            {
-                await ScrapeWebshops().ContinueWith(i => Console.WriteLine("Scraping Webshops in Nabava.net DONE"));
-            }
+        //    if (success)
+        //    {
+        //        await ScrapeWebshops().ContinueWith(i => Console.WriteLine("Scraping Webshops in Nabava.net DONE"));
+        //    }
 
-            await Task.Yield();
-        }
-
-        //NOTE:  NOT USED AT THE MOMENT
-        async Task<IEnumerable<ProcessedMessage>> ISiteSpecific.Run(ScrapingBrowser browser, Message message)
-        {
-            //TODO: make this method get shops/link data and assigns it to message.Webshops ---TEST FLOW ON "RunInitMsg" FIST HAN REPLACE IT WITH THIS METHOD
-            throw new NotImplementedException(); // WARNING : SINCE THIS THROWS ERROR ...TRANSFORM MANY BLOCK COMPLETES AND  STOPS GETTING MESSAGES PASSED TO HIM ...
-        }
+        //    await Task.Yield();
+        //}
     }
 }

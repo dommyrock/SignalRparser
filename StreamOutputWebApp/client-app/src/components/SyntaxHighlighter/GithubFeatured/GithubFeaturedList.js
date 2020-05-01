@@ -41,20 +41,15 @@ const GithubFeaturedList = () => {
           <div className="grid" data-v-dfc99e4e></div>
         </div>
       </div>
-      {/* //Load site into iframe , exampe, */}
-      <h3>Http archive --Last 2 Years , web performance</h3>
-      <iframe
-        height="700px"
-        width="100%"
-        src="https://httparchive.org/reports/state-of-the-web?start=2018_04_01&end=latest&view=list"
-        name="iframe_a"
-      ></iframe>
+      {/* //Load site into iframe , example ... NOTE :CORS has to be enabled on domains to inject them to other one*/}
+      {/* <h3>Iframe switch route example</h3>
+      <iframe height="400px" width="100%" src="/expenses" name="iframe_switch"></iframe>
 
       <p>
-        <a href="https://www.w3schools.com" target="iframe_a">
-          Load W3Schools.com into Iframe
+        <a href="/tables" target="iframe_switch">
+          Load /tables route into iframe
         </a>
-      </p>
+      </p> */}
     </>
   );
 };

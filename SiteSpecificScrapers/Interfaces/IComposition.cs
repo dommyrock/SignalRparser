@@ -6,8 +6,8 @@ namespace SiteSpecificScrapers.Services
 {
     public interface IComposition
     {
-        Task<List<Task<Message>>> RunAllAsync();
+        Task<List<Task<Message>>> RunDataflowAsync();
 
-        void RunAll();
+        void RunDataflow();
     }
 }

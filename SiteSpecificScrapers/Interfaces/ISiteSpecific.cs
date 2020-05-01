@@ -1,6 +1,7 @@
 ﻿using ScrapySharp.Network;
 using SiteSpecificScrapers.Messages;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,20 +12,22 @@ namespace SiteSpecificScrapers.Interfaces
     {
         string Url { get; set; }
         List<string> InputList { get; set; }
-        string SitemapUrl { get; set; }
         ScrapingBrowser Browser { get; set; }
 
-        //Dictionary<string, bool> ScrapedKeyValuePairs { get; set; }//refactor this in hashset ? or some other key -value pair (maybe concurrent ?)
-        Task<Tuple<List<string>, Dictionary<string, bool>>> ScrapeWebshops();
-
-        Task<bool> ScrapeSitemapLinks(ScrapingBrowser browser);
+        //Each site should have list of scraped articles ,(i wil be parsing/adding them async , thats why this needs to be thread safe)
+        ConcurrentDictionary<string, List<string>> ScrapedArticlesInSites { get; set; }
 
         /// <summary>
-        /// Encapsulates scraping logic for each site specific scraper. (Must be async if it encapsulates async code)
+        /// This was temp method for structuring data while  testing scraper output.
+        /// </summary>
+        Task<Tuple<List<string>, Dictionary<string, bool>>> ScrapeWebshops();
+
+        Task<bool> ScrapeSitemapLinks();
+
+        /// <summary>
+        /// Encapsulates scraping logic for each site specific scraper.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ProcessedMessage>> Run(ScrapingBrowser browser, Message message);
-
-        Task RunInitMsg(ScrapingBrowser browser, Message message);
+        Task ScrapeSiteData();
     }
 }
