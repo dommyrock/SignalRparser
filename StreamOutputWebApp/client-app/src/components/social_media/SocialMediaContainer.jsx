@@ -26,7 +26,7 @@ export default function SocialMediaContainer(params) {
           </a>
         </li>
         <li className={styles.social_share_item}>
-          <a className={styles.social_share_link} href="https://twitter.com/Dommypo">
+          <a className={styles.social_share_link} href="https://twitter.com/dompolzer">
             <img className={styles.social_share_item_image} src={Twitter_logo} />
           </a>
         </li>
