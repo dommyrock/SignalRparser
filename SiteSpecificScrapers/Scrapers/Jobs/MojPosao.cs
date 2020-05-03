@@ -43,30 +43,14 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
 
                 WebPage page = await Browser.NavigateToPageAsync(new Uri(this.ITSectionQuery));
 
-                HtmlNode paginationNode = page.Html.SelectNodes("//*[@id='main']/section[1]/ul/li[9]/a").First();
+                HtmlNode paginationNode = page.Html.SelectSingleNode("//*[@id='main']/section[1]/ul/li[9]/a");
 
-                //get all nodes under class="featured-job" [first page only [1]]
-                var featuredJobs_Node = page.Html.CssSelect(".featured-job");
-                //select all children nodes of <section class="searchlist" with class="job-data"
-                var searchlist_first = page.Html.CssSelect(".searchlist .job-data");
+                //NEW test version
+                var div_nodes = page.Html.CssSelect(".featured-job");
+                await FeaturedJobsDetails(div_nodes);
 
-                //skip 1st page, navigate all other pages
-                int lastPage = GetLastPage(paginationNode);
-                for (int i = 2; i <= lastPage; i++)
-                {
-                    page = await Browser.NavigateToPageAsync(new Uri($"{this.ITSectionQuery}&page={i}"));
-                    var searchlist_others = page.Html.CssSelect(".searchlist .job-data");
+                await NavigatePagesAsync(paginationNode, page, sb);
 
-                    sb.Append($"\n \tPage : [{i}] \n");
-                    //Extract display data & employer profile linq
-                    foreach (HtmlNode node in searchlist_others)
-                    {
-                        //filter p nodes, select their children
-                        var p_nodes = node.ChildNodes.Where(x => x.Name == "p").Select(x => x.ChildNodes);
-                        //TOOD print innerText for each P_nodes item , only for 1st take innetHtml, for profile link
-                        PrintDisplayData(p_nodes, sb);
-                    }
-                }
                 //Print agregated string from StringBuilder
                 Console.WriteLine(sb.ToString());
                 sb.Clear();
@@ -75,14 +59,65 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
             { throw e; }
         }
 
-        private void PrintDisplayData(IEnumerable<HtmlNodeCollection> nodeCollection, StringBuilder sb)
-        {
-            //todo  from 1st,2nd get <a> and froma tributes get links
+        #region Helper Methods
 
-            sb.Append("------------------------------------------------------------------------------------");
+        private async Task FeaturedJobsDetails(IEnumerable<HtmlNode> featuredNodes)
+        {
+            foreach (HtmlNode node in featuredNodes)
+            {
+                string logo_link = node.CssSelect("a .logo").SelectMany(x => x.Attributes.Where(n => n.Name == "src").Select(v => v.Value)).SingleOrDefault();
+                var a_nodes = node.CssSelect(".job-data a");
+                foreach (HtmlNode job_post in a_nodes)
+                {
+                    var span_nodes = job_post.CssSelect("span");
+                    foreach (HtmlNode span in span_nodes)
+                    {
+                        Console.WriteLine($"{span.InnerHtml}\n");
+                    }
+                    var time_node = job_post.CssSelect("time");
+                    Console.WriteLine(time_node.First().InnerText);
+
+                    string jobLink = job_post.Attributes.Where(n => n.Name == "href").Select(x => x.Value).First();
+                    Console.WriteLine($"{jobLink}\n");
+
+                    WebPage page = await Browser.NavigateToPageAsync(new Uri(jobLink));
+                    var details_div_ndoe = page.Html.CssSelect("#job-html").FirstOrDefault().InnerHtml;
+                    //TODO: content can be html ,or just img ... so make some kind of rule to store/cover both casses
+                }
+            }
+        }
+
+        private async Task NavigatePagesAsync(HtmlNode paginationNode, WebPage page, StringBuilder sb)
+        {
+            for (int i = 1; i <= GetLastPage(paginationNode); i++)
+            {
+                if (i > 1)
+                {
+                    page = await Browser.NavigateToPageAsync(new Uri($"{this.ITSectionQuery}&page={i}"));
+                }
+                sb.Append($"\n \tPage : [{i}] \n");
+
+                var searchlist_nodes = page.Html.CssSelect(".searchlist .job-data");
+                foreach (HtmlNode node in searchlist_nodes)
+                {
+                    //filter p nodes, select their children
+                    var p_nodes = node.ChildNodes.Where(x => x.Name == "p").Select(x => x.ChildNodes);
+                    //print innerText for each P_nodes item , only for 1st take innetHtml, for profile link
+                    GetJobDetails(p_nodes, sb);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Extracts job details
+        /// </summary>
+        private void GetJobDetails(IEnumerable<HtmlNodeCollection> nodeCollection, StringBuilder sb)
+        {
+            sb.Append("------------------------------------------------------------------------------------\n");
+            //Get links from <a> elements, get text from others
             foreach (var node in nodeCollection)
             {
-                //select <a> than select "href" attribute than select its value
+                //if element is <a> than select "href" attribute than select its value
                 string link = node.Where(x => x.Name == "a").SelectMany(x => x.Attributes.Where(x => x.Name == "href").Select(x => x.Value)).SingleOrDefault();
                 if (link != null)
                 {
@@ -92,7 +127,7 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
                 }
                 else
                 {
-                    //, from others get iner html
+                    //for other elements get inner html
                     foreach (var item in node)
                     {
                         var innherHtml = item.InnerHtml;
@@ -113,6 +148,8 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
 
             return param;
         }
+
+        #endregion Helper Methods
 
         //MojPosao sitemap has alot expired jobs ranging from 2005. year , so it makes no sence to use this method ATM
         public async Task<bool> ScrapeSitemapLinks()
