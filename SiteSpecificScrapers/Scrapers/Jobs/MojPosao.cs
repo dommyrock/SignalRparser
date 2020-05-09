@@ -43,7 +43,7 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
                 StringBuilder sb = new StringBuilder();
 
                 //NOTE : Replaced with web client and HtmlAgilityPack.HtmlDocument because of unicode characters encoding
-                //WebPage page = await Browser.NavigateToPageAsync(new Uri(this.ITSectionQuery));
+                //WebPage page = await Browser.NavigateToPageAsync(new Uri(this.ITSectionQuery));// Version 1
                 //HtmlNode paginationNode = page.Html.SelectSingleNode("//*[@id='main']/section[1]/ul/li[9]/a");// Version 1
                 //var div_nodes = page.Html.CssSelect(".featured-job");// Version 1
 
@@ -56,7 +56,7 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
                 var div_nodes = document.DocumentNode.CssSelect(".featured-job");
                 await FeaturedJobsDetails(div_nodes);
 
-                NavigatePagesAsync(paginationNode, wc, document, sb);// Version 1
+                NavigatePagesAsync(paginationNode, wc, document, sb);
 
                 //Print agregated string from StringBuilder
                 Console.WriteLine(sb.ToString());
@@ -84,25 +84,20 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
                     var time_node = job_post.CssSelect("time");
                     Console.WriteLine(time_node.First().InnerText);
 
-                    try
+                    string jobLink = job_post.Attributes.Where(n => n.Name == "href").Select(x => x.Value).First();
+                    Console.WriteLine($"{jobLink}\n");
+
+                    WebPage page = await Browser.NavigateToPageAsync(new Uri(jobLink));
+                    var jobDetails_markup = page.Html.CssSelect("#job-html").FirstOrDefault();
+                    if (jobDetails_markup != null)
                     {
-                        string jobLink = job_post.Attributes.Where(n => n.Name == "href").Select(x => x.Value).First();
-                        Console.WriteLine($"{jobLink}\n");
-
-                        WebPage page = await Browser.NavigateToPageAsync(new Uri(jobLink));
-                        var jobDetails_markup = page.Html.CssSelect("#job-html").FirstOrDefault();
-                        if (jobDetails_markup != null)
-                        {
-                            string markup = jobDetails_markup.InnerHtml;
-                        }
-
                         //TODO: content can be html ,or just img ... so make some kind of rule to store/cover both casses
-                        //Finish this when i have Frontend app -- and see how it looks there
-                    }
-                    catch (Exception e)
-                    {
-                        string ss = e.Message;
-                        throw e;
+                        //1 map all data im printing tu custom Object/Model  JobOffer,Article...
+                        //2 Than store it to AWS Dynamo DB(NO SQL, or RDS)
+                        //3 Than make Rest api to Serve content out to Client web app (AWS Api gateway)
+                        //4 Make new frontend app with next.js template and consume content from API's
+
+                        string markup = jobDetails_markup.InnerHtml;
                     }
                 }
             }
