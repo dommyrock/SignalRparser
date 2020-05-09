@@ -8,6 +8,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -41,15 +42,21 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
                 //Temp output for data structure testing
                 StringBuilder sb = new StringBuilder();
 
-                WebPage page = await Browser.NavigateToPageAsync(new Uri(this.ITSectionQuery));
+                //NOTE : Replaced with web client and HtmlAgilityPack.HtmlDocument because of unicode characters encoding
+                //WebPage page = await Browser.NavigateToPageAsync(new Uri(this.ITSectionQuery));
+                //HtmlNode paginationNode = page.Html.SelectSingleNode("//*[@id='main']/section[1]/ul/li[9]/a");// Version 1
+                //var div_nodes = page.Html.CssSelect(".featured-job");// Version 1
 
-                HtmlNode paginationNode = page.Html.SelectSingleNode("//*[@id='main']/section[1]/ul/li[9]/a");
+                WebClient wc = new WebClient();
+                HtmlDocument document = new HtmlDocument();
+                document.Load(wc.OpenRead(this.ITSectionQuery), Encoding.UTF8);
 
-                //NEW test version
-                var div_nodes = page.Html.CssSelect(".featured-job");
+                HtmlNode paginationNode = document.DocumentNode.SelectSingleNode("//*[@id='main']/section[1]/ul/li[9]/a");
+
+                var div_nodes = document.DocumentNode.CssSelect(".featured-job");
                 await FeaturedJobsDetails(div_nodes);
 
-                await NavigatePagesAsync(paginationNode, page, sb);
+                NavigatePagesAsync(paginationNode, wc, document, sb);// Version 1
 
                 //Print agregated string from StringBuilder
                 Console.WriteLine(sb.ToString());
@@ -77,27 +84,43 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
                     var time_node = job_post.CssSelect("time");
                     Console.WriteLine(time_node.First().InnerText);
 
-                    string jobLink = job_post.Attributes.Where(n => n.Name == "href").Select(x => x.Value).First();
-                    Console.WriteLine($"{jobLink}\n");
+                    try
+                    {
+                        string jobLink = job_post.Attributes.Where(n => n.Name == "href").Select(x => x.Value).First();
+                        Console.WriteLine($"{jobLink}\n");
 
-                    WebPage page = await Browser.NavigateToPageAsync(new Uri(jobLink));
-                    var details_div_ndoe = page.Html.CssSelect("#job-html").FirstOrDefault().InnerHtml;
-                    //TODO: content can be html ,or just img ... so make some kind of rule to store/cover both casses
+                        WebPage page = await Browser.NavigateToPageAsync(new Uri(jobLink));
+                        var jobDetails_markup = page.Html.CssSelect("#job-html").FirstOrDefault();
+                        if (jobDetails_markup != null)
+                        {
+                            string markup = jobDetails_markup.InnerHtml;
+                        }
+
+                        //TODO: content can be html ,or just img ... so make some kind of rule to store/cover both casses
+                        //Finish this when i have Frontend app -- and see how it looks there
+                    }
+                    catch (Exception e)
+                    {
+                        string ss = e.Message;
+                        throw e;
+                    }
                 }
             }
         }
 
-        private async Task NavigatePagesAsync(HtmlNode paginationNode, WebPage page, StringBuilder sb)
+        private void NavigatePagesAsync(HtmlNode paginationNode, WebClient wc, HtmlDocument document, StringBuilder sb)
         {
             for (int i = 1; i <= GetLastPage(paginationNode); i++)
             {
                 if (i > 1)
                 {
-                    page = await Browser.NavigateToPageAsync(new Uri($"{this.ITSectionQuery}&page={i}"));
+                    //page = await Browser.NavigateToPageAsync(new Uri($"{this.ITSectionQuery}&page={i}"));//old without utf8 encoding
+                    document.Load(wc.OpenRead($"{this.ITSectionQuery}&page={i}"), Encoding.UTF8);
                 }
                 sb.Append($"\n \tPage : [{i}] \n");
 
-                var searchlist_nodes = page.Html.CssSelect(".searchlist .job-data");
+                //var searchlist_nodes = page.Html.CssSelect(".searchlist .job-data");//old without utf8 encoding
+                var searchlist_nodes = document.DocumentNode.CssSelect(".searchlist .job-data");//old without utf8 encoding
                 foreach (HtmlNode node in searchlist_nodes)
                 {
                     //filter p nodes, select their children
@@ -173,3 +196,5 @@ namespace SiteSpecificScrapers.Scrapers.Jobs
         }
     }
 }
+
+//WebClient + HtmlAgility source load:https://stackoverflow.com/questions/3452343/c-sharp-and-htmlagilitypack-encoding-problem

@@ -83,6 +83,7 @@ namespace SignalRparserApp
 
                 //NOTE : Version with SignalR stream from producer to webApp (using TPL Dataflow)
                 ////Pass all scraper clases that implement ISiteSpecific (with Polymorphism)
+                ///
                 //var compositionRoot = new CompositionRoot(Browser, hubConnection, args,
                 //        new NabavaNet()
                 //        //TODO
