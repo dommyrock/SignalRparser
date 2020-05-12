@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Draggablecolumns from "./DraggableLists";
 import { uuidv4 } from "../../utils/helpers";
 import { GlobalContext } from "../../context-providers/GlobalContextProvider";
+import styles from "./draggable.module.css";
 
 const initialState = {
   transactions: [],
@@ -15,6 +16,7 @@ const initialState = {
 
 const DraggableExample = () => {
   const { tasksFromBackend } = React.useContext(GlobalContext);
+  const [visibleState, setVisibleState] = useState("visible");
 
   console.log(tasksFromBackend);
 
@@ -53,7 +55,31 @@ const DraggableExample = () => {
 
   return (
     <div>
-      <Draggablecolumns {...columnsFromBackend} />
+      <body className={styles.body_draggable}>
+        <Draggablecolumns {...columnsFromBackend} />
+        <button className={styles.btn_gradient} style={{ margin: "0px" }} onClick={() => setVisibleState("hidden")}>
+          Click to hide (Gpu intensive) 3D animation if dragging is laggy
+        </button>
+        <button className={styles.btn_gradient} style={{ margin: "0px" }} onClick={() => setVisibleState("visible")}>
+          Show 3d Animation.
+        </button>
+        <div className={styles.container_draggable} style={{ visibility: visibleState }}>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+          <div className={styles.frame_draggable}></div>
+        </div>
+      </body>
     </div>
   );
 };
