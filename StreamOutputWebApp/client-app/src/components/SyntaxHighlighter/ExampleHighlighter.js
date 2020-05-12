@@ -99,6 +99,20 @@ const ExampleHighlighter = () => {
           <button className="buttonBlue">Draggable/droppable</button>
         </Link>
       </div>
+      <div
+        className="LI-profile-badge"
+        data-version="v1"
+        data-size="medium"
+        data-locale="en_US"
+        data-type="horizontal"
+        data-theme="light"
+        data-vanity="dominik-polzer-hi-o"
+        style={{ float: "right", background: "#f7f7f7" }}
+      >
+        <a class="LI-simple-link" href="https://hr.linkedin.com/in/dominik-polzer-hi-o?trk=profile-badge">
+          Dominik Polzer
+        </a>
+      </div>
       <SocialMediaContainer />
       <h1 style={{ textAlign: "center" }}>Syntax highlighter example</h1>
       <div className="display-flex" style={center_children}>
